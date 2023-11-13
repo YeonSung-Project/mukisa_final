@@ -74,7 +74,6 @@
   --bs-border-radius-2xl: 2rem;
   --bs-border-radius-pill: 50rem;
   --bs-link-color: #ffc800;
-  -: #cca000;
   --bs-code-color: #d63384;
   --bs-highlight-bg: #fff4cc;
 }
@@ -10910,9 +10909,10 @@ p {
 }
 
 
+
 #mainNav .navbar-nav .nav-item .nav-link.active, #mainNav .navbar-nav .nav-item .nav-link:hover {
   color: #ffc800;
-}
+} 
 
 @media (min-width: 992px) {
   #mainNav {
@@ -10950,22 +10950,22 @@ p {
   }
 
   /* custom #nav-shrink */
-  #mainNav.nav-shrink .navbar-nav .nav-item .nav-link {
+  #mainNav.nav-shrink .navbar-nav .nav-item .nav-link:hover {
     font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     font-size: 0.95rem;
-    color: white;
+    color: #ffc800;
     font-weight: bold;
     letter-spacing: 0.0625em;
   }
-
     /* custom #nav-shrink */
-    #mainNav.nav-shrink .navbar-nav .nav-item .nav-link:hover {
-        font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-        font-size: 0.95rem;
-        color: #ffc800;
-        font-weight: bold;
-        letter-spacing: 0.0625em;
-      }
+    #mainNav.nav-shrink .navbar-nav .nav-item .nav-link {
+      font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+      font-size: 0.95rem;
+      color: white;
+      font-weight: bold;
+      letter-spacing: 0.0625em;
+    }
+
 }
 
 /* custom background-image: url("../img/intro.jpg"); */
@@ -11341,3 +11341,35 @@ section#contact form#contactForm :-ms-input-placeholder {
   font-size: 0.9rem;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
+
+
+
+
+
+
+
+@media (min-width: 0px) {
+  #mainNav .navbar-nav .nav-item .nav-link{
+    color:white;
+  }
+@media (min-width: 768px) {
+    #mainNav .navbar-nav .nav-item .nav-link{
+      color:white;
+  }
+}
+
+@media (min-width: 992px) {
+  #mainNav .navbar-nav .nav-item .nav-link{
+    color:black;
+   }
+  }
+
+  .page-section-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+}
+
