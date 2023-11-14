@@ -11362,6 +11362,7 @@ section#contact form#contactForm :-ms-input-placeholder {
 @media (min-width: 992px) {
   #mainNav .navbar-nav .nav-item .nav-link{
     color:black;
+    font-size: 0.9rem;
    }
   }
 
