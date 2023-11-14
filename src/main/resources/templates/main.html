@@ -36,12 +36,13 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                <li class="nav-item"><a class="nav-link" href="#services">Various Information</a></li>
-                <li class="nav-item"><a class="nav-link" href="#portfolio">Tea Classification </a></li>
+                <li class="nav-item"><a class="nav-link" href="#services">들어가며</a></li>
+                <li class="nav-item"><a class="nav-link" href="#portfolio">중국차</a></li>
+                <li class="nav-item"><a class="nav-link" href="#">티</a></li> <!--창일이형 섹션 요소 id넣기 -->
                 <li class="nav-item"><a class="nav-link">|</a></li>
-                <li class="nav-item"><a class="nav-link" href="#team">Community</a></li>
-                <li th:unless="${member != null}" class="nav-item"><a class="nav-link" href="/login">Login</a></li>
-                <li th:if="${member != null}" class="nav-item"><a class="nav-link" href="#contact">Logout</a></li>
+                <li class="nav-item"><a class="nav-link" href="#team">커뮤니티</a></li>
+                <li th:unless="${member != null}" class="nav-item"><a class="nav-link" href="/login">로그인</a></li>
+                <li th:if="${member != null}" class="nav-item"><a class="nav-link" href="#contact">로그아웃</a></li>
 
             </ul>
         </div>
@@ -187,6 +188,11 @@
         </div>
     </div>
 </section>
+
+<!--창일이형 섹션 추가-->
+<section></section>
+
+
 
 <!-- Footer-->
 <footer class="footer py-4">
