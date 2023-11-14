@@ -12,7 +12,7 @@ public class EfficacyEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "EFFI_NO")
-    private int effi_No;
+    private int effi_no;
     @Column(name = "EFFI" )
     private String effi;
     @Column(name = "EFFI_CONTENT")
