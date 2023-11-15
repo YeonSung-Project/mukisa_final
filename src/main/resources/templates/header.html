@@ -28,7 +28,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top " id="mainNav" th:fragment="navFragment">
     <div class="container">
-        <a class="navbar-brand" href="#page-top">MUKISA</a>
+        <a class="navbar-brand" href="#page-top" style="font-size:24px">너 Tea야?</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
@@ -39,23 +39,31 @@
             <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                 <li class="nav-item"><a class="nav-link" href="#services">들어가며</a></li>
                 <li class="nav-item"><a class="nav-link" href="#portfolio">중국차</a></li>
-                <li class="nav-item"><a class="nav-link" href="/world">세계의 티</a></li>
-                <li class="nav-item"><a class="nav-link" href="/efficacy">티의 효능</a></li>
-                <li class="nav-item"><a class="nav-link" href="/enjoy">즐기는 법</a></li>
-                <li class="nav-item"><a class="nav-link" href="/dictionary">용어</a></li>
-                <li class="nav-item"><a class="nav-link">|</a></li>
+
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink"
+                       data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                        티
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
+                        <li class="nav-item"><a class="nav-link" href="/world">세계의 티</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/efficacy">티의 효능</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/enjoy">즐기는 법</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/dictionary">용어</a></li>
+                    </ul>
+                </li>
+
+
                 <li class="nav-item"><a class="nav-link" href="#team">커뮤니티</a></li>
-                <li th:unless="${member != null}" class="nav-item"><a class="nav-link" href="/login">로그인</a></li>
-                <li th:if="${member != null}" class="nav-item"><a class="nav-link" href="#contact">로그아웃</a></li>
+                <li th:unless="${member != null}" class="nav-item pl-4"><a class="nav-link" href="/login">로그인</a></li>
+                <li th:if="${member != null}" class="nav-item pl-4"><a class="nav-link" href="#contact">로그아웃</a></li>
 
             </ul>
         </div>
 
     </div>
 </nav>
-
-
-
 
 
 <!-- Bootstrap core JS-->

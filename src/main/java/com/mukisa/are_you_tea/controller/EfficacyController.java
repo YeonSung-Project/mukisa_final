@@ -27,8 +27,8 @@ public class EfficacyController {
             if (!dataset.isEmpty()) {
                 // 모든 데이터를 모델에 추가
                 for (int i = 0; i < dataset.size(); i++) {
-                    model.addAttribute("efficacyData" + i, dataset.get(i));
-                    System.out.println("데이터: " + dataset.get(i));
+                    model.addAttribute("efficacyData" , dataset);
+
                 }
 
             } else {
