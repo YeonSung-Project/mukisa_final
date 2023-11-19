@@ -16,65 +16,45 @@
             </div>
         </div>
 
-<div class="container w-75 p-3 ">
+        <div th:if="${#lists.isEmpty(worldData)}">
+            <p>데이터가 없습니다.</p>
+        </div>
+        <div th:unless="${#lists.isEmpty(worldData)}">
+<div class="container w-75 p-3 " th:each="worldItem : ${worldData}" >
 
     <table class="table mb-5 " >
         <thead>
         <tr>
-            <th colspan="2">00나라의 티 생산 현황</th>
-            <th>  수확기 :</th>
+            <th colspan="2" style="font-stlye:bold;" th:text="${worldItem.world} + '의 티 생산 현황'"></th>
+            <th>  수확기</th>
 
         </tr>
         </thead>
         <tbody>
         <tr>
-            <th scope="row">세계 티 생산량에서 점유율</th>
-            <td ><h1>100.0% </h1></td>
-            <td>여기에 수확기 데이터 불러오기</td>
+            <th scope="row">생산 점유율</th>
+            <td ><h1 th:text="${worldItem.world_share}+'%'"></h1></td>
+            <td  th:text="${worldItem.world_harvesting} "></td>
 
         </tr>
         <tr>
             <th scope="row">주요 티 종류</th>
-            <td>발로 차, 또 차, 계속 차</td>
-            <th scope="row">해발고도:</th>
+            <td  th:text="${worldItem.world_main} "></td>
+            <th scope="row">해발고도</th>
         </tr>
         <tr>
             <th scope="row">유명 사항</th>
-            <td>이게 유명하다함 ㅇㅇ</td>
-            <td >높음 낮음 중간 등</td>
+            <td  th:text="${worldItem.world_famous} "></td>
+            <td th:text="${worldItem.world_above} "></td>
         </tr>
         </tbody>
+        <img th:src="'/img/'+${worldItem.world_img}+'.jpg'" alt="World Image" width="200px">
     </table>
 
 
-    <table class="table mb-5" >
-        <thead>
-        <tr>
-            <th colspan="2">00나라의 티 생산 현황</th>
-            <th>  수확기 :</th>
-
-        </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <th scope="row">세계 티 생산량에서 점유율</th>
-            <td ><h1>100.0% </h1></td>
-            <td>여기에 수확기 데이터 불러오기</td>
-
-        </tr>
-        <tr>
-            <th scope="row">주요 티 종류</th>
-            <td>발로 차, 또 차, 계속 차</td>
-            <th scope="row">해발고도:</th>
-        </tr>
-        <tr>
-            <th scope="row">유명 사항</th>
-            <td>이게 유명하다함 ㅇㅇ</td>
-            <td >높음 낮음 중간 등</td>
-        </tr>
-        </tbody>
-    </table>
 </div>
+</div>
+    </div>
 </section>
 
 
