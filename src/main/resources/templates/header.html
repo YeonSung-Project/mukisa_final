@@ -28,7 +28,7 @@
 <!-- Navigation-->
 <nav class="navbar navbar-expand-lg navbar-dark fixed-top " id="mainNav" th:fragment="navFragment">
     <div class="container">
-        <a class="navbar-brand" href="#page-top" style="font-size:24px">너 Tea야?</a>
+        <a class="navbar-brand" href="/" style="font-size:24px">너 Tea야?</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
             Menu
@@ -57,7 +57,7 @@
 
                 <li class="nav-item"><a class="nav-link" href="#team">커뮤니티</a></li>
                 <li th:unless="${member != null}" class="nav-item pl-4"><a class="nav-link" href="/login">로그인</a></li>
-                <li th:if="${member != null}" class="nav-item pl-4"><a class="nav-link" href="#contact">로그아웃</a></li>
+                <li th:if="${member != null}" class="nav-item pl-4"><a class="nav-link" href="/logout">로그아웃</a></li>
 
             </ul>
         </div>
