@@ -3,7 +3,7 @@ package com.mukisa.are_you_tea.data.entity;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
+
 
 @Entity
 @Data
