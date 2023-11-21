@@ -23,15 +23,15 @@
 
                 <h1 th:text="${recipeDetailData.recipe_name}"></h1>
                 <p th:text="${recipeDetailData.recipe_content}"></p>
-                <p th:text="${recipeDetailData.recipe_quantity}"></p>
-                <p th:text="${recipeDetailData.recipe_temperature}"></p>
-                <p th:text="${recipeDetailData.recipe_time}"></p>
-                <p th:text="${recipeDetailData.recipe_type}"></p>
-                <p th:text="${recipeDetailData.recipe_milk}"></p>
-                <p th:text="${recipeDetailData.recipe_ingredient}"></p>
-                <p th:text="${recipeDetailData.recipe_make}"></p>
+                <p th:text="${recipeDetailData.recipe_quantity}+'인분'"></p>
+                <p th:text="${recipeDetailData.recipe_temperature}+'도'"></p>
+                <p th:text="'우리는 시간'+${recipeDetailData.recipe_time}"></p>
+                <p th:text="'유형'+${recipeDetailData.recipe_type}"></p>
+                <p th:text="'우유 '+${recipeDetailData.recipe_milk}"></p>
+                <p th:text="'재료'+${recipeDetailData.recipe_ingredient}"></p>
+                <p th:text="'제조 방법'+${recipeDetailData.recipe_make}"></p>
                 <img src="/img/notimg.jpg" class="card-img-top" alt="레시피 이미지입니다">
-                <p th:text="${recipeDetailData.recipe_mdf_date}"></p>
+                <p th:text="'등록일'+${recipeDetailData.recipe_mdf_date}"></p>
 
 
             </div>
