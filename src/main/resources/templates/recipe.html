@@ -26,15 +26,16 @@
             <div class="container" th:unless="${#lists.isEmpty(recipeData)}">
                 <div class="row row justify-content-md-center">
                     <div class="col  sm-1 md-3 lg-4 p-2" th:each="recipeItem : ${recipeData}">
-                        <a th:href="@{/recipeDetail( receipeno=${recipeItem.recipe_no} )}">
+
                             <div class="card" style="width: 18rem;">
+                                <a th:href="@{/recipeDetail( recipeno=${recipeItem.recipe_no} )}">
                                 <img src="/img/notimg.jpg" class="card-img-top" alt="레시피 이미지입니다">
                                 <div class="card-body">
                                     <h5 class="card-title" th:text="${recipeItem.recipe_name}"></h5>
                                     <button class="btn btn-primary">레시피 보기</button>
-                                </div>
+                                </div></a>
                             </div>
-                        </a></div>
+                      </div>
 
 
                 </div>

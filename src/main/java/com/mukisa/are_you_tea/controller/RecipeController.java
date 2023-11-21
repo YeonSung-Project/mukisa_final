@@ -40,6 +40,23 @@ public class RecipeController {
 
         return "recipe";
     }
+    //상세 레시피 보기
+    @RequestMapping("/recipeDetail")
+    public String gorecipeDetail(@RequestParam(name = "recipeno", required = false) Integer recipeno, Model model) {
+        // recipeno가 null이 아니라면 조회하고 결과를 모델에 담음
+        if (recipeno != null) {
+            RecipeEntity recipe = recipeService.findRecipeId(recipeno);
+            if (recipe != null) {
+                model.addAttribute("recipeDetailData", recipe);
+            } else {
+                // 해당 recipeno에 대한 레코드가 없을 경우에 대한 처리
 
+            }
+        } else {
+            // recipeno가 제공되지 않은 경우에 대한 처리
 
+        }
+
+        return "recipeDetail";
+    }
 }

@@ -14,16 +14,26 @@ public class RecipeService {
     @Autowired
     RecipeRepository recipeRepository;
 
+    //목록 조회
     public List<RecipeEntity> dataLoad(){
         try {
             return recipeRepository.findAll();
-        }catch (Exception e){
+        } catch (Exception e) {
+            e.printStackTrace();
             return null;
         }
     }
-    public RecipeEntity findById(int recipeno) {
+
+    // ID로 레시피 조회
+    public RecipeEntity findRecipeId(int recipeno) {
         Optional<RecipeEntity> recipeOptional = recipeRepository.findById(recipeno);
         return recipeOptional.orElse(null);
     }
+
+    // 레시피 생성
+    public RecipeEntity createRecipe(RecipeEntity recipe) {
+        return recipeRepository.save(recipe);
+    }
+
 
 }

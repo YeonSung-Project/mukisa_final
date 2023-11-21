@@ -32,5 +32,11 @@ public class RecipeEntity {
     private String recipe_make ;
     @Column(name = "RECIPE_img" )
     private String recipe_img ;
+    @Column(name = "RECIPE_date" )
+    private String recipe_date ;
+
+    @Column(name = "RECIPE_mdf_date" )
+    private String recipe_mdf_date ;
+
 
 }
