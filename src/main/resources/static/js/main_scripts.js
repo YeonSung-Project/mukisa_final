@@ -71,10 +71,15 @@ window.addEventListener('DOMContentLoaded', event => {
     };
 
 
-    // Collapse responsive navbar when toggler is visible
+
+
+
+    // 반응형 네비게이션 바가 축소될 때 동작. 요소 클릭시 매뉴가 사라지게 하는 동작에 필터를 걸어 
+    // 드랍다운 항목인 티는 제외함.
+    // 즉 작은 화면, 모바일에서 동작하는 매뉴.
     const navbarToggler = document.body.querySelector('.navbar-toggler');
     const responsiveNavItems = [].slice.call(
-        document.querySelectorAll('#navbarResponsive .nav-link')
+        document.querySelectorAll('#navbarResponsive .nav-link:not(.dropdown-toggle)')
     );
     responsiveNavItems.map(function (responsiveNavItem) {
         responsiveNavItem.addEventListener('click', () => {
@@ -83,22 +88,6 @@ window.addEventListener('DOMContentLoaded', event => {
             }
         });
     });
-
-
-    // 반응형 네비게이션 바가 축소될 때 동작. 요소 클릭시 매뉴가 사라지게 하는 동작에 필터를 걸어 
-    // 드랍다운 항목인 티는 제외함.
-    // 즉 작은 화면, 모바일에서 동작하는 매뉴.
-const navbarToggler_drop = document.body.querySelector('.navbar-toggler');
-const responsiveNavItems_drop = [].slice.call(
-    document.querySelectorAll('#navbarResponsive .nav-link:not(.dropdown-toggle)') // dropdown-toggle 클래스를 가진 항목 제외
-    );
-    responsiveNavItems_drop.map(function (responsiveNavItem) {
-    responsiveNavItem.addEventListener('click', () => {
-        if (window.getComputedStyle(navbarToggler_drop).display !== 'none') {
-            navbarToggler_drop.click();
-        }
-    });
-});
 
 
 
