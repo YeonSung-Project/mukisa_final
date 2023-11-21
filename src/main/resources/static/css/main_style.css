@@ -3470,13 +3470,14 @@ textarea.form-control-lg {
   background-color: transparent;
 }
 
-<<<<<<< HEAD
+
 .dropdown-menu.show {
   display: block;
 }
-=======
 
->>>>>>> inhak
+
+
+
 
 .dropdown-header {
   display: block;
@@ -11375,11 +11376,11 @@ section#contact form#contactForm :-ms-input-placeholder {
     justify-content: center;
     align-items: center;
   }
-<<<<<<< HEAD
+
 
 }
 
-=======
+
 }
 
 .dropdown-menu-item{
@@ -11405,4 +11406,4 @@ section#contact form#contactForm :-ms-input-placeholder {
   display: block;
   text-align: center;
 }
->>>>>>> inhak
+

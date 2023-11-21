@@ -61,7 +61,7 @@ window.addEventListener('DOMContentLoaded', event => {
 
 
 
-<<<<<<< HEAD
+
     // my custom 2
         // Navbar shrink function
         var navShrink = function () {
@@ -90,8 +90,6 @@ window.addEventListener('DOMContentLoaded', event => {
 
 
 
-=======
->>>>>>> inhak
 
 
 
@@ -106,7 +104,7 @@ window.addEventListener('DOMContentLoaded', event => {
         });
     };
 
-<<<<<<< HEAD
+
     // Collapse responsive navbar when toggler is visible
     const navbarToggler = document.body.querySelector('.navbar-toggler');
     const responsiveNavItems = [].slice.call(
@@ -119,7 +117,7 @@ window.addEventListener('DOMContentLoaded', event => {
             }
         });
     });
-=======
+
 
 
 
@@ -152,6 +150,6 @@ responsiveNavItems.map(function (responsiveNavItem) {
     //         }
     //     });
     // });
->>>>>>> inhak
+
 
 });
