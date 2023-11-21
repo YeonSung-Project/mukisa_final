@@ -33,29 +33,31 @@ window.addEventListener('DOMContentLoaded', event => {
 
 
     // my custom
-        // Navbar shrink function
-        var navShrink = function () {
-            const navbar = document.body.querySelector('#mainNav');
-            const navbarLinks = document.body.querySelectorAll('#mainNav .navbar-nav .nav-item .nav-link:last-child');
-            if (!navbar || !navbarLinks) {
-                return;
-            }
-            if (window.scrollY === 0) {
-                navbar.classList.remove('nav-shrink');
-                navbarLinks.forEach(function(navbarLink) {
-                    navbarLink.classList.remove('nav-shrink');
-                });
-            } else {
-                navbar.classList.add('nav-shrink');
-                navbarLinks.forEach(function(navbarLink) {
-                    navbarLink.classList.add('nav-shrink');
-                });
-            }
-        };
-        // Shrink the navbar 
-        navShrink();
-        // Shrink the navbar when page is scrolled
-        document.addEventListener('scroll', navShrink);
+    // Navbar shrink function
+    var navShrink = function () {
+        const navbar = document.body.querySelector('#mainNav');
+        const navbarLinks = [].slice.call(
+            document.querySelectorAll('#mainNav .navbar-nav .nav-item .nav-link:not(.dropdown)')
+        );
+        if (!navbar || !navbarLinks) {
+            return;
+        }
+        if (window.scrollY === 0) {
+            navbar.classList.remove('nav-shrink');
+            navbarLinks.forEach(function(navbarLink) {
+                navbarLink.classList.remove('nav-shrink');
+            });
+        } else {
+            navbar.classList.add('nav-shrink');
+            navbarLinks.forEach(function(navbarLink) {
+                navbarLink.classList.add('nav-shrink');
+            });
+        }
+    };
+    // Shrink the navbar 
+    navShrink();
+    // Shrink the navbar when page is scrolled
+    document.addEventListener('scroll', navShrink);
 
 
 
