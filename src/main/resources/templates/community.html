@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<!-- custom -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="~{/header :: commonFragment}"></div>
+<!-- Navigation-->
+<div th:insert="~{/header :: navFragment}"></div>
+<body id="page-top">
+
+<section class="page-section" id="services">
+    <div class="container" style="margin-bottom:60px;">
+        <div class="row py-5">
+            <div class="col-lg-9 mx-auto text-white text-center" style="margin-left:300px;">
+                <h1 class="display-5" style="color:black !important; margin-left:20px;">커뮤니티</h1>
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">글 번호</th>
+                <th scope="col">제목</th>
+
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="communityEntity : ${list}">
+                <th th:text="${communityEntity.boNo}" scope="row">1</th>
+
+                <!-- communityview로 보내줄건데 boNo를 담아서 보내줄거다 -->
+                <!-- boNo는 뭐냐면 communityEntity의 boNo -->
+                <td >
+                    <a th:text="${communityEntity.boTitle}" th:href="@{/communityview(boNo=${communityEntity.boNo})}"></a>
+                </td>
+
+            </tr>
+
+            </tbody>
+        </table>
+
+    </div>
+
+</section>
