@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<!-- custom -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="~{/header :: commonFragment}"></div>
+<!-- Navigation-->
+<div th:insert="~{/header :: navFragment}"></div>
+<body id="page-top">
+
+<section class="page-section" id="services">
+    <div class="container" style="margin-bottom:60px;">
+        <div class="row py-5">
+            <div class="col-lg-9 mx-auto text-white text-center" style="margin-left:300px;">
+                <h1 class="display-5" style="color:black !important; margin-left:20px;">글 내용</h1>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label class="form-label">글 제목</label>
+            <p th:value="${communityview.boTitle}">제목</p>
+        </div>
+        <div class="mb-3">
+            <label class="form-label">내용</label>
+
+            <p th:text="${communityview.boContent}">내용이 들어갈 부분입니다.</p>
+        </div>
+
+        <a href="/community" type="button" class="btn btn-primary" >목록</a>
+        <a th:href="@{/communitymodify/{boNo}(boNo = ${communityview.boNo})}" type="button" class="btn btn-success">수정</a>
+        <a th:href="@{/communitydelete(boNo=${communityview.boNo})}" type="button" class="btn btn-danger">삭제</a>
+
+    </div>
+</section>
