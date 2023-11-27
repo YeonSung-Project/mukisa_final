@@ -33,29 +33,31 @@ window.addEventListener('DOMContentLoaded', event => {
 
 
     // my custom
-        // Navbar shrink function
-        var navShrink = function () {
-            const navbar = document.body.querySelector('#mainNav');
-            const navbarLinks = document.body.querySelectorAll('#mainNav .navbar-nav .nav-item .nav-link:last-child');
-            if (!navbar || !navbarLinks) {
-                return;
-            }
-            if (window.scrollY === 0) {
-                navbar.classList.remove('nav-shrink');
-                navbarLinks.forEach(function(navbarLink) {
-                    navbarLink.classList.remove('nav-shrink');
-                });
-            } else {
-                navbar.classList.add('nav-shrink');
-                navbarLinks.forEach(function(navbarLink) {
-                    navbarLink.classList.add('nav-shrink');
-                });
-            }
-        };
-        // Shrink the navbar 
-        navShrink();
-        // Shrink the navbar when page is scrolled
-        document.addEventListener('scroll', navShrink);
+    // Navbar shrink function
+    var navShrink = function () {
+        const navbar = document.body.querySelector('#mainNav');
+        const navbarLinks = [].slice.call(
+            document.querySelectorAll('#mainNav .navbar-nav .nav-item .nav-link:not(.dropdown)')
+        );
+        if (!navbar || !navbarLinks) {
+            return;
+        }
+        if (window.scrollY === 0) {
+            navbar.classList.remove('nav-shrink');
+            navbarLinks.forEach(function(navbarLink) {
+                navbarLink.classList.remove('nav-shrink');
+            });
+        } else {
+            navbar.classList.add('nav-shrink');
+            navbarLinks.forEach(function(navbarLink) {
+                navbarLink.classList.add('nav-shrink');
+            });
+        }
+    };
+    // Shrink the navbar 
+    navShrink();
+    // Shrink the navbar when page is scrolled
+    document.addEventListener('scroll', navShrink);
 
 
 
@@ -71,10 +73,15 @@ window.addEventListener('DOMContentLoaded', event => {
     };
 
 
-    // Collapse responsive navbar when toggler is visible
+
+
+
+    // 반응형 네비게이션 바가 축소될 때 동작. 요소 클릭시 매뉴가 사라지게 하는 동작에 필터를 걸어 
+    // 드랍다운 항목인 티는 제외함.
+    // 즉 작은 화면, 모바일에서 동작하는 매뉴.
     const navbarToggler = document.body.querySelector('.navbar-toggler');
     const responsiveNavItems = [].slice.call(
-        document.querySelectorAll('#navbarResponsive .nav-link')
+        document.querySelectorAll('#navbarResponsive .nav-link:not(.dropdown-toggle)')
     );
     responsiveNavItems.map(function (responsiveNavItem) {
         responsiveNavItem.addEventListener('click', () => {
@@ -83,22 +90,6 @@ window.addEventListener('DOMContentLoaded', event => {
             }
         });
     });
-
-
-    // 반응형 네비게이션 바가 축소될 때 동작. 요소 클릭시 매뉴가 사라지게 하는 동작에 필터를 걸어 
-    // 드랍다운 항목인 티는 제외함.
-    // 즉 작은 화면, 모바일에서 동작하는 매뉴.
-const navbarToggler_drop = document.body.querySelector('.navbar-toggler');
-const responsiveNavItems_drop = [].slice.call(
-    document.querySelectorAll('#navbarResponsive .nav-link:not(.dropdown-toggle)') // dropdown-toggle 클래스를 가진 항목 제외
-    );
-    responsiveNavItems_drop.map(function (responsiveNavItem) {
-    responsiveNavItem.addEventListener('click', () => {
-        if (window.getComputedStyle(navbarToggler_drop).display !== 'none') {
-            navbarToggler_drop.click();
-        }
-    });
-});
 
 
 
