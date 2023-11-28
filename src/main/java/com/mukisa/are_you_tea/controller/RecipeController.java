@@ -3,8 +3,13 @@ package com.mukisa.are_you_tea.controller;
 import com.mukisa.are_you_tea.data.entity.RecipeEntity;
 import com.mukisa.are_you_tea.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -17,29 +22,38 @@ public class RecipeController {
     RecipeService recipeService;
 
     //레시지 목록
-    @RequestMapping("/recipe")
-    public String gorecipeList(Model model) {
+    @GetMapping("/recipe")
+    public String gorecipeList(
+            @RequestParam(name = "page", defaultValue = "0") int page,
+            @RequestParam(name = "size", defaultValue = "10") int size,
+            @RequestParam(name = "sortBy", defaultValue = "id") String sortBy,
+            @RequestParam(name = "keyword", required = false) String keyword,
+            Model model) {
+
         try {
-            List<RecipeEntity> dataset = recipeService.dataLoad();
+            Pageable pageable = PageRequest.of(page, size, Sort.by(sortBy));
 
-            if (!dataset.isEmpty()) {
-                // 모든 데이터를 모델에 추가
-                for (int i = 0; i < dataset.size(); i++) {
-                    model.addAttribute("recipeData", dataset);
-
-                }
-
+            // 키워드가 있는 경우 검색 수행
+            if (keyword != null && !keyword.isEmpty()) {
+                Page<RecipeEntity> recipePage = recipeService.dataLoad(keyword, page, size, sortBy);
+                model.addAttribute("recipeData", recipePage.getContent());
+                model.addAttribute("currentPage", recipePage.getNumber());
+                model.addAttribute("totalPages", recipePage.getTotalPages());
             } else {
-                System.out.println("데이터셋이 비어 있습니다.");
+                // 키워드가 없는 경우 전체 목록을 페이징하여 가져오기
+                Page<RecipeEntity> recipePage = recipeService.dataLoad(null, page, size, sortBy);
+                model.addAttribute("recipeData", recipePage.getContent());
+                model.addAttribute("currentPage", recipePage.getNumber());
+                model.addAttribute("totalPages", recipePage.getTotalPages());
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-
         return "recipe";
     }
+
     //상세 레시피 보기
     @RequestMapping("/recipeDetail")
     public String gorecipeDetail(@RequestParam(name = "recipeno", required = false) Integer recipeno, Model model) {
