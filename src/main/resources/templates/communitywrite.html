@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<!-- custom -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="~{/header :: commonFragment}"></div>
+<!-- Navigation-->
+<div th:insert="~{/header :: navFragment}"></div>
+<body id="page-top">
+
+<section class="page-section" id="services">
+    <div class="container" style="margin-bottom:60px;">
+        <div class="row py-5">
+            <div class="col-lg-9 mx-auto text-white text-center" style="margin-left:300px;">
+                <h1 class="display-5" style="color:black !important; margin-left:20px;">글 작성</h1>
+            </div>
+        </div>
+
+        <form action="/communitywritepro" method="post">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label">글 제목</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" name="boTitle">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label">내용</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="boContent" rows="10" ></textarea>
+            </div>
+
+            <button type="submit">등록</button>
+        </form>
+    </div>
+
+</section>

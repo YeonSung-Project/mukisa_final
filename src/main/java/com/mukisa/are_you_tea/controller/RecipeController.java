@@ -73,4 +73,11 @@ public class RecipeController {
 
         return "recipeDetail";
     }
+
+    // 레시피 작성(폼)
+    @GetMapping("/recipeWrite")
+    public String recipeWriteForm() {
+
+        return "recipeWrite";
+    }
 }
