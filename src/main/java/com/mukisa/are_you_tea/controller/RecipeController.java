@@ -5,6 +5,7 @@ import com.mukisa.are_you_tea.service.RecipeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -58,5 +59,12 @@ public class RecipeController {
         }
 
         return "recipeDetail";
+    }
+
+    // 레시피 작성(폼)
+    @GetMapping("/recipeWrite")
+    public String recipeWriteForm() {
+
+        return "recipeWrite";
     }
 }
