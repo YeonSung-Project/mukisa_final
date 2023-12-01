@@ -9,7 +9,7 @@
 
 <section class="page-section" id="services">
     <div class="container" style="margin-bottom:60px;">
-        <!-- For demo purpose -->
+
         <div class="row py-5">
             <div class="col-lg-9 mx-auto text-white text-center" style="margin-left:300px;">
                 <h1 class="display-4" style="color:black !important; margin-left:20px;">용어 해설</h1>
@@ -24,10 +24,10 @@
             </div>
 
             <div class="container" th:unless="${#lists.isEmpty(dictionaryData)}">
-                <div class="row row justify-content-md-center"
+                <div class="row justify-content-center"
                      th:each="dictionaryItem : ${dictionaryData}">
                     <b>
-                        <div class="col" th:text="${dictionaryItem.dictionary_name}">
+                        <div class="col-md-8" th:text="${dictionaryItem.dictionary_name}">
                         </div>
                     </b>
                     <div class="col p-3" th:text="${dictionaryItem.dictionary_content}"></div>

@@ -20,7 +20,7 @@ public class WorldTeaController {
     @RequestMapping("/world")
     public String goworld(Model model) {
         try {
-            List<WorldEntity> dataset = worldService.dataLoad();
+            List<WorldEntity> dataset = worldService.getAllWorlds();
 
             if (!dataset.isEmpty()) {
                 // 모든 데이터를 모델에 추가

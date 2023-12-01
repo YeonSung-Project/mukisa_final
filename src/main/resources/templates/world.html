@@ -20,14 +20,13 @@
             <p>데이터가 없습니다.</p>
         </div>
         <div th:unless="${#lists.isEmpty(worldData)}">
-            <div class="container w-75 p-3 " th:each="worldItem : ${worldData}">
+            <div class="container w-75 p-3 table-responsive " th:each="worldItem : ${worldData}">
 
                 <table class="table mb-5 ">
                     <thead>
                     <tr>
-                        <th colspan="2" style="font-style:bold;" th:text="${worldItem.world} + '의 티 생산 현황'"></th>
-                        <th> 수확기</th>
-
+                        <th colspan="2" style="font-style:bold; background-color: #f2f2f2;" th:text="${worldItem.world} + '의 티 생산 현황'"></th>
+                        <th style="background-color: #f2f2f2;"> 수확기</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -47,8 +46,14 @@
                         <td th:text="${worldItem.world_famous} "></td>
                         <td th:text="${worldItem.world_above} "></td>
                     </tr>
+
+                    <tr>
+                        <td colspan="3">
+                            <img th:src="'/img/'+${worldItem.world_img}+'.jpg'" alt="나라 이미지입니다." width="200px">
+                        </td>
+                    </tr>
                     </tbody>
-                    <img th:src="'/img/'+${worldItem.world_img}+'.jpg'" alt="나라 이미지입니다." width="200px">
+
                 </table>
 
 

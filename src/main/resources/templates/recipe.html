@@ -27,23 +27,25 @@
                 <div class="row row justify-content-md-center">
                     <div class="col  sm-1 md-3 lg-4 p-2" th:each="recipeItem : ${recipeData}">
 
-                            <div class="card" style="width: 18rem;">
-                                <a th:href="@{/recipeDetail( recipeno=${recipeItem.recipe_no} )}">
+                        <div class="card" style="width: 18rem;">
+                            <a th:href="@{/recipeDetail( recipeno=${recipeItem.recipe_no} )}">
                                 <img src="/img/notimg.jpg" class="card-img-top" alt="레시피 이미지입니다">
                                 <div class="card-body">
                                     <h5 class="card-title" th:text="${recipeItem.recipe_name}"></h5>
                                     <button class="btn btn-primary">레시피 보기</button>
-                                </div></a>
-                            </div>
-                      </div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
 
 
                 </div>
             </div>
-<!--            <div class="d-flex justify-content-end" th:if="${#authentication.principal.id eq 'admin'}">-->
-<!--                <a class="btn btn-primary" href="/recipeWrite" role="button">레시피 작성</a>-->
-<!--            </div>-->
 
+
+        </div>
+        <div class="d-flex justify-content-end">
+            <a class="btn btn-primary" href="/recipeWrite" role="button">레시피 작성</a>
         </div>
     </div>
 

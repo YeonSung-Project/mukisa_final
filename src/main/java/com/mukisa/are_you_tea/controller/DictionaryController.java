@@ -16,7 +16,7 @@ public class DictionaryController {
     @RequestMapping("/dictionary")
     public String godictionary(Model model) {
         try {
-            List<DictionaryEntity> dataset = dictionaryService.dataLoad();
+            List<DictionaryEntity> dataset = dictionaryService.getAllDictionaries();
 
             if (!dataset.isEmpty()) {
                 // 모든 데이터를 모델에 추가
