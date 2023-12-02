@@ -5,11 +5,12 @@ import com.mukisa.are_you_tea.data.repository.CommunityRepository;
 import com.mukisa.are_you_tea.data.repository.EnjoyRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -19,9 +20,9 @@ public class CommunityService {
     private CommunityRepository communityRepository;
 
     // 커뮤니티 글 리스트
-    public List<CommunityEntity> communityList() {
+    public Page<CommunityEntity> communityList(Pageable pageable) {
 
-        return communityRepository.findAll();
+        return communityRepository.findAll(pageable);
     }
 
     // 커뮤니티 특정 글 내용 보기
@@ -55,5 +56,11 @@ public class CommunityService {
     // 커뮤니티 특정 글 삭제
     public void communityDelete(Integer boNo) {
         communityRepository.deleteById(boNo);
+    }
+
+    // 커뮤니티 검색 기능
+    public Page<CommunityEntity> communitySearchList(String searchKeyword, Pageable pageable){
+
+        return communityRepository.findByBoTitleContaining(searchKeyword, pageable);
     }
 }

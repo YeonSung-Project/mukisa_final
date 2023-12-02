@@ -3,14 +3,16 @@ package com.mukisa.are_you_tea.controller;
 import com.mukisa.are_you_tea.data.entity.CommunityEntity;
 import com.mukisa.are_you_tea.service.CommunityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 @Controller
 public class CommunityController {
@@ -19,10 +21,33 @@ public class CommunityController {
     private CommunityService communityService;
 
     // 커뮤니티 글 리스트
-    @GetMapping("community")
-    public String community(Model model) {
+    @GetMapping("community")                           // 사이즈는 20개, sort = 어떤걸로 기준 삼아서 정렬? = boNo
+    public String community(Model model,
+                            @PageableDefault(page = 0, size = 20, sort = "boNo", direction = Sort.Direction.DESC) Pageable pageable,
+                            String searchKeyword) {
 
-        model.addAttribute("list", communityService.communityList());
+        Page<CommunityEntity> list = null;
+
+        // 검색어 if
+        if (searchKeyword == null) {
+            // 검색어가 안 들어왔을 때
+            list = communityService.communityList(pageable);
+        } else {
+            // 검색어가 들어왔을 때
+            list = communityService.communitySearchList(searchKeyword, pageable);
+        }
+
+
+        // ************ 페이징 처리 *******************
+        int nowPage = list.getPageable().getPageNumber() + 1;       // 0에서 시작하기 때문에 + 1
+        int startPage = Math.max(nowPage - 4, 1);
+        int endPage =  Math.min(nowPage + 5, list.getTotalPages());
+        // ******************************************
+
+        model.addAttribute("list", list);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
         return "community";
     }
