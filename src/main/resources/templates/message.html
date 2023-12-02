@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<!-- custom -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<div th:insert="~{/header :: commonFragment}"></div>
+<!-- Navigation-->
+<div th:insert="~{/header :: navFragment}"></div>
+<body id="page-top">
+
+<!-- 메시지 -->
+<script th:inline="javascript">
+
+  /*<![CDATA[*/
+
+  var message =[[${message}]];          /* 컨트롤에서 메시지 받기 */
+  alert(message);                       /* 메시지 출력 */
+  location.replace([[${searchUrl}]]);   /* 이동시켜 줄 페이지 경로 */
+
+  /*]]*/
+</script>
+
+<section class="page-section" id="services">
+</section>

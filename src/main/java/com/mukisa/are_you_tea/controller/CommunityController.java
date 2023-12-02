@@ -41,12 +41,14 @@ public class CommunityController {
 
     // 커뮤니티 글 작성
     @PostMapping("/communitywritepro")
-    public String communityWritePro (CommunityEntity communityEntity) {
-
+    public String communityWritePro (CommunityEntity communityEntity, Model model) {
 
         communityService.communityWrite(communityEntity);
-        
-        return "";
+
+        model.addAttribute("message", "글 작성이 완료되었습니다.");    // 메세지
+        model.addAttribute("searchUrl", "/community");             // 글 작성 후 community 이동
+
+        return "message";
     }
 
     // 커뮤니티 특정 글 수정 (폼)
@@ -60,7 +62,7 @@ public class CommunityController {
 
     // 커뮤니티 특정 글 수정
     @PostMapping("/communityupdate/{boNo}")
-    public String communityUpdate (@PathVariable("boNo") Integer boNo, CommunityEntity communityEntity) {
+    public String communityUpdate (@PathVariable("boNo") Integer boNo, CommunityEntity communityEntity, Model model) {
 
         // 기존에 있던 글을 검색
         CommunityEntity communityTemp = communityService.communityView(boNo);
@@ -72,7 +74,10 @@ public class CommunityController {
 
         communityService.communityWrite(communityTemp);
 
-        return "redirect:/community";
+        model.addAttribute("message", "글 수정이 완료되었습니다.");    // 메세지
+        model.addAttribute("searchUrl", "/community");             // 글 작성 후 community 이동
+
+        return "message";
     }
 
 
