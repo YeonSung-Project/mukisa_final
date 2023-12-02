@@ -8,6 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Controller
 public class CommunityController {
@@ -41,9 +44,9 @@ public class CommunityController {
 
     // 커뮤니티 글 작성
     @PostMapping("/communitywritepro")
-    public String communityWritePro (CommunityEntity communityEntity, Model model) {
+    public String communityWritePro (CommunityEntity communityEntity, MultipartFile file, Model model) throws Exception{
 
-        communityService.communityWrite(communityEntity);
+        communityService.communityWrite(communityEntity, file);
 
         model.addAttribute("message", "글 작성이 완료되었습니다.");    // 메세지
         model.addAttribute("searchUrl", "/community");             // 글 작성 후 community 이동
@@ -62,7 +65,7 @@ public class CommunityController {
 
     // 커뮤니티 특정 글 수정
     @PostMapping("/communityupdate/{boNo}")
-    public String communityUpdate (@PathVariable("boNo") Integer boNo, CommunityEntity communityEntity, Model model) {
+    public String communityUpdate (@PathVariable("boNo") Integer boNo, CommunityEntity communityEntity, MultipartFile file, Model model) throws Exception {
 
         // 기존에 있던 글을 검색
         CommunityEntity communityTemp = communityService.communityView(boNo);
@@ -72,7 +75,7 @@ public class CommunityController {
         communityTemp.setBoTitle(communityEntity.getBoTitle());         // 제목
         communityTemp.setBoContent(communityEntity.getBoContent());     // 내용
 
-        communityService.communityWrite(communityTemp);
+        communityService.communityWrite(communityTemp, file);
 
         model.addAttribute("message", "글 수정이 완료되었습니다.");    // 메세지
         model.addAttribute("searchUrl", "/community");             // 글 작성 후 community 이동

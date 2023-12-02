@@ -25,6 +25,10 @@
             <p th:text="${communityview.boContent}">내용이 들어갈 부분입니다.</p>
         </div>
 
+        <div class="mb-3">
+            <a th:href="@{${communityview.boFilepath}}">다운받기</a>
+        </div>
+
         <a href="/community" type="button" class="btn btn-primary" >목록</a>
         <a th:href="@{/communitymodify/{boNo}(boNo = ${communityview.boNo})}" type="button" class="btn btn-success">수정</a>
         <a th:href="@{/communitydelete(boNo=${communityview.boNo})}" type="button" class="btn btn-danger">삭제</a>

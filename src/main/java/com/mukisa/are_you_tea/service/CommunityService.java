@@ -6,8 +6,11 @@ import com.mukisa.are_you_tea.data.repository.EnjoyRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class CommunityService {
@@ -29,7 +32,23 @@ public class CommunityService {
     }
 
     // 커뮤니티 글 작성
-    public void communityWrite(CommunityEntity communityEntity){
+    public void communityWrite(CommunityEntity communityEntity, MultipartFile file) throws Exception{
+
+        // 식별자
+        UUID uuid = UUID.randomUUID();
+        String fileName = uuid + "_" + file.getOriginalFilename();  // 파일 식별자
+
+        // ************* 파일 저장 *******************
+
+        String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\communityFile"; // 파일 경로
+        File saveFile = new File(filePath, fileName);
+
+        file.transferTo(saveFile);
+
+        communityEntity.setBoFilename(fileName);    // 파일이름
+        communityEntity.setBoFilepath("/communityFile/" + fileName);    // 파일경로
+        // ******************************************
+
         communityRepository.save(communityEntity);
     }
 
