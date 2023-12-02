@@ -21,68 +21,71 @@
             <p>데이터가 없습니다.</p>
         </div>
         <div th:unless="${#lists.isEmpty(enjoyData)}">
-        <div class="container w-75 p-3 " th:each="enjoyItem : ${enjoyData}">
-            <div class="container p-2">
-                <div class="row">
-                    <div class="col">
-                        <h1 th:text="${enjoyItem.enjoy_type} ">티이름</h1>
-                        <span th:text="${enjoyItem.enjoy_content} ">설명</span>
+            <div class="container w-75 p-3 " th:each="enjoyItem : ${enjoyData}">
+                <div class="container p-2">
+                    <div class="row">
+                        <div class="col">
+                            <h1 th:text="${enjoyItem.enjoy_type} ">티이름</h1>
+                            <span th:text="${enjoyItem.enjoy_content} ">설명</span>
+                        </div>
+                        <div class="col">
+                            <table class="table">
+
+                                <tr>
+                                    <th class="align-middle" colspan="2">준비요건
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th scope="col">사용티</th>
+                                    <th scope="col" th:text="${enjoyItem.enjoy_used} ">내용</th>
+                                </tr>
+                                <tr>
+                                    <th scope="col">분량</th>
+                                    <th scope="col" th:text="${enjoyItem.enjoy_amount} ">내용</th>
+                                </tr>
+                                <tr>
+                                    <th scope="col">수온</th>
+                                    <th scope="col" th:text="${enjoyItem.enjoy_temperature} ">내용</th>
+                                </tr>
+                                <tr>
+                                    <th scope="col">우리기</th>
+                                    <th scope="col" th:text="${enjoyItem.enjoy_teatime} ">내용</th>
+                                </tr>
+
+                            </table>
+                        </div>
+
                     </div>
-                    <div class="col">
-                        <table class="table">
+                    <div class="card-group mb-4 ">
+                        <div class="card text-center">
+                            <img th:src="'/img/'+${enjoyItem.enjoy_water_img}+'.jpg'" alt="찻물 이미지입니다."
+                                 class="bd-placeholder-img rounded-circle p-2 mx-auto d-block" width="200" height="200">
+                            <div class="card-body">
+                                <h5 class="card-title">찻물</h5>
+                                <p class="card-text" th:text="${enjoyItem.enjoy_water} "></p>
 
-                            <tr>
-                                <th class="align-middle" colspan="2">준비요건
-                                </th>
-                            </tr>
-                            <tr>
-                                <th scope="col" >사용티</th>
-                                <th scope="col" th:text="${enjoyItem.enjoy_used} ">내용</th>
-                            </tr>
-                            <tr>
-                                <th scope="col">분량</th>
-                                <th scope="col" th:text="${enjoyItem.enjoy_amount} ">내용</th>
-                            </tr>
-                            <tr>
-                                <th scope="col">수온</th>
-                                <th scope="col" th:text="${enjoyItem.enjoy_temperature} ">내용</th>
-                            </tr>
-                            <tr>
-                                <th scope="col">우리기</th>
-                                <th scope="col"  th:text="${enjoyItem.enjoy_teatime} ">내용</th>
-                            </tr>
-
-                        </table>
+                            </div>
+                        </div>
+                        <div class="card text-center">
+                            <img th:src="'/img/'+${enjoyItem.enjoy_dryleaf_img}+'.jpg'" alt="건조찻잎 이미지입니다."
+                                 class="bd-placeholder-img rounded-circle p-2 mx-auto d-block" width="200" height="200">
+                            <div class="card-body">
+                                <h5 class="card-title">건조 찻잎</h5>
+                                <p class="card-text" th:text="${enjoyItem.enjoy_dryleaf} "></p>
+                            </div>
+                        </div>
+                        <div class="card text-center">
+                            <img th:src="'/img/'+${enjoyItem.enjoy_wetleaf_img}+'.jpg'" alt="우린찻잎 이미지입니다."
+                                 class="bd-placeholder-img rounded-circle p-2 mx-auto d-block" width="200" height="200">
+                            <div class="card-body">
+                                <h5 class="card-title">우린 찻잎</h5>
+                                <p class="card-text" th:text="${enjoyItem.enjoy_wetleaf} "></p>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
-                <div class="card-group">
-                    <div class="card text-center">
-                        <img th:src="'/img/'+${enjoyItem.enjoy_water_img}+'.jpg'" alt="찻물 이미지입니다." class="img-thumbnail rounded mx-auto d-block">
-                        <div class="card-body">
-                            <h5 class="card-title">찻물</h5>
-                            <p class="card-text" th:text="${enjoyItem.enjoy_water} "></p>
 
-                        </div>
-                    </div>
-                    <div class="card text-center">
-                        <img th:src="'/img/'+${enjoyItem.enjoy_dryleaf_img}+'.jpg'" alt="건조찻잎 이미지입니다." class="img-thumbnail rounded mx-auto d-block">
-                        <div class="card-body">
-                            <h5 class="card-title">건조 찻잎</h5>
-                            <p class="card-text" th:text="${enjoyItem.enjoy_dryleaf} "></p>
-                        </div>
-                    </div>
-                    <div class="card text-center">
-                        <img th:src="'/img/'+${enjoyItem.enjoy_wetleaf_img}+'.jpg'" alt="우린찻잎 이미지입니다." class="img-thumbnail rounded mx-auto d-block">
-                        <div class="card-body">
-                            <h5 class="card-title">우린 찻잎</h5>
-                            <p class="card-text" th:text="${enjoyItem.enjoy_wetleaf} "></p>
-                        </div>
-                    </div>
-                </div>
             </div>
-
-        </div>
         </div>
     </div>
 </section>

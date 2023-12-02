@@ -2,6 +2,7 @@
 <!-- custom -->
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <div th:insert="~{/header :: commonFragment}"></div>
+
 <!-- Navigation-->
 <div th:insert="~{/header :: navFragment}"></div>
 <body id="page-top">
@@ -17,18 +18,21 @@
         </div>
 
         <div class="container w-75 p-3">
+
             <div th:if="${#lists.isEmpty(efficacyData)}">
                 <p>데이터가 없습니다.</p>
             </div>
 
-            <div th:unless="${#lists.isEmpty(efficacyData)}">
-                <div class="card mb-3" th:each="efficacyItem : ${efficacyData}">
-                    <div class="card-header" style="background-color: #CCFFCC;" th:text="${efficacyItem.effi}"></div>
-                    <div class="card-body">
-                        <p class="card-text" th:text="${efficacyItem.effi_content}"></p>
-                    </div>
+            <div class="row" th:unless="${#lists.isEmpty(efficacyData)}">
+                <div class="col-lg-4 text-center p-3 mb-4" th:each="efficacyItem : ${efficacyData}">
+                    <img th:src="'/img/'+${efficacyItem.effi_img}" alt="효능"
+                         class="bd-placeholder-img rounded-circle p-2" width="140" height="140">
+                    <h2 th:text="${efficacyItem.effi}" class="p-2"></h2>
+                    <p class="text-start" th:text="${efficacyItem.effi_content}"></p>
                 </div>
             </div>
+
+
         </div>
 
 

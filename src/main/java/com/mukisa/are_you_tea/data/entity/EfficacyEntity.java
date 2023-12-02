@@ -17,5 +17,6 @@ public class EfficacyEntity {
     private String effi;
     @Column(name = "EFFI_CONTENT")
     private String effi_content;
-
+    @Column(name = "EFFI_IMG")
+    private String effi_img;
 }
