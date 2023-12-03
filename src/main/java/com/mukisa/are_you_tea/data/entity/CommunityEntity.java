@@ -3,6 +3,7 @@ package com.mukisa.are_you_tea.data.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -23,6 +24,8 @@ public class CommunityEntity {
     private String boFilename;
     @Column(name = "BO_FILEPATH")   // 파일 경로
     private String boFilepath;
-    @Column(name = "BO_HITS") // 조회수
+    @Column(name = "BO_HITS")       // 조회수
     private int boHits;
+    @Column(name = "BO_DATE")       // 작성일
+    private LocalDateTime boDate;
 }

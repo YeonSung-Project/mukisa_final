@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
+import java.time.format.DateTimeFormatter;
 
 
 @Controller
@@ -64,6 +65,15 @@ public class CommunityController {
     public String communityView(Model model, Integer boNo) {
 
         communityService.updateHits(boNo);  // 조회수
+        communityService.updateDate(boNo);  // 작성일
+
+        CommunityEntity communityEntity = communityService.communityView(boNo);
+        model.addAttribute("communityview", communityEntity);
+
+        // 작성일을 포맷에 맞게 문자열로 변환하여 전달
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = communityEntity.getBoDate().format(formatter);
+        model.addAttribute("formattedDate", formattedDate);
         
         model.addAttribute("communityview", communityService.communityView(boNo));
         return "communityview";

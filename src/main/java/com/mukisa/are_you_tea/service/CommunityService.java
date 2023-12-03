@@ -8,9 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -69,6 +71,16 @@ public class CommunityService {
         CommunityEntity community = communityRepository.findById(boNo).orElse(null);
         if (community != null) {
             community.setBoHits(community.getBoHits() + 1);
+            communityRepository.save(community);
+        }
+    }
+
+    // 작성일
+    @Transactional
+    public void updateDate(Integer boNo) {
+        CommunityEntity community = communityRepository.findById(boNo).orElse(null);
+        if (community != null) {
+            community.setBoDate(LocalDateTime.now());
             communityRepository.save(community);
         }
     }
