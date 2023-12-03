@@ -74,14 +74,5 @@ public class CommunityService {
             communityRepository.save(community);
         }
     }
-
-    // 작성일
-    @Transactional
-    public void updateDate(Integer boNo) {
-        CommunityEntity community = communityRepository.findById(boNo).orElse(null);
-        if (community != null) {
-            community.setBoDate(LocalDateTime.now());
-            communityRepository.save(community);
-        }
-    }
+    
 }
