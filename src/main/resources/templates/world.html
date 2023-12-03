@@ -16,45 +16,48 @@
             </div>
         </div>
 
+
+        <div class="p-4 p-md-5 mb-4 text-white rounded" style="background-color: #A4D792;">
+            <div class="col-md-6 px-0">
+                <h1 class="display-4 fst-italic" style="color: #324755;">세계 각지의 다양한 차</h1>
+                <p class="lead my-3" style="color: #324755;">세계 각지의 다양한 문화와 풍경 속에서 생산되는 특색 있는 차들을 소개합니다. 각 나라의 차 생산 현황과 유명한 차 종류에 대한 정보를 살펴보세요.</p>
+            </div>
+        </div>
+
+
+
+
+
         <div th:if="${#lists.isEmpty(worldData)}">
             <p>데이터가 없습니다.</p>
         </div>
         <div th:unless="${#lists.isEmpty(worldData)}">
-            <div class="container w-75 p-3 table-responsive " th:each="worldItem : ${worldData}">
+            <div class="row row-cols-1 row-cols-md-2 g-4">
+                <div th:each="worldItem : ${worldData}" class="col">
+                    <div class="card h-100">
+                        <img th:src="'/img/' + ${worldItem.world_img} + '.jpg'" alt="나라 이미지입니다." class="card-img-top img-fluid" style="max-height: 300px;">
 
-                <table class="table mb-5 ">
-                    <thead>
-                    <tr>
-                        <th colspan="2" style="font-style:bold; background-color: #f2f2f2;" th:text="${worldItem.world} + '의 티 생산 현황'"></th>
-                        <th style="background-color: #f2f2f2;"> 수확기</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <th scope="row">생산 점유율</th>
-                        <td><h1 th:text="${worldItem.world_share}+'%'"></h1></td>
-                        <td th:text="${worldItem.world_harvesting} "></td>
+                        <div class="card-body">
+                            <strong class="d-inline-block mb-2 text-success fs-2" th:text="${worldItem.world}"></strong>의 티 생산 현황
+                            <h3 class="card-title">생산 점유율</h3>
+                            <h1 class="card-text" th:text="${worldItem.world_share + '%'}"></h1>
+                            <h3 class="card-title">수확기</h3>
+                            <p class="card-text" th:text="${worldItem.world_harvesting}"></p>
 
-                    </tr>
-                    <tr>
-                        <th scope="row">주요 티 종류</th>
-                        <td th:text="${worldItem.world_main} "></td>
-                        <th scope="row">해발고도</th>
-                    </tr>
-                    <tr>
-                        <th scope="row">유명 사항</th>
-                        <td th:text="${worldItem.world_famous} "></td>
-                        <td th:text="${worldItem.world_above} "></td>
-                    </tr>
+                            <h3 class="card-title">주요 티 종류</h3>
+                            <p class="card-text" th:text="${worldItem.world_main}"></p>
 
-                    <tr>
-                        <td colspan="3">
-                            <img th:src="'/img/'+${worldItem.world_img}+'.jpg'" alt="나라 이미지입니다." width="200px">
-                        </td>
-                    </tr>
-                    </tbody>
+                            <h3 class="card-title">해발고도</h3>
+                            <p class="card-text" th:text="${worldItem.world_above}"></p>
 
-                </table>
+                            <h3 class="card-title">유명 사항</h3>
+                            <p class="card-text" th:text="${worldItem.world_famous}"></p>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+                </div>
 
 
             </div>
