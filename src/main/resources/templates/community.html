@@ -15,29 +15,57 @@
             </div>
         </div>
 
+        <!-- 검색창 -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-white">
+            <form th:action="@{community}" method="get" class="d-flex ms-auto">
+                <input class="form-control me-2" name="searchKeyword" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </nav>
+
         <table class="table">
             <thead>
             <tr>
                 <th scope="col">글 번호</th>
                 <th scope="col">제목</th>
-
+                <th scope="col">조회수</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="communityEntity : ${list}">
-                <th th:text="${communityEntity.boNo}" scope="row">1</th>
+                <tr th:each="communityEntity : ${list}">
+                    <td th:text="${communityEntity.boNo}" scope="row">1</td>
 
-                <!-- communityview로 보내줄건데 boNo를 담아서 보내줄거다 -->
-                <!-- boNo는 뭐냐면 communityEntity의 boNo -->
-                <td >
-                    <a th:text="${communityEntity.boTitle}" th:href="@{/communityview(boNo=${communityEntity.boNo})}"></a>
-                </td>
+                    <!-- communityview로 보내줄건데 boNo를 담아서 보내줄거다 -->
+                    <!-- boNo는 뭐냐면 communityEntity의 boNo -->
+                    <td>
+                        <a th:text="${communityEntity.boTitle}" th:href="@{/communityview(boNo=${communityEntity.boNo})}"></a>
+                    </td>
 
-            </tr>
+                    <td th:text="${communityEntity.boHits}"></td>
+                </tr>
 
             </tbody>
         </table>
 
+        <!--페이징 처리 -->
+        <nav aria-label="Page navigation example">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" th:href="@{community(page = ${nowPage - 1})}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                    <li class="page-item" style="display: inline-block;" th:class="${page == nowPage} ? 'active' : ''">
+                        <a class="page-link" th:href="@{community(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>      <!--param : 특정 키워드 -->
+                    </li>
+                </th:block>
+                <li class="page-item">
+                    <a class="page-link" th:href="@{community(page = ${nowPage + 1})}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
-
 </section>

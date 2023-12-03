@@ -3,11 +3,19 @@ package com.mukisa.are_you_tea.controller;
 import com.mukisa.are_you_tea.data.entity.CommunityEntity;
 import com.mukisa.are_you_tea.service.CommunityService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.servlet.http.HttpSession;
+
 
 @Controller
 public class CommunityController {
@@ -15,19 +23,48 @@ public class CommunityController {
     @Autowired
     private CommunityService communityService;
 
+    @Autowired
+    private HttpSession httpSession;
+
     // 커뮤니티 글 리스트
     @GetMapping("community")
-    public String community(Model model) {
+    public String community(Model model,
+                            @PageableDefault(page = 0, size = 20, sort = "boNo", direction = Sort.Direction.DESC) Pageable pageable,  // 페이징 처리:사이즈는 20개, sort = 어떤걸로 기준 삼아서 정렬? = boNo
+                            String searchKeyword) { // 검색어
 
-        model.addAttribute("list", communityService.communityList());
+
+        Page<CommunityEntity> list = null;
+
+        // 검색어 if
+        if (searchKeyword == null) {
+            // 검색어가 안 들어왔을 때
+            list = communityService.communityList(pageable);
+        } else {
+            // 검색어가 들어왔을 때
+            list = communityService.communitySearchList(searchKeyword, pageable);
+        }
+
+
+        // ************ 페이징 처리 *******************
+        int nowPage = list.getPageable().getPageNumber() + 1;       // 0에서 시작하기 때문에 + 1
+        int startPage = Math.max(nowPage - 4, 1);
+        int endPage =  Math.min(nowPage + 5, list.getTotalPages());
+        // ******************************************
+
+        model.addAttribute("list", list);
+        model.addAttribute("nowPage", nowPage);
+        model.addAttribute("startPage", startPage);
+        model.addAttribute("endPage", endPage);
 
         return "community";
     }
 
     // 커뮤니티 특정 글 상세보기
-    @GetMapping("communityview")    // localhost:8080/community?boNo=1
+    @GetMapping("communityview")
     public String communityView(Model model, Integer boNo) {
 
+        communityService.updateHits(boNo);  // 조회수
+        
         model.addAttribute("communityview", communityService.communityView(boNo));
         return "communityview";
     }
@@ -41,12 +78,14 @@ public class CommunityController {
 
     // 커뮤니티 글 작성
     @PostMapping("/communitywritepro")
-    public String communityWritePro (CommunityEntity communityEntity) {
+    public String communityWritePro (CommunityEntity communityEntity, MultipartFile file, Model model) throws Exception{
 
+        communityService.communityWrite(communityEntity, file);
 
-        communityService.communityWrite(communityEntity);
-        
-        return "";
+        model.addAttribute("message", "글 작성이 완료되었습니다.");    // 메세지
+        model.addAttribute("searchUrl", "/community");             // 글 작성 후 community 이동
+
+        return "message";
     }
 
     // 커뮤니티 특정 글 수정 (폼)
@@ -60,7 +99,7 @@ public class CommunityController {
 
     // 커뮤니티 특정 글 수정
     @PostMapping("/communityupdate/{boNo}")
-    public String communityUpdate (@PathVariable("boNo") Integer boNo, CommunityEntity communityEntity) {
+    public String communityUpdate (@PathVariable("boNo") Integer boNo, CommunityEntity communityEntity, MultipartFile file, Model model) throws Exception {
 
         // 기존에 있던 글을 검색
         CommunityEntity communityTemp = communityService.communityView(boNo);
@@ -70,9 +109,12 @@ public class CommunityController {
         communityTemp.setBoTitle(communityEntity.getBoTitle());         // 제목
         communityTemp.setBoContent(communityEntity.getBoContent());     // 내용
 
-        communityService.communityWrite(communityTemp);
+        communityService.communityWrite(communityTemp, file);
 
-        return "redirect:/community";
+        model.addAttribute("message", "글 수정이 완료되었습니다.");    // 메세지
+        model.addAttribute("searchUrl", "/community");             // 글 작성 후 community 이동
+
+        return "message";
     }
 
 

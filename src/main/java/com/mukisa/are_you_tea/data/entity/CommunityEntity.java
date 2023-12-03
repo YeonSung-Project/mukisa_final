@@ -19,4 +19,10 @@ public class CommunityEntity {
     private String boTitle;
     @Column(name = "BO_CONTENT")    // 게시글 내용
     private String boContent;
+    @Column(name = "BO_FILENAME")   // 파일 이름
+    private String boFilename;
+    @Column(name = "BO_FILEPATH")   // 파일 경로
+    private String boFilepath;
+    @Column(name = "BO_HITS") // 조회수
+    private int boHits;
 }
