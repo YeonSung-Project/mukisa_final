@@ -63,4 +63,13 @@ public class CommunityService {
 
         return communityRepository.findByBoTitleContaining(searchKeyword, pageable);
     }
+
+    // 조회수
+    public void updateHits(Integer boNo) {
+        CommunityEntity community = communityRepository.findById(boNo).orElse(null);
+        if (community != null) {
+            community.setBoHits(community.getBoHits() + 1);
+            communityRepository.save(community);
+        }
+    }
 }

@@ -14,17 +14,24 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpSession;
+
+
 @Controller
 public class CommunityController {
 
     @Autowired
     private CommunityService communityService;
 
+    @Autowired
+    private HttpSession httpSession;
+
     // 커뮤니티 글 리스트
-    @GetMapping("community")                           // 사이즈는 20개, sort = 어떤걸로 기준 삼아서 정렬? = boNo
+    @GetMapping("community")
     public String community(Model model,
-                            @PageableDefault(page = 0, size = 20, sort = "boNo", direction = Sort.Direction.DESC) Pageable pageable,
-                            String searchKeyword) {
+                            @PageableDefault(page = 0, size = 20, sort = "boNo", direction = Sort.Direction.DESC) Pageable pageable,  // 페이징 처리:사이즈는 20개, sort = 어떤걸로 기준 삼아서 정렬? = boNo
+                            String searchKeyword) { // 검색어
+
 
         Page<CommunityEntity> list = null;
 
@@ -53,9 +60,11 @@ public class CommunityController {
     }
 
     // 커뮤니티 특정 글 상세보기
-    @GetMapping("communityview")    // localhost:8080/community?boNo=1
+    @GetMapping("communityview")
     public String communityView(Model model, Integer boNo) {
 
+        communityService.updateHits(boNo);  // 조회수
+        
         model.addAttribute("communityview", communityService.communityView(boNo));
         return "communityview";
     }

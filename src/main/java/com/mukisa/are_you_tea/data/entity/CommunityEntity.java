@@ -23,4 +23,6 @@ public class CommunityEntity {
     private String boFilename;
     @Column(name = "BO_FILEPATH")   // 파일 경로
     private String boFilepath;
+    @Column(name = "BO_HITS") // 조회수
+    private int boHits;
 }
