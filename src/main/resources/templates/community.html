@@ -42,8 +42,8 @@
                         <a th:text="${communityEntity.boTitle}" th:href="@{/communityview(boNo=${communityEntity.boNo})}"></a>
                     </td>
 
-                    <td th:text="${#temporals.format(communityEntity.boDate, 'yyyy-MM-dd')}"></td>
-                    <td th:text="${communityEntity.boHits}"></td>
+                    <td th:text="${#temporals.format(communityEntity.boDate, 'yyyy-MM-dd')}"></td>  <!-- 작성일자 -->
+                    <td th:text="${communityEntity.boHits}"></td>   <!-- 조회수 -->
                 </tr>
 
             </tbody>
