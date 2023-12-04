@@ -112,6 +112,7 @@ public class CommunityController {
 
         communityService.communityWrite(communityTemp, file);
 
+
         model.addAttribute("message", "글 수정이 완료되었습니다.");    // 메세지
         model.addAttribute("searchUrl", "/community");             // 글 작성 후 community 이동
 

@@ -23,6 +23,9 @@
                 <label for="exampleFormControlTextarea1" class="form-label">내용</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" name="boContent" rows="10" th:text="${communityview.boContent}" ></textarea>
             </div>
+            <div class="mb-3">
+                <a th:href="@{${communityview.boFilepath}}">다운받기</a>
+            </div>
 
             <button type="submit">등록</button>
         </form>
