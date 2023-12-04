@@ -16,13 +16,12 @@ public class GoodEntity {
     @Column(name = "GOOD_CHECK" )
     private String good_check;
     @Column(name = "MB_ID")
-    private int mb_id;
+    private String mb_id;
     @Column(name = "RECIPE_NO")
     private int recipe_no;
 
-    private int cnt;
+    private int good_cnt;
 
-    private int offset;
 
 
 
