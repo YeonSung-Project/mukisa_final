@@ -2,6 +2,12 @@
 <!-- custom -->
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <div th:insert="~{/header :: commonFragment}"></div>
+<style>
+    .noneline {
+  text-decoration: none;
+}
+
+</style>
 <!-- Navigation-->
 <div th:insert="~{/header :: navFragment}"></div>
 <body id="page-top">
@@ -25,10 +31,10 @@
 
             <div class="container" th:unless="${#lists.isEmpty(recipeData)}">
                 <div class="row row justify-content-md-center">
-                    <div class="col  sm-1 md-3 lg-4 p-2" th:each="recipeItem : ${recipeData}">
+                    <div class="col  sm-1 md-4 lg-5 p-2" th:each="recipeItem : ${recipeData}">
 
                         <div class="card" style="width: 18rem;">
-                            <a th:href="@{/recipeDetail( recipeno=${recipeItem.recipe_no} )}">
+                            <a  class="noneline text-success" th:href="@{/recipeDetail( recipeno=${recipeItem.recipe_no} )}">
                                 <img src="/img/notimg.jpg" class="card-img-top" alt="레시피 이미지입니다">
                                 <div class="card-body">
                                     <h5 class="card-title" th:text="${recipeItem.recipe_name}"></h5>
