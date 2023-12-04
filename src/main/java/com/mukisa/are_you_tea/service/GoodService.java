@@ -5,13 +5,15 @@ import com.mukisa.are_you_tea.data.repository.GoodRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 public class GoodService {
 
+    private final GoodRepository goodRepository;
+
     @Autowired
-    GoodRepository goodRepository;
+    public GoodService(GoodRepository goodRepository) {
+        this.goodRepository = goodRepository;
+    }
 
 
 }

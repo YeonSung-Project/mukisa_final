@@ -1,12 +1,13 @@
 package com.mukisa.are_you_tea.data.repository;
 
-import com.mukisa.are_you_tea.data.entity.RecipeEntity;
+import com.mukisa.are_you_tea.data.entity.GoodEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-@Repository
-public interface GoodRepository extends JpaRepository<RecipeEntity, Integer> {
+import java.util.List;
 
+@Repository
+public interface GoodRepository extends JpaRepository<GoodEntity, Integer> {
 
 
 }
