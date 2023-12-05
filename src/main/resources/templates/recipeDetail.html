@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <!-- custom -->
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
 <div th:insert="~{/header :: commonFragment}"></div>
+
 <!-- Navigation-->
 <div th:insert="~{/header :: navFragment}"></div>
-<body id="page-top">
 
+<body id="page-top">
 
 <section class="page-section" id="services">
     <div class="container" style="margin-bottom:60px;">
+
         <!-- For demo purpose -->
         <div class="row py-5">
             <div class="col-lg-9 mx-auto text-white text-center" style="margin-left:300px;">
@@ -16,48 +19,44 @@
             </div>
         </div>
 
-        <div class="container w-75 p-3 ">
+        <div class="container w-75 p-3">
             <div class="container">
 
-            <div th:if="${recipeDetailData}">
+                <div th:if="${recipeDetailData}" class="row">
+                    <div class="col-md-6">
+                        <img src="/img/notimg.jpg" class="img-fluid card-img-top" alt="레시피 이미지입니다">
+                        <p class="text-center mt-2" th:text="'등록일 '+${recipeDetailData.recipe_mdf_date}"></p>
+                    </div>
+                    <div class="col-md-6">
+                        <h1 th:text="${recipeDetailData.recipe_name}" class="display-5"></h1>
+                        <p th:text="${recipeDetailData.recipe_content}"></p>
+                        <p th:text="${recipeDetailData.recipe_quantity}+'인분'"></p>
+                        <p th:text="${recipeDetailData.recipe_temperature}+'도'"></p>
+                        <p th:text="'우리는 시간: '+${recipeDetailData.recipe_time}"></p>
+                        <p th:text="'유형: '+${recipeDetailData.recipe_type}"></p>
+                        <p th:text="'우유: '+${recipeDetailData.recipe_milk}"></p>
+                        <p th:text="'재료: '+${recipeDetailData.recipe_ingredient}"></p>
+                        <p th:text="'제조 방법: '+${recipeDetailData.recipe_make}"></p>
+                    </div>
+                </div>
 
-                <h1 th:text="${recipeDetailData.recipe_name}"></h1>
-                <p th:text="${recipeDetailData.recipe_content}"></p>
-                <p th:text="${recipeDetailData.recipe_quantity}+'인분'"></p>
-                <p th:text="${recipeDetailData.recipe_temperature}+'도'"></p>
-                <p th:text="'우리는 시간'+${recipeDetailData.recipe_time}"></p>
-                <p th:text="'유형'+${recipeDetailData.recipe_type}"></p>
-                <p th:text="'우유 '+${recipeDetailData.recipe_milk}"></p>
-                <p th:text="'재료'+${recipeDetailData.recipe_ingredient}"></p>
-                <p th:text="'제조 방법'+${recipeDetailData.recipe_make}"></p>
-
-
-
-                <img src="/img/notimg.jpg" class="card-img-top" alt="레시피 이미지입니다">
-                <p th:text="'등록일'+${recipeDetailData.recipe_mdf_date}"></p>
-
-
-            </div>
-            <div th:unless="${recipeDetailData}">
-                <p>데이터가 없습니다.</p>
+                <div th:unless="${recipeDetailData}">
+                    <p>데이터가 없습니다.</p>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
-
 <!-- Footer-->
 <div th:insert="~{/footer :: footerFragment}"></div>
-
 
 <!-- Bootstrap core JS-->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <!-- Core theme JS-->
 <script src="/js/main_scripts.js"></script>
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
-<!-- * *                               SB Forms JS                               * *-->
-<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
+<!-- SB Forms JS -->
 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
 </body>
+
 </html>
