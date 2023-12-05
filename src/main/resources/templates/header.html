@@ -23,7 +23,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
 
-
     <style>
     nav {
         font-family: 'Noto Sans KR', sans-serif;
@@ -87,11 +86,7 @@
                 </li>
                 <li th:unless="${member != null}" class="nav-item pl-4 "><a class="nav-link important-color" href="/login">로그인</a></li>
                 <li th:if="${member != null}" class="nav-item pl-4 important-color">
-                    <a th:text="${member}+'님'"></a>
-                </li>
-                <li th:if="${member != null}" class="nav-item pl-4 important-color">
                     <a class="nav-link important-color" href="/logout">로그아웃</a>
-
                 </li>
             </ul>
 
