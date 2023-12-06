@@ -48,15 +48,12 @@
                 });
             });
         });
-
     </script>
     <style>
-    .noneline {
-  text-decoration: none;
-}
-
-</style>
+        .noneline {text-decoration: none;}
+    </style>
 </head>
+
 <body>
 <div th:insert="~{/header :: commonFragment}"></div>
 
@@ -110,9 +107,9 @@
     </div>
 </div>
 
-<div class="container fixed-bottom">
-    <div th:insert="~{/footer :: footerFragment}"></div>
-</div>
+
+<div th:insert="~{/footer :: footerFragment}"></div>
+
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/main_scripts.js"></script>
