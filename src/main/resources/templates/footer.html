@@ -4,11 +4,17 @@
 
 
 <!-- Footer-->
-<footer class="footer mt-auto py-3 bg-light" th:fragment="footerFragment">
+<footer class="footer mt-auto py-3 bg-light fixed-bottom" th:fragment="footerFragment">
     <head>
         <meta charset="UTF-8">
+
+        <style>
+            .settings{
+                width: 100%;
+            }
+        </style>
     </head>
-    <div class="container">
+    <div class="container settings">
         <div class="row align-items-center">
             <div class="col-lg-4 text-lg-start">Copyright &copy; MUKISA 2023</div>
             <p class="mb-1">이 프로젝트는 학업용 과제로 제작되었습니다.</p>
