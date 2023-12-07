@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity">
-<head th:insert="~{/header :: commonFragment}">
-
+<div th:insert="~{/header :: commonFragment}"></div>
+<head>
   <meta charset="UTF-8">
   <title>회원가입</title>
   <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
@@ -14,30 +14,6 @@
             }
         }
     </style>
-  <script>
-   $(function(){
-      $("input[name=agreeAll]").click(function(){
-         $("input[name=agree").prop("checked", this.checked);
-         });
-      $("input[name=agree]").click(function(){
-         $("input[name=agreeAll]").prop("checked", false);
-         });
-      });
-   $(function(){
-      $("input[name=agree]").click(function(){
-         var total = $("input[name=agree]").length;
-         var checked = $("input[name=agree]:checked").length;
-
-         if(total != checked){
-            $("input[name=agreeAll]").prop("checked", false);
-         } else {
-            $("input[name=agreeAll]").prop("checked", true);
-         }
-      });
-   });
-
-
-   </script>
 </head>
 <body class="d-flex flex-column min-vh-100">
 
@@ -74,10 +50,10 @@
                 있습니다.
               </p>
             </div>
-          </div>
+
           </div>
 
-        <div class="card-body" style="font-size: 16px;">
+
             <div class="col-lg-12">
               <div class="card w-100 p-3 mt-3">
                 <label class="checkbox-inline">
@@ -99,27 +75,76 @@
 
                 </p>
 
+
             </div>
           </div>
         </div>
-      </div>
+
 
         <div class="col-xs-6" style="text-align: center;">
           <button type="submit" class="btn btn-main btn-lg text-light" style="width:300px; height: 50px;">확인</button>
+        </div>
       </div>
-      <br/>
     </div>
-    <div class="form-group">
-      <label class="checkbox-inline">
-      <input type="checkbox" name="agree" value="true">동의합니다.
-    </label>
-    </div>
-    <button type="submit" class="btn btn-default">회원가입 단계로 넘어가기</button>
   </form>
 </div>
 
 <div th:insert="~{/footer :: footerFragment}"></div>
 
+<script>
+  // 전체 동의 체크박스를 선택하면 모든 체크박스가 선택되도록 하는 함수
+  function checkAll() {
+    // agreeAll이라는 id를 가진 체크박스를 찾는다
+    var agreeAll = document.getElementById("agreeAll");
+    // agree라는 name을 가진 체크박스들의 배열을 찾는다
+    var agrees = document.getElementsByName("agree");
+    // agreeAll이 체크되면
+    if (agreeAll.checked) {
+      // agrees 배열의 모든 요소에 대해
+      for (var i = 0; i < agrees.length; i++) {
+        // 체크박스를 체크한다
+        agrees[i].checked = true;
+      }
+    } else {
+      // agreeAll이 체크되지 않으면
+      for (var i = 0; i < agrees.length; i++) {
+        // 체크박스를 체크 해제한다
+        agrees[i].checked = false;
+      }
+    }
+  }
+
+  // 개별 체크박스를 선택하면 전체 동의 체크박스가 선택되거나 해제되도록 하는 함수
+  function checkEach() {
+    // agreeAll이라는 id를 가진 체크박스를 찾는다
+    var agreeAll = document.getElementById("agreeAll");
+    // agree라는 name을 가진 체크박스들의 배열을 찾는다
+    var agrees = document.getElementsByName("agree");
+    // agrees 배열의 모든 요소에 대해
+    for (var i = 0; i < agrees.length; i++) {
+      // 체크박스가 체크되지 않으면
+      if (!agrees[i].checked) {
+        // agreeAll을 체크 해제한다
+        agreeAll.checked = false;
+        // for 문을 빠져나간다
+        break;
+      }
+    }
+    // 모든 체크박스가 체크되면
+    // agreeAll을 체크한다
+    agreeAll.checked = true;
+  }
+
+  // 전체 동의 체크박스에 checkAll 함수를 연결한다
+  document.getElementById("agreeAll").onclick = checkAll;
+  // agree라는 name을 가진 체크박스들의 배열을 찾는다
+  var agrees = document.getElementsByName("agree");
+  // agrees 배열의 모든 요소에 대해
+  for (var i = 0; i < agrees.length; i++) {
+    // checkEach 함수를 연결한다
+    agrees[i].onclick = checkEach;
+  }
+</script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/main_scripts.js"></script>
 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
