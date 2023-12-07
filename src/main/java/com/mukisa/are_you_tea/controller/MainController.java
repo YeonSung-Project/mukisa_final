@@ -26,7 +26,6 @@ public class MainController {
     private PrincipalDetailsService principalDetailsService;
     @Autowired
     private UserRepository userRepository;
-
     @Autowired
     private RecipeService recipeService;
 
@@ -43,28 +42,26 @@ public class MainController {
                 model.addAttribute("member", user.getUsername());
             }
         }
-//        ë©”ì¸ í˜ì´ì§€ ë ˆì‹œí”¼ ë¶ˆëŸ¬ì˜¤ê¸°
+        //        ¸ŞÀÎ ÆäÀÌÁö ·¹½ÃÇÇ ºÒ·¯¿À±â
         try {
             List<RecipeEntity> dataset = recipeService.dataLoad();
 
             if (!dataset.isEmpty()) {
-                // ë°ì´í„°ì…‹ì´ 5ê°œ ì´ìƒì¸ ê²½ìš°ì—ë§Œ ìƒìœ„ 5ê°œë§Œ ì„ íƒí•˜ì—¬ ëª¨ë¸ì— ì¶”ê°€
+                // µ¥ÀÌÅÍ¼ÂÀÌ 5°³ ÀÌ»óÀÎ °æ¿ì¿¡¸¸ »óÀ§ 5°³¸¸ ¼±ÅÃÇÏ¿© ¸ğµ¨¿¡ Ãß°¡
                 if (dataset.size() >= 5) {
                     List<RecipeEntity> top5Recipes = dataset.subList(0, 4);
                     model.addAttribute("recipeData", top5Recipes);
                 } else {
-                    // ë°ì´í„°ì…‹ì´ 5ê°œ ë¯¸ë§Œì¸ ê²½ìš° ì „ì²´ ë°ì´í„°ë¥¼ ëª¨ë¸ì— ì¶”ê°€
+                    // µ¥ÀÌÅÍ¼ÂÀÌ 5°³ ¹Ì¸¸ÀÎ °æ¿ì ÀüÃ¼ µ¥ÀÌÅÍ¸¦ ¸ğµ¨¿¡ Ãß°¡
                     model.addAttribute("recipeData", dataset);
                 }
             } else {
-                System.out.println("ë°ì´í„°ì…‹ì´ ë¹„ì–´ ìˆìŠµë‹ˆë‹¤.");
+                System.out.println("µ¥ÀÌÅÍ¼ÂÀÌ ºñ¾î ÀÖ½À´Ï´Ù.");
             }
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
         return "main";
     }
 }

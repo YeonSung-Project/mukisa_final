@@ -70,34 +70,30 @@
 </header>
 
 <section>
-<div class="container w-75 p-3 ">
-    <div class="container">
-        <div th:if="${#lists.isEmpty(recipeData)}">
-            <p>데이터가 없습니다.</p>
+    <div class="container w-75 p-3 ">
+        <div class="container">
+            <div th:if="${#lists.isEmpty(recipeData)}">
+                <p>데이터가 없습니다.</p>
+            </div>
         </div>
-    </div>
-
-    <div class="container" th:unless="${#lists.isEmpty(recipeData)}">
-        <div class="row row justify-content-md-center">
-            <div class="col  sm-1 md-4 lg-5 p-2" th:each="recipeItem : ${recipeData}">
-
-                <div class="card" style="width: 18rem;">
-                    <a  class="noneline text-success" th:href="@{/recipeDetail( recipeno=${recipeItem.recipe_no} )}">
-                        <img src="/img/notimg.jpg" class="card-img-top" alt="레시피 이미지입니다">
-                        <div class="card-body">
-                            <h5 class="card-title" th:text="${recipeItem.recipe_name}"></h5>
-
-                        </div>
-                    </a>
+    
+        <div class="container" th:unless="${#lists.isEmpty(recipeData)}">
+            <div class="row row justify-content-md-center">
+                <div class="col  sm-1 md-4 lg-5 p-2" th:each="recipeItem : ${recipeData}">
+    
+                    <div class="card" style="width: 18rem;">
+                        <a  class="noneline text-success" th:href="@{/recipeDetail( recipeno=${recipeItem.recipe_no} )}">
+                            <img src="/img/notimg.jpg" class="card-img-top" alt="레시피 이미지입니다">
+                            <div class="card-body">
+                                <h5 class="card-title" th:text="${recipeItem.recipe_name}"></h5>
+    
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
-
-
         </div>
-    </div>
-</section>
-
-
+    </section>
 
 <!-- Footer-->
 <div th:insert="~{/footer :: footerFragment}"></div>
