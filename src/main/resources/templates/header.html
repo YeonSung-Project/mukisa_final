@@ -5,6 +5,7 @@
 <head th:fragment="commonFragment">
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+    
 
     <title>Are you tea?</title>
 
@@ -27,7 +28,7 @@
     <style>
         nav {
             font-family: 'Noto Sans KR', sans-serif;
-
+            z-index: 3;
         }
         .navbar-brand,
         .navbar-nav .nav-link {
@@ -41,17 +42,17 @@
         }
         .navbar-brand{
             margin:10px;
-
         }
         .important-color{  color: #A4D792 !important;}
         .btn-main {background-color: #A4D792 !important;}
+        .navbar{background-color: white;}
+        
 </style>
 </head>
 
 <body>
-    
     <!--collapse 부모 요소에 navbar-expand-md 포함해야함 (md보다 크면 콜랩스 비활성화. 즉 디스플레이 작아진 상태에서만 콜랩스 매뉴 사용) -->
-    <nav class="navbar navbar-light navbar-expand-md" aria-label="First navbar example" th:fragment="navFragment">
+    <nav class="navbar navbar-light navbar-expand-md fixed-top" aria-label="First navbar example" th:fragment="navFragment">
         <div class="container-fluid">
             <a class="navbar-brand important-color" href="/">너 Tea야?</a>
     
@@ -95,7 +96,7 @@
                     </li>
     
                     <li th:if="${member != null}" class="nav-item pl-4 important-color">
-                        <a class="nav-link important-color" href="/logout">로그아웃</a>
+                        <a class="nav-link important-color" href="/logout" onclick="logout()">로그아웃</a>
                     </li>
                 </ul>
             </div>
@@ -103,13 +104,13 @@
     </nav>
 
     <!--scripts-->
-    <!-- js -->
+    <!-- js 카카오 로그아웃-->
     <script>
-        var myCollapse = document.getElementById('navbarCollapse')[^8^][8]
-        var bsCollapse = new bootstrap.Collapse(myCollapse, {
-          toggle: false
-        })
+        Kakao.Auth.logout(function() {
+            console.log(Kakao.Auth.getAccessToken());
+        });
     </script>
+
 
     <!-- Font Awesome icons (free version)-->
     <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
