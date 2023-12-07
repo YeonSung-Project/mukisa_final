@@ -15,12 +15,7 @@ window.addEventListener('DOMContentLoaded', event => {
         if (!navbarCollapsible) {
             return;
         }
-        if (window.scrollY === 0) {
-            navbarCollapsible.classList.remove('navbar-shrink')
-        } else {
-            navbarCollapsible.classList.add('navbar-shrink')
-        }
-
+        navbarCollapsible.classList.toggle('navbar-shrink', window.scrollY > 0);
     };
 
     // Shrink the navbar 
@@ -29,39 +24,23 @@ window.addEventListener('DOMContentLoaded', event => {
     // Shrink the navbar when page is scrolled
     document.addEventListener('scroll', navbarShrink);
 
-
-
-
     // my custom
     // Navbar shrink function
     var navShrink = function () {
         const navbar = document.body.querySelector('#mainNav');
-        const navbarLinks = [].slice.call(
-            document.querySelectorAll('#mainNav .navbar-nav .nav-item .nav-link:not(.dropdown)')
-        );
+        const navbarLinks = document.querySelectorAll('#mainNav .navbar-nav .nav-link:not(.dropdown)');
         if (!navbar || !navbarLinks) {
             return;
         }
-        if (window.scrollY === 0) {
-            navbar.classList.remove('nav-shrink');
-            navbarLinks.forEach(function(navbarLink) {
-                navbarLink.classList.remove('nav-shrink');
-            });
-        } else {
-            navbar.classList.add('nav-shrink');
-            navbarLinks.forEach(function(navbarLink) {
-                navbarLink.classList.add('nav-shrink');
-            });
-        }
+        navbar.classList.toggle('nav-shrink', window.scrollY > 0);
+        navbarLinks.forEach(function(navbarLink) {
+            navbarLink.classList.toggle('nav-shrink', window.scrollY > 0);
+        });
     };
     // Shrink the navbar 
     navShrink();
     // Shrink the navbar when page is scrolled
     document.addEventListener('scroll', navShrink);
-
-
-
-
 
     //  Activate Bootstrap scrollspy on the main nav element
     const mainNav = document.body.querySelector('#mainNav');
@@ -71,40 +50,5 @@ window.addEventListener('DOMContentLoaded', event => {
             rootMargin: '0px 0px -40%',
         });
     };
-
-
-
-
-
-    // 반응형 네비게이션 바가 축소될 때 동작. 요소 클릭시 매뉴가 사라지게 하는 동작에 필터를 걸어 
-    // 드랍다운 항목인 티는 제외함.
-    // 즉 작은 화면, 모바일에서 동작하는 매뉴.
-    const navbarToggler = document.body.querySelector('.navbar-toggler');
-    const responsiveNavItems = [].slice.call(
-        document.querySelectorAll('#navbarResponsive .nav-link:not(.dropdown-toggle)')
-    );
-    responsiveNavItems.map(function (responsiveNavItem) {
-        responsiveNavItem.addEventListener('click', () => {
-            if (window.getComputedStyle(navbarToggler).display !== 'none') {
-                navbarToggler.click();
-            }
-        });
-    });
-
-
-
-    // // Collapse responsive navbar when toggler is visible
-    // const navbarToggler = document.body.querySelector('.navbar-toggler');
-    // const responsiveNavItems = [].slice.call(
-    //     document.querySelectorAll('#navbarResponsive .nav-link')
-    // );
-    // responsiveNavItems.map(function (responsiveNavItem) {
-    //     responsiveNavItem.addEventListener('click', () => {
-    //         if (window.getComputedStyle(navbarToggler).display !== 'none') {
-    //             navbarToggler.click();
-    //         }
-    //     });
-    // });
-
 
 });
