@@ -7,3 +7,6 @@
 
 <hr>
 
+
+db port : 3306
+url port : 8080
