@@ -2,6 +2,8 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>로그인</title>
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/css/login_signup_style.css?after}">-->
+    <link rel="stylesheet" type="text/css" href="css/public_settings.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         function resetForm() {
@@ -66,7 +68,7 @@
 
 <div th:insert="~{/header :: navFragment}"></div>
 
-<div class="container mt-5">
+<div class="container public-settings">
     <div class="row justify-content-center">
         <div id="loginbox" class="col-md-6  shadow rounded">
             <form id="loginForm" class="p-4" type="POST">

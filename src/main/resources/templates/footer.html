@@ -4,13 +4,24 @@
 
 
 <!-- Footer-->
-<footer class="footer mt-auto py-3 bg-light fixed-bottom" th:fragment="footerFragment">
+<footer class="footer mt-auto paddings bg-light settings-non-fix" th:fragment="footerFragment">
     <head>
         <meta charset="UTF-8">
 
         <style>
             .settings{
                 width: 100%;
+            }
+            .paddings{
+                padding-left: 5px;
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+            .settings-non-fix{
+                right: 0;
+                left: 0;
+                bottom: 0;
+                z-index: 1;
             }
         </style>
     </head>
