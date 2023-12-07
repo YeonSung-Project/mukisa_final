@@ -12,12 +12,14 @@
     <!--<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />  ------ 여기 우리 사이트 대표 이미지 등록 필요 -->
 
     <!--부트스트랩 css-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="path/to/styles.css"> <!-- styles.css 파일의 경로를 정확하게 지정해주세요 -->
     <!-- Google fonts-->
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet" type="text/css" />
-    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic" rel="stylesheet"
+          type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css"/>
 
     <!-- 폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,77 +47,92 @@
         }
         .important-color{  color: #A4D792 !important;}
         .btn-main {background-color: #A4D792 !important;}
-</style>
+
+      pre {
+        background-color: #fff;
+        padding: 10px;
+        overflow: auto;
+        white-space: pre-wrap;
+        font-size: 1rem; /* 1rem은 부트스트랩의 기본 폰트 크기입니다. */
+      }
+
+    </style>
 </head>
 
 <body>
-    
-    <!--collapse 부모 요소에 navbar-expand-md 포함해야함 (md보다 크면 콜랩스 비활성화. 즉 디스플레이 작아진 상태에서만 콜랩스 매뉴 사용) -->
-    <nav class="navbar navbar-light navbar-expand-md" aria-label="First navbar example" th:fragment="navFragment">
-        <div class="container-fluid">
-            <a class="navbar-brand important-color" href="/">너 Tea야?</a>
-    
-            <!--collapse 시키는 버튼-->
-            <button class="navbar-toggler" type="button" role="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-    
-            <!--접히고 펴지는 버튼 내부 매뉴(평소엔 가려짐)-->
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <ul class="navbar-nav ms-auto mb-2">
-                    <li class="nav-item">
-                        <a class="nav-link important-color" href="/medicine">약차</a>
-                    </li>
-    
-                    <li class="nav-item">
-                        <a class="nav-link important-color" href="/china">중국차</a>
-                    </li>
-    
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle important-color" href="#" id="dropdown01" role="button" data-bs-toggle="dropdown" aria-expanded="false">티</a>
-                        <ul class="dropdown-menu" aria-labelledby="dropdown01">
-                            <li><a class="dropdown-item important-color" href="/world">세계의 티</a></li>
-                            <li><a class="dropdown-item important-color" href="/efficacy">티의 효능</a></li>
-                            <li><a class="dropdown-item important-color" href="/enjoy">즐기는 법</a></li>
-                            <li><a class="dropdown-item important-color" href="/dictionary">용어</a></li>
-                            <li><a class="dropdown-item important-color" href="/recipe">레시피</a></li>
-                        </ul>
-                    </li>
-    
-                    <li class="nav-item">
-                        <a class="nav-link important-color" href="/community">커뮤니티</a>
-                    </li>
-    
-                    <li class="nav-item">
-                        <a class="nav-link important-color" href="/community">공지사항</a>
-                    </li>
-    
-                    <li th:unless="${member != null}" class="nav-item pl-4">
-                        <a class="nav-link important-color" href="/login">로그인</a>
-                    </li>
-    
-                    <li th:if="${member != null}" class="nav-item pl-4 important-color">
-                        <a class="nav-link important-color" href="/logout">로그아웃</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
 
-    <!--scripts-->
-    <!-- js -->
-    <script>
+<!--collapse 부모 요소에 navbar-expand-md 포함해야함 (md보다 크면 콜랩스 비활성화. 즉 디스플레이 작아진 상태에서만 콜랩스 매뉴 사용) -->
+<nav class="navbar navbar-light navbar-expand-md" aria-label="First navbar example" th:fragment="navFragment">
+    <div class="container-fluid">
+        <a class="navbar-brand important-color" href="/">너 Tea야?</a>
+
+        <!--collapse 시키는 버튼-->
+        <button class="navbar-toggler" type="button" role="button" data-bs-toggle="collapse"
+                data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!--접히고 펴지는 버튼 내부 매뉴(평소엔 가려짐)-->
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav ms-auto mb-2">
+                <li class="nav-item">
+                    <a class="nav-link important-color" href="/medicine">약차</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link important-color" href="/china">중국차</a>
+                </li>
+
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle important-color" href="#" id="dropdown01" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">티</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown01">
+                        <li><a class="dropdown-item important-color" href="/world">세계의 티</a></li>
+                        <li><a class="dropdown-item important-color" href="/efficacy">티의 효능</a></li>
+                        <li><a class="dropdown-item important-color" href="/enjoy">즐기는 법</a></li>
+                        <li><a class="dropdown-item important-color" href="/dictionary">용어</a></li>
+                        <li><a class="dropdown-item important-color" href="/recipe">레시피</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link important-color" href="/community">커뮤니티</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link important-color" href="/community">공지사항</a>
+                </li>
+
+                <li th:unless="${member != null}" class="nav-item pl-4">
+                    <a class="nav-link important-color" href="/login">로그인</a>
+                </li>
+
+                <li th:if="${member != null}" class="nav-item pl-4 important-color">
+                    <a class="nav-link important-color" href="/logout">로그아웃</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<!--scripts-->
+<!-- js -->
+<script>
         var myCollapse = document.getElementById('navbarCollapse')[^8^][8]
         var bsCollapse = new bootstrap.Collapse(myCollapse, {
           toggle: false
         })
-    </script>
 
-    <!-- Font Awesome icons (free version)-->
-    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
-    
-    <!-- 부트스트랩 자바스크립트 라이브러리 -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</script>
+
+<!-- Font Awesome icons (free version)-->
+<script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+
+<!-- 부트스트랩 자바스크립트 라이브러리 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+        crossorigin="anonymous"></script>
 
 </body>
 </html>

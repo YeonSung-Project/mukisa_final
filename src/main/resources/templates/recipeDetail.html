@@ -30,15 +30,15 @@
                     <div class="col-md-6">
                         <h1 th:text="${recipeDetailData.recipe_name}" class="display-5"></h1>
                         <p th:text="${recipeDetailData.recipe_content}"></p>
-                        <p th:text="'레시피 양'+${recipeDetailData.recipe_quantity}+'인분'"></p>
+                        <p th:text="'레시피 양: '+${recipeDetailData.recipe_quantity}+'인분'"></p>
                         <p th:text="'물온도: '+${recipeDetailData.recipe_temperature}+'도'"></p>
                         <p th:text="'우리는 시간: '+${recipeDetailData.recipe_time}"></p>
                         <p th:text="'유형: '+${recipeDetailData.recipe_type}"></p>
                         <p th:text="'우유: '+${recipeDetailData.recipe_milk}"></p>
-                        <p>재료:</p>
-                        <p th:text="${recipeDetailData.recipe_ingredient}"></p>
-                        <p th:utext="'제조 방법: '+${recipeDetailData.recipe_make.replaceAll('(?=(1\\.|2\\.|3\\.))', '\n')}"></p>
-
+                        <span>재료:</span>
+                        <pre th:text="${recipeDetailData.recipe_ingredient}"></pre>
+                        <span>제조 방법:</span>
+                        <pre th:text="${recipeDetailData.recipe_make}"></pre>
 
                     </div>
                 </div>

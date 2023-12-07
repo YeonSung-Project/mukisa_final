@@ -59,4 +59,10 @@ public class MemberController {
         memberService.logout(httpSession);
         return "redirect:/";
     }
+
+
+    @GetMapping("/step01")
+    public String stepController() {
+        return "step01";
+    }
 }
