@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>회원가입</title>
+  <link rel="stylesheet" type="text/css" href="css/public_settings.css">
   <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
   <script th:src="@{/js/register.js}"></script>
 
@@ -19,7 +20,7 @@
 
 
 <div th:insert="~{/header :: navFragment}"></div>
-<div class="container">
+<div class="container public-settings">
   <form role="form" action="signup" th:action="@{/signup}">
     <div class="card w-100 p-3 mt-3 justify-content-sm-center align-items-sm-center">
       <div class="form-group">
@@ -114,26 +115,34 @@
     }
   }
 
-  // 개별 체크박스를 선택하면 전체 동의 체크박스가 선택되거나 해제되도록 하는 함수
-  function checkEach() {
-    // agreeAll이라는 id를 가진 체크박스를 찾는다
-    var agreeAll = document.getElementById("agreeAll");
-    // agree라는 name을 가진 체크박스들의 배열을 찾는다
-    var agrees = document.getElementsByName("agree");
-    // agrees 배열의 모든 요소에 대해
-    for (var i = 0; i < agrees.length; i++) {
-      // 체크박스가 체크되지 않으면
-      if (!agrees[i].checked) {
-        // agreeAll을 체크 해제한다
-        agreeAll.checked = false;
-        // for 문을 빠져나간다
-        break;
-      }
+ // 개별 체크박스를 선택하면 전체 동의 체크박스가 선택되거나 해제되도록 하는 함수
+function checkEach() {
+  // agreeAll이라는 id를 가진 체크박스를 찾는다
+  var agreeAll = document.getElementById("agreeAll");
+  // agree라는 name을 가진 체크박스들의 배열을 찾는다
+  var agrees = document.getElementsByName("agree");
+  // 선택된 개별 체크박스의 수를 저장할 변수
+  var selectedCount = 0;
+
+  // agrees 배열의 모든 요소에 대해
+  for (var i = 0; i < agrees.length; i++) {
+    // 체크박스가 체크되었으면
+    if (agrees[i].checked) {
+      // 선택된 개별 체크박스 수를 증가시킨다
+      selectedCount++;
     }
-    // 모든 체크박스가 체크되면
+  }
+
+  // 선택된 개별 체크박스의 수와 전체 체크박스의 수가 일치하면
+  if (selectedCount === agrees.length) {
     // agreeAll을 체크한다
     agreeAll.checked = true;
+  } else {
+    // 하나라도 체크가 해제되면 agreeAll을 체크 해제한다
+    agreeAll.checked = false;
   }
+}
+
 
   // 전체 동의 체크박스에 checkAll 함수를 연결한다
   document.getElementById("agreeAll").onclick = checkAll;
@@ -144,6 +153,8 @@
     // checkEach 함수를 연결한다
     agrees[i].onclick = checkEach;
   }
+
+
 </script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="/js/main_scripts.js"></script>

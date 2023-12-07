@@ -65,8 +65,4 @@ public class MemberController {
     }
 
 
-    @GetMapping("/step01")
-    public String stepController() {
-        return "step01";
-    }
 }
