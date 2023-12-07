@@ -56,6 +56,7 @@
         font-size: 1rem; /* 1rem은 부트스트랩의 기본 폰트 크기입니다. */
       }
 
+
     </style>
 </head>
 
@@ -76,6 +77,17 @@
         <!--접히고 펴지는 버튼 내부 매뉴(평소엔 가려짐)-->
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav ms-auto mb-2">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle important-color" href="#" id="dropdown01" role="button"
+                       data-bs-toggle="dropdown" aria-expanded="false">티 이야기</a>
+                    <ul class="dropdown-menu" aria-labelledby="dropdown01">
+                        <li><a class="dropdown-item important-color" href="/world">세계의 티</a></li>
+                        <li><a class="dropdown-item important-color" href="/efficacy">티의 효능</a></li>
+                        <li><a class="dropdown-item important-color" href="/enjoy">즐기는 법</a></li>
+                        <li><a class="dropdown-item important-color" href="/dictionary">용어</a></li>
+
+                    </ul>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link important-color" href="/medicine">약차</a>
                 </li>
@@ -83,18 +95,8 @@
                 <li class="nav-item">
                     <a class="nav-link important-color" href="/china">중국차</a>
                 </li>
+                <li><a class="nav-link important-color" href="/recipe">레시피</a></li>
 
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle important-color" href="#" id="dropdown01" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">티</a>
-                    <ul class="dropdown-menu" aria-labelledby="dropdown01">
-                        <li><a class="dropdown-item important-color" href="/world">세계의 티</a></li>
-                        <li><a class="dropdown-item important-color" href="/efficacy">티의 효능</a></li>
-                        <li><a class="dropdown-item important-color" href="/enjoy">즐기는 법</a></li>
-                        <li><a class="dropdown-item important-color" href="/dictionary">용어</a></li>
-                        <li><a class="dropdown-item important-color" href="/recipe">레시피</a></li>
-                    </ul>
-                </li>
 
                 <li class="nav-item">
                     <a class="nav-link important-color" href="/community">커뮤니티</a>
@@ -123,6 +125,7 @@
         var bsCollapse = new bootstrap.Collapse(myCollapse, {
           toggle: false
         })
+
 
 </script>
 
