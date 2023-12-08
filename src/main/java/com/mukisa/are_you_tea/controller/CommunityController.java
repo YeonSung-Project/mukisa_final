@@ -1,10 +1,6 @@
 package com.mukisa.are_you_tea.controller;
 
 import com.mukisa.are_you_tea.data.entity.CommunityEntity;
-import com.mukisa.are_you_tea.data.entity.MemberEntity;
-import com.mukisa.are_you_tea.data.entity.UserEntity;
-import com.mukisa.are_you_tea.data.repository.MemberRepository;
-import com.mukisa.are_you_tea.data.repository.UserRepository;
 import com.mukisa.are_you_tea.service.CommunityService;
 import com.mukisa.are_you_tea.service.SessionCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
