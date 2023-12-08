@@ -46,6 +46,7 @@ public class MemberService {
                 newMember.setMbId(mbId);
                 newMember.setMbPw(mbPw);
                 newMember.setMbNm(mbNm);
+                newMember.setRole("USER");
                 Date now = new Date();
                 newMember.setMbDate(now);
                 memberRepository.save(newMember);

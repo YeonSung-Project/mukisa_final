@@ -19,6 +19,8 @@ public class MemberEntity {
     private String mbPw;        // 회원 비밀번호
     @Column(name = "MB_NM")
     private String mbNm;        // 회원 닉네임
+    @Column(name="MB_ROLE")
+    private String role; // ROLE_USER, ROLE_ADMIN
     @Column(name = "MB_DATE")
     private Date mbDate;        // 회원 가입일
     @Column(name = "MB_YN")
