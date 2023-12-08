@@ -1,7 +1,12 @@
 package com.mukisa.are_you_tea.controller;
 
 import com.mukisa.are_you_tea.data.entity.CommunityEntity;
+import com.mukisa.are_you_tea.data.entity.MemberEntity;
+import com.mukisa.are_you_tea.data.entity.UserEntity;
+import com.mukisa.are_you_tea.data.repository.MemberRepository;
+import com.mukisa.are_you_tea.data.repository.UserRepository;
 import com.mukisa.are_you_tea.service.CommunityService;
+import com.mukisa.are_you_tea.service.SessionCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -25,6 +30,8 @@ public class CommunityController {
 
     @Autowired
     private HttpSession httpSession;
+    @Autowired
+    private SessionCheckService sessionCheckService;
 
     // 커뮤니티 글 리스트
     @GetMapping("community")
@@ -32,8 +39,9 @@ public class CommunityController {
                             @PageableDefault(page = 0, size = 20, sort = "boNo", direction = Sort.Direction.DESC) Pageable pageable,  // 페이징 처리:사이즈는 20개, sort = 어떤걸로 기준 삼아서 정렬? = boNo
                             String searchKeyword) { // 검색어
 
-
         Page<CommunityEntity> list = null;
+
+        sessionCheckService.sessionCheck(model, httpSession);
 
         // 검색어 if
         if (searchKeyword == null) {
