@@ -2,6 +2,7 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>회원가입</title>
+    <link rel="stylesheet" type="text/css" href="css/public_settings.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
         function resetForm() {
@@ -37,7 +38,7 @@
                     success: function(response) {
                         if(response === 'SUCCESS') {
                             // 회원가입 성공 처리
-                            location.replace("/");
+                            location.replace("/login");
                         } else if(response === "FAIL_ID"){
                             alert('등록된 아이디가 있습니다.');
                             resetForm();
@@ -54,47 +55,68 @@
         });
 
     </script>
+    <style>
+        .noneline {text-decoration: none;}
+    </style>
 </head>
-
-
-
 <body>
-<div th:insert="~{/header :: commonFragment}"></div>
+    <div th:insert="~{/header :: commonFragment}"></div>
 
-<div th:insert="~{/header :: navFragment}"></div>
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-6 shadow rounded">
-            <form id="signupForm">
-                <div class="container">
-                    <h1 class="text-center">회원가입</h1>
-                    <label for="mbId"><b>ID</b></label>
-                    <input class="form-control" type="text" id="mbId" placeholder="아이디 입력" name="mbId" required>
-                    <br>
-                    <label for="mbPw"><b>Password</b></label>
-                    <input class="form-control" type="password" id="mbPw" placeholder="비밀번호 입력" name="mbPw" required>
-                    <br>
-                    <label for="mbNm"><b>Name</b></label>
-                    <input class="form-control" type="text" id="mbNm" placeholder="이름 입력" name="mbNm" required>
+    <div th:insert="~{/header :: navFragment}"></div>
 
-                    <button type="submit" class="btn btn-primary m-3">가입하기</button>
+
+    <div class="container public-settings">
+        <div class="row justify-content-center">
+            <div class="col-md-6  shadow rounded">
+                <form id="signupForm"  class="p-4" type="POST">
+                    <h2 class="mb-4 text-center">회원가입</h2>
+
+                    <div class="mb-3">
+                        <label for="mbId" class="form-label"><b>아이디</b></label>
+                        <input class="form-control shadow rounded" type="text" id="mbId" placeholder="아이디" name="mbId" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mbPw" class="form-label"><b>비밀번호</b></label>
+                        <input class="form-control shadow rounded" type="password" id="mbPw" placeholder="비밀번호" name="mbPw" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="mbNm" class="form-label"><b>닉네임</b></label>
+                        <input class="form-control shadow rounded" type="text" id="mbNm" placeholder="닉네임" name="mbNm" required>
+                    </div>
+                    
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-main btn-lg text-light">회원가입</button>
+                    </div>
+                </form>
+                <div class="container mt-3 ">
+                    <a href="/login" class="noneline text-dark">로그인</a>
                 </div>
-                <br>
-                <div class="container_0">
-                    <button type="button" class="btn btn-danger cancelbtn" onclick="resetForm()">취소</button>
-                    <span class="psw">이미 회원이신가요? <a href="/login">지금 로그인</a></span>
+
+                <div class="mt-4 d-flex justify-content-center">
+                    <a href="/oauth2/authorization/google"  class="m-2">
+                        <img src="img/Google_login.png" alt="Google" width="30" height="30" class="rounded">
+
+                    </a>
+                    <a href="/oauth2/authorization/facebook" class="m-2">
+                        <img src="img/Facebook_login.png" alt="Facebook" width="30" height="30">
+                    </a>
+
+                    <a href="/oauth2/authorization/naver" class="m-2">
+                        <img src="img/Naver_login.png" alt="Naver" width="30" height="30">
+                    </a>
+                    <a href="/oauth2/authorization/kakao"  class="m-2">
+                        <img src="img/KakaoTalk_login.png" alt="Kakao" width="30" height="30">
+                    </a>
                 </div>
-            </form>
+            </div>
         </div>
     </div>
-</div>
 
-<div class="container fixed-bottom">
     <div th:insert="~{/footer :: footerFragment}"></div>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-<script src="/js/main_scripts.js"></script>
-<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/js/main_scripts.js"></script>
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
 </body>
 </html>

@@ -34,6 +34,10 @@ public class MemberController {
         }
     }
 
+    @GetMapping("/step01")
+    public String step01Controller(){
+        return "step01";
+    }
     @GetMapping("/signup")
     public String signupController() {
         return "signup";
@@ -61,8 +65,4 @@ public class MemberController {
     }
 
 
-    @GetMapping("/step01")
-    public String stepController() {
-        return "step01";
-    }
 }
