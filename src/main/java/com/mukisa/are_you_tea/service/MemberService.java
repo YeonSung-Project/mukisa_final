@@ -30,17 +30,17 @@ public class MemberService {
 
     public int signup(String mbId, String mbPw, String mbNm) {
         try {
-            // ºñ¹Ğ¹øÈ£ À¯È¿¼º °Ë»ç
+            // ë¹„ë°€ë²ˆí˜¸ ìœ íš¨ì„± ê²€ì‚¬
             String pwRegex = "^[A-Za-z0-9!\"#$%&'()*+,-./:;<=>?@[\\\\]^_`{|}~\\\\\\\\]{8,16}$";
             Pattern pwPattern = Pattern.compile(pwRegex);
             Matcher pwMatcher = pwPattern.matcher(mbPw);
             if (!pwMatcher.matches()) {
-                return 3;  // ºñ¹Ğ¹øÈ£ ¾ç½Ä ¿À·ù
+                return 3;  // ë¹„ë°€ë²ˆí˜¸ ì–‘ì‹ ì˜¤ë¥˜
             }
 
             MemberEntity member = memberRepository.findByMbId(mbId);
             if (member != null) {
-                return 0;  // ¾ÆÀÌµğ Áßº¹
+                return 0;  // ì•„ì´ë”” ì¤‘ë³µ
             } else {
                 MemberEntity newMember = new MemberEntity();
                 newMember.setMbId(mbId);
@@ -50,10 +50,10 @@ public class MemberService {
                 Date now = new Date();
                 newMember.setMbDate(now);
                 memberRepository.save(newMember);
-                return 1;  // È¸¿ø°¡ÀÔ ¼º°ø
+                return 1;  // íšŒì›ê°€ì… ì„±ê³µ
             }
         } catch (Exception e) {
-            return 2;  // È¸¿ø°¡ÀÔ ½ÇÆĞ
+            return 2;  // íšŒì›ê°€ì… ì‹¤íŒ¨
         }
     }
 
