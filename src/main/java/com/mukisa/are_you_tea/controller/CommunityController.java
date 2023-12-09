@@ -17,6 +17,17 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * @packageName    : com.mukisa.are_you_tea.controller
+ * @fileName        : CommunityController
+ * @author        : Youil Park
+ * @date            : 2023-11-26
+ * @description            :
+ * ===========================================================
+ * DATE              AUTHOR             NOTE
+ * -----------------------------------------------------------
+ * 2023-11-26      Youil Park       최초 생성
+ */
 
 @Controller
 public class CommunityController {

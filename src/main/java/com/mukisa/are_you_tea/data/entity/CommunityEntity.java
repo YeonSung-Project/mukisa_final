@@ -4,6 +4,18 @@ import lombok.Data;
 
 import javax.persistence.*;
 
+/**
+ * @packageName    : com.mukisa.are_you_tea.data.entity
+ * @fileName        : CommunityEntity
+ * @author        : Youil Park
+ * @date            : 2023-11-26
+ * @description            :
+ * ===========================================================
+ * DATE              AUTHOR             NOTE
+ * -----------------------------------------------------------
+ * 2023-11-26      Youil Park       최초 생성
+ */
+
 @Entity
 @Data
 @Table(name = "communityT")

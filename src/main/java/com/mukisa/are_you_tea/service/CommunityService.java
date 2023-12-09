@@ -13,6 +13,18 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.util.UUID;
 
+/**
+ * @packageName    : com.mukisa.are_you_tea.service
+ * @fileName        : CommunityService
+ * @author        : Youil Park
+ * @date            : 2023-11-26
+ * @description            :
+ * ===========================================================
+ * DATE              AUTHOR             NOTE
+ * -----------------------------------------------------------
+ * 2023-11-26      Youil Park       최초 생성
+ */
+
 @Service
 public class CommunityService {
 
@@ -33,25 +45,27 @@ public class CommunityService {
     }
 
     // 커뮤니티 글 작성
-    public void communityWrite(CommunityEntity communityEntity, MultipartFile file) throws Exception{
+    public void communityWrite(CommunityEntity communityEntity, MultipartFile file) throws Exception {
+        if (file != null && !file.isEmpty()) {
+            // 식별자
+            UUID uuid = UUID.randomUUID();
+            String fileName = uuid + "_" + file.getOriginalFilename();  // 파일 식별자
 
-        // 식별자
-        UUID uuid = UUID.randomUUID();
-        String fileName = uuid + "_" + file.getOriginalFilename();  // 파일 식별자
+            // ************* 파일 저장 *******************
 
-        // ************* 파일 저장 *******************
+            String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\communityFile"; // 파일 경로
+            File saveFile = new File(filePath, fileName);
 
-        String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\communityFile"; // 파일 경로
-        File saveFile = new File(filePath, fileName);
+            file.transferTo(saveFile);
 
-        file.transferTo(saveFile);
-
-        communityEntity.setBoFilename(fileName);    // 파일이름
-        communityEntity.setBoFilepath("/communityFile/" + fileName);    // 파일경로
-        // ******************************************
+            communityEntity.setBoFilename(fileName);    // 파일이름
+            communityEntity.setBoFilepath("/communityFile/" + fileName);    // 파일경로
+            // ******************************************
+        }
 
         communityRepository.save(communityEntity);
     }
+
 
     // 커뮤니티 특정 글 삭제
     public void communityDelete(Integer boNo) {
