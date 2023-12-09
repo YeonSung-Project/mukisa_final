@@ -46,7 +46,10 @@ public class CommunityService {
 
     // 커뮤니티 글 작성
     public void communityWrite(CommunityEntity communityEntity, MultipartFile file) throws Exception {
+        //String mbId = communityEntity.getMbId(); // 작성자 정보 가져오기
+
         if (file != null && !file.isEmpty()) {
+
             // 식별자
             UUID uuid = UUID.randomUUID();
             String fileName = uuid + "_" + file.getOriginalFilename();  // 파일 식별자
@@ -63,6 +66,7 @@ public class CommunityService {
             // ******************************************
         }
 
+        //communityEntity.setMbId(mbId); // 작성자 정보 설정
         communityRepository.save(communityEntity);
     }
 

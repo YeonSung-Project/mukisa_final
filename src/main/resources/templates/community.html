@@ -54,9 +54,7 @@
 
                     </td>
                     <!-- 작성일 -->
-                    <td>
-
-                    </td>
+                    <td th:text="${#temporals.format(communityEntity.boDate, 'yyyy-MM-dd')}"></td>
 
                     <!-- 조회수 -->
                     <td th:text="${communityEntity.boHits}"></td>

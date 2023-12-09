@@ -26,6 +26,11 @@
         </div>
 
         <div class="mb-3">
+            <label class="form-label">파일 이름</label>
+            <p th:text="${communityview.boFilename}"></p>
+        </div>
+
+        <div class="mb-3">
             <a th:href="@{${communityview.boFilepath}}">다운받기</a>
         </div>
 

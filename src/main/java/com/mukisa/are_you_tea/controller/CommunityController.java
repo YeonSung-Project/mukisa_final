@@ -95,6 +95,13 @@ public class CommunityController {
     @PostMapping("/communitywritepro")
     public String communityWritePro (CommunityEntity communityEntity, MultipartFile file, Model model) throws Exception{
 
+        
+        /* TODO: ID값이 너무 길다
+        String mbId = (String) httpSession.getAttribute("userSession");
+
+        System.out.printf(mbId);
+        communityEntity.setMbId(mbId); // 작성자 정보 추가*/
+
         communityService.communityWrite(communityEntity, file);
 
         model.addAttribute("message", "글 작성이 완료되었습니다.");    // 메세지
