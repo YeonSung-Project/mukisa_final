@@ -3,14 +3,13 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" type="text/css" href="css/public_settings.css">
-
+    <script src="./script/qna_board_view.js"></script>
 </head>
 <div th:insert="~{/header :: commonFragment}"></div>
 
 <!-- Navigation-->
 <div th:insert="~{/header :: navFragment}"></div>
-
-<body id="page-top">
+<body class="d-flex flex-column min-vh-100">
 
 <section class="page-section public-settings" id="services">
     <div class="container" style="margin-bottom:60px;">
@@ -22,16 +21,22 @@
             </div>
         </div>
 
-        <div class="container w-75 p-3">
+
             <div class="container">
 
                 <div th:if="${recipeDetailData}" class="row">
+
                     <div class="col-md-6">
-                        <img src="/img/notimg.jpg" class="img-fluid card-img-top" alt="레시피 이미지입니다">
+                        <img th:src="@{/img/recipe/{recipe_img}(recipe_img=${recipeDetailData.recipe_img})}"
+                             class="img-fluid card-img-top"
+                             alt="레시피 이미지입니다">
+
                         <p class="text-center mt-2" th:text="'등록일 '+${recipeDetailData.recipe_mdf_date}"></p>
+
                     </div>
                     <div class="col-md-6">
                         <h1 th:text="${recipeDetailData.recipe_name}" class="display-5"></h1>
+                        <span>설명:</span>
                         <p th:text="${recipeDetailData.recipe_content}"></p>
                         <p th:text="'레시피 양: '+${recipeDetailData.recipe_quantity}+'인분'"></p>
                         <p th:text="'물온도: '+${recipeDetailData.recipe_temperature}+'도'"></p>
@@ -50,12 +55,16 @@
                     <p>데이터가 없습니다.</p>
                 </div>
             </div>
+                <div class="container d-flex justify-content-end">
+                    <a class="btn btn-main" href="/recipe">목록</a>
+                    <a class="btn btn-danger" href="/">수정</a>
+                    <a class="btn btn-danger" href="/">삭제</a>
+                </div>
         </div>
-    </div>
-</section>
 
-<section>
-    <!-- Comment Section Display -->
+
+
+    <!-- 댓글-->
     <div class="container" style="margin-bottom:60px;">
         <div class="container w-75 p-3">
             <div class="row">
@@ -131,7 +140,7 @@
         </div>
 
         <!-- 댓글쓰기 -->
-        <div class="container">
+        <div class="container w-75 p-3">
             <div class="row justify-content-md-center">
                 <form class="reply_Update" action="boardReplyPro.me?b_no=123" method="post" name="replyform">
                     <fieldset>
@@ -155,6 +164,9 @@
     </div>
 
 </section>
+
+
+
 
 <!-- Footer-->
 <div th:insert="~{/footer :: footerFragment}"></div>

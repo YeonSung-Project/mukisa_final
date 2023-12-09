@@ -13,10 +13,11 @@ public class Recipe_ReviewService {
     @Autowired
     private Recipe_ReviewRepository recipeReviewRepository;
 
-    //레시피 댓글 리스트 조회
-    public List<Recipe_ReviewEntity> dataLoad(){
+    // 특정 레시피 글에 대한 댓글 리스트 조회
+    public List<Recipe_ReviewEntity> getRecipeReviewByRecipeId(int recipeNo) {
         try {
-            return recipeReviewRepository.findAll();
+            // recipeId를 사용하여 해당 레시피 글에 대한 댓글을 조회
+            return null;
         } catch (Exception e) {
             e.printStackTrace();
             return null;
@@ -33,7 +34,7 @@ public class Recipe_ReviewService {
 
     // 커뮤니티 특정 글 삭제
     public void recipeReviewDelete(Integer Recipe_ReviewNo) {
-        recipeReviewRepository.deleteById(Recipe_ReviewNo);
+
     }
 
 

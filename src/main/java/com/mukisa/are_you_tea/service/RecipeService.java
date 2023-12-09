@@ -41,4 +41,12 @@ public class RecipeService {
         recipeRepository.deleteById(recipeno);
     }
 
+    //레시피 타입 가져오기
+    public List<String> getDistinctRecipeTypes() {
+        return recipeRepository.findDistinctByRecipeType();
+    }
+    //타입 검색
+    public List<RecipeEntity> findByRecipeType(String recipeType) {
+        return recipeRepository.findByRecipeType(recipeType);
+    }
 }

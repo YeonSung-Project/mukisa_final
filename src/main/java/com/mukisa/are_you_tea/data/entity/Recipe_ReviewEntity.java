@@ -22,8 +22,9 @@ public class Recipe_ReviewEntity {
     @Column(name = "RECIPE_REVIEW_REG_DATE")
     private String recipe_review_reg_date;
 
-    @Column(name = "Recipe_NO")
-    private int recipe_no;
+    @ManyToOne
+    @JoinColumn(name = "recipe_no")  // 'recipe_no'로 변경
+    private RecipeEntity recipe;
 
 
 }

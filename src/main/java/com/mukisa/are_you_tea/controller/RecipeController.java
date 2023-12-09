@@ -28,6 +28,10 @@ public class RecipeController {
     @RequestMapping("/recipe")
     public String gorecipeList(Model model) {
         try {
+            //레시피 타입
+            List<String> uniqueRecipeTypes = recipeService.getDistinctRecipeTypes();
+            model.addAttribute("RecipeTypes", uniqueRecipeTypes);
+            //레시피 목록
             List<RecipeEntity> dataset = recipeService.dataLoad();
             sessionCheckService.sessionCheck(model, httpSession);
             if (!dataset.isEmpty()) {
@@ -51,8 +55,10 @@ public class RecipeController {
     //상세 레시피 보기
     @RequestMapping("/recipeDetail")
     public String gorecipeDetail(@RequestParam(name = "recipeno", required = false) Integer recipeno, Model model) {
-        // recipeno가 null이 아니라면 조회하고 결과를 모델에 담음
+
         sessionCheckService.sessionCheck(model, httpSession);
+
+        // recipeno가 null이 아니라면 조회하고 결과를 모델에 담음
         if (recipeno != null) {
             RecipeEntity recipe = recipeService.findRecipeId(recipeno);
             if (recipe != null) {
@@ -74,5 +80,12 @@ public class RecipeController {
     public String recipeWriteForm() {
 
         return "recipeWrite";
+    }
+
+    @GetMapping("/recipes")
+    public String getRecipesByType(@RequestParam String recipeType, Model model) {
+        List<RecipeEntity> recipes = recipeService.findByRecipeType(recipeType);
+        model.addAttribute("recipes", recipes);
+        return "recipe-list :: #recipesFragment"; // Thymeleaf fragment update
     }
 }

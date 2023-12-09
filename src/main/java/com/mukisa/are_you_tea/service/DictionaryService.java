@@ -15,7 +15,7 @@ public class DictionaryService {
     @Autowired
     DictionaryRepository dictionaryRepository;
 
-    // 이전 메소드는 목록 조회에 사용
+    //목록 조회에 사용
     public List<DictionaryEntity> getAllDictionaries(){
         try {
             return dictionaryRepository.findAll();

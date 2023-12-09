@@ -20,8 +20,8 @@ public class RecipeEntity {
     private int recipe_temperature;
     @Column(name = "RECIPE_time " )
     private String recipe_time ;
-    @Column(name = "RECIPE_type" )
-    private String recipe_type;
+    @Column(name = "RECIPE_type")
+    private String recipeType;
     @Column(name = "RECIPE_milk" )
     private String recipe_milk ;
     @Column(name = "RECIPE_content" )
