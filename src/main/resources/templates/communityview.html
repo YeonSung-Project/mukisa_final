@@ -2,16 +2,21 @@
 <!-- custom -->
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 
+<head>
+    <link rel="stylesheet" type="text/css" href="css/public_settings.css">
+</head>
+
 <div th:insert="~{/header :: commonFragment}"></div>
 <!-- Navigation-->
 <div th:insert="~{/header :: navFragment}"></div>
+
 <body id="page-top">
 
-<section class="page-section" id="services">
+<section class="page-section public-settings" id="services">
     <div class="container" style="margin-bottom:60px;">
         <div class="row py-5">
             <div class="col-lg-9 mx-auto text-white text-center" style="margin-left:300px;">
-                <h1 class="display-5" style="color:black !important; margin-left:20px;">글 내용</h1>
+                <h1 class="display-5" style="color:black !important; margin-left:20px;">커뮤니티</h1>
             </div>
         </div>
 
@@ -19,24 +24,45 @@
             <label class="form-label">글 제목</label>
             <p th:text="${communityview.boTitle}"></p>
         </div>
-        <div class="mb-3">
-            <label class="form-label">내용</label>
 
-            <p th:text="${communityview.boContent}"></p>
-        </div>
-
-        <div class="mb-3">
+        <!-- 파일 이름이 '파일이 없습니다.'가 아닌 경우에만 출력 -->
+        <div class="mb-3" th:if="${communityview.boFilepath ne '파일이 없습니다.'}">
             <label class="form-label">파일 이름</label>
             <p th:text="${communityview.boFilename}"></p>
         </div>
 
         <div class="mb-3">
-            <a th:href="@{${communityview.boFilepath}}">다운받기</a>
+            <!-- 파일이 없을 경우에는 링크를 표시하지 않음 -->
+            <a th:if="${communityview.boFilepath ne '파일이 없습니다.'}" th:href="@{${communityview.boFilepath}}" onclick="return handleDownload()">다운받기</a>
         </div>
 
-        <a href="/community" type="button" class="btn btn-primary" >목록</a>
+        <div class="mb-3">
+            <label class="form-label">내용</label>
+            <p th:text="${communityview.boContent}"></p>
+        </div>
+
+        <a href="/community" type="button" class="btn btn-primary">목록</a>
         <a th:href="@{/communitymodify/{boNo}(boNo = ${communityview.boNo})}" type="button" class="btn btn-success">수정</a>
         <a th:href="@{/communitydelete(boNo=${communityview.boNo})}" type="button" class="btn btn-danger">삭제</a>
-
     </div>
 </section>
+
+<script th:inline="javascript">
+    /*<![CDATA[*/
+    function handleDownload() {
+        var filepath = /*[[${communityview.boFilepath}]]*/ '';
+
+        // 파일이 없는 경우 경고창 띄우기
+        if (filepath === "파일이 없습니다.") {
+            alert("파일이 없습니다.");
+            return false; // 다운로드 막기
+        }
+
+        // 파일이 있는 경우 다운로드 실행
+        return true;
+    }
+    /*]]>*/
+</script>
+
+</body>
+</html>

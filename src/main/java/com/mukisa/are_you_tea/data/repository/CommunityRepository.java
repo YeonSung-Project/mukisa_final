@@ -21,7 +21,13 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CommunityRepository extends JpaRepository<CommunityEntity,Integer>{
 
-    // 커뮤니티 검색 기능
+    /**
+     * @methodName : findByBoTitleContaining
+     * @description : 커뮤니티 검색 기능
+     * @author  : Youil Park
+     * @param : searchKeyword       검색어
+     * @param : pageable            페이징
+     */
     Page<CommunityEntity> findByBoTitleContaining(String searchKeyword, Pageable pageable);
 
 }

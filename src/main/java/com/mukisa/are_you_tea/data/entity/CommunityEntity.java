@@ -20,15 +20,13 @@ import java.time.LocalDateTime;
 @Entity
 @Data
 @Table(name = "community")
-// communityT : 테스트 게시판 DB
-// community : 실제 사용하는 게시판 DB
 public class CommunityEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 
     @Column(name = "BO_NO")         //게시글 번호
     private Integer boNo;
-    @Column(name = "MB_ID")         // 작성자
+    @Column(name = "MB_ID")         // 작성자 TODO: 사용자 ID 받기 지금은 하드코딩 되어있음
     private String mbId = "Test";
     @Column(name = "BO_TITLE")      // 게시글 제목
     private String boTitle;

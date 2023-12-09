@@ -50,9 +50,7 @@
                         <a th:text="${communityEntity.boTitle}" th:href="@{/communityview(boNo=${communityEntity.boNo})}"></a>
                     </td>
                     <!-- 작성자 -->
-                    <td>
-
-                    </td>
+                    <td th:text="${communityEntity.mbId}"></td>
                     <!-- 작성일 -->
                     <td th:text="${#temporals.format(communityEntity.boDate, 'yyyy-MM-dd')}"></td>
 
@@ -75,7 +73,7 @@
 
                 <!-- 페이지 번호들 -->
                 <th:block th:each="page : ${#numbers.sequence(startPage, endPage)}">
-                    <li class="page-item" style="display: inline-block;" th:class="${page == nowPage ? 'active' : ''}">
+                    <li class="page-item" th:class="${page == nowPage ? 'active' : ''}">
                         <a class="page-link" th:href="@{community(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
                     </li>
                 </th:block>
