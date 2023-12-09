@@ -3,6 +3,7 @@ package com.mukisa.are_you_tea.controller;
 import com.mukisa.are_you_tea.data.entity.CommunityEntity;
 import com.mukisa.are_you_tea.service.CommunityService;
 import com.mukisa.are_you_tea.service.Recipe_ReviewService;
+import com.mukisa.are_you_tea.service.SessionCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +27,8 @@ public class Recipe_ReviewController {
 
     @Autowired
     private HttpSession httpSession;
+    @Autowired
+    private SessionCheckService sessionCheckService;
 
 
 
