@@ -4,6 +4,8 @@ import com.mukisa.are_you_tea.data.entity.RecipeEntity;
 import com.mukisa.are_you_tea.service.RecipeService;
 import com.mukisa.are_you_tea.service.SessionCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,32 +28,34 @@ public class RecipeController {
 
     //레시지 목록
     @RequestMapping("/recipe")
-    public String gorecipeList(Model model) {
+    public String gorecipeList(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
         try {
-            //레시피 타입
-            List<String> uniqueRecipeTypes = recipeService.getDistinctRecipeTypes();
-            model.addAttribute("RecipeTypes", uniqueRecipeTypes);
-            //레시피 목록
-            List<RecipeEntity> dataset = recipeService.dataLoad();
-            sessionCheckService.sessionCheck(model, httpSession);
-            if (!dataset.isEmpty()) {
-                // 모든 데이터를 모델에 추가
-                for (int i = 0; i < dataset.size(); i++) {
-                    model.addAttribute("recipeData", dataset);
+            int pageSize = 16;
+            PageRequest pageRequest = PageRequest.of(page, pageSize);
 
-                }
+            // 페이징 처리된 레시피 데이터 가져오기
+            Page<RecipeEntity> recipePage = recipeService.getRecipeListWithPaging(pageRequest);
 
+            // 페이징 정보 및 레시피 타입 추가
+            model.addAttribute("paging", recipePage);
+            model.addAttribute("RecipeTypes", recipeService.getDistinctRecipeTypes());
+
+            // 레시피 목록 데이터가 비어있지 않은 경우에만 추가
+            if (!recipePage.isEmpty()) {
+                model.addAttribute("recipeData", recipePage.getContent());
             } else {
                 System.out.println("데이터셋이 비어 있습니다.");
             }
+
+            sessionCheckService.sessionCheck(model, httpSession);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-
         return "recipe";
     }
+
     //상세 레시피 보기
     @RequestMapping("/recipeDetail")
     public String gorecipeDetail(@RequestParam(name = "recipeno", required = false) Integer recipeno, Model model) {

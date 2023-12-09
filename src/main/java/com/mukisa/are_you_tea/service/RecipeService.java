@@ -3,6 +3,9 @@ package com.mukisa.are_you_tea.service;
 import com.mukisa.are_you_tea.data.entity.RecipeEntity;
 import com.mukisa.are_you_tea.data.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,5 +51,10 @@ public class RecipeService {
     //타입 검색
     public List<RecipeEntity> findByRecipeType(String recipeType) {
         return recipeRepository.findByRecipeType(recipeType);
+    }
+
+
+    public Page<RecipeEntity> getRecipeListWithPaging(Pageable pageable) {
+        return recipeRepository.findAll(pageable);
     }
 }
