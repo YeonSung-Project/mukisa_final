@@ -1,6 +1,8 @@
 package com.mukisa.are_you_tea.service;
 
+import com.mukisa.are_you_tea.data.entity.AdminEntity;
 import com.mukisa.are_you_tea.data.entity.MemberEntity;
+import com.mukisa.are_you_tea.data.repository.AdminRepository;
 import com.mukisa.are_you_tea.data.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,10 +17,14 @@ public class MemberService {
     @Autowired
     private MemberRepository memberRepository;
 
+    @Autowired
+    private AdminRepository adminRepository;
+
     public boolean login(String mbId, String mbPw) {
         try {
             MemberEntity memberEntity = memberRepository.findByMbId(mbId);
-            if (memberEntity != null && memberEntity.getMbPw().equals(mbPw)) {
+            AdminEntity adminEntity = adminRepository.findByAdId(mbId);
+            if (memberEntity != null && memberEntity.getMbPw().equals(mbPw) || adminEntity != null && adminEntity.getAdPw().equals(mbPw)) {
                 return true;
             } else {
                 return false;
