@@ -49,17 +49,10 @@ public class noticeController {
 
 
         /******************** ����¡ ó�� ***********************/
-        int nowPage = list.getPageable().getPageNumber()+1;       // 0���� �����ϱ� ������ + 1
-        int startPage;
-        int endPage;
-        if(nowPage == 1){
-            startPage = 1;
-            endPage = 1;
-        }
-        else{
-            startPage = Math.max(nowPage - 4, 1);
-            endPage =  Math.min(nowPage + 5, list.getTotalPages());
-        }
+        int nowPage = list.getPageable().getPageNumber();       // 0���� �����ϱ� ������ + 1
+
+        int startPage = Math.max(nowPage - 4, 0);
+        int endPage =  Math.min(nowPage + 5, list.getTotalPages()-1);
 
         /** ���� �������� ���� �������� URL �߰� */
         String prevPageUrl = (nowPage == 1) ? "#" : "/notice?page=" + (nowPage - 1);
@@ -75,6 +68,7 @@ public class noticeController {
         model.addAttribute("data_count", list.getTotalPages());
 
         System.out.println(list.getTotalPages());
+        System.out.println(endPage);
         return "notice";
     }
 

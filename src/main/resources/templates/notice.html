@@ -118,14 +118,14 @@
 
                 <!-- 뒷 페이지로 가기 버튼 -->
                 <!-- 이미 최소 페이지인 경우 -->
-                <li class="page-item" th:if="${nowPage} == 1">
+                <li class="page-item" th:if="${nowPage} == 0">
                     <a class="page-link text-color2" th:href="@{#}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
                 </li>
 
                 <!-- 이전 페이지로 가기 -->
-                <li class="page-item" th:if="${nowPage} > 1">
+                <li class="page-item" th:if="${nowPage} > 0">
                     <a class="page-link text-color2" th:href="@{notice(page = ${nowPage - 1})}" aria-label="Previous">
                         <span aria-hidden="true">&laquo;</span>
                     </a>
@@ -135,7 +135,7 @@
 
                 <!-- 페이징 개수 버튼들 -->
                 <!-- 페이징이 필요 없는 경우 -->
-                <th:block th:if="${data_count} <= 20"  th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                <th:block th:if="${data_count} <= 1"  th:each="page : ${#numbers.sequence(startPage, endPage)}">
                     <li class="page-item">
                         <a class="page-link text-color2" th:class="${page == nowPage ? 'page-link active' : 'text-color2'}"
                            th:href="@{#}" th:text="${page}"></a>
@@ -143,7 +143,7 @@
                 </th:block>
 
                 <!-- 페이지 1페이지 이상일 경우 -->
-                <th:block th:if="${data_count} > 20"  th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                <th:block th:if="${data_count} > 1"  th:each="page : ${#numbers.sequence(startPage, endPage)}">
                     <li class="page-item" >
                         <a class="page-link text-color2" th:class="${page == nowPage ? 'page-link active' : 'page-link text-color2'}"
                            th:href="@{notice(page = ${page}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
@@ -153,17 +153,18 @@
 
                 <!-- 앞 페이지로 가기 버튼 -->
                 <!-- 페이징이 필요 있는 경우, 데이터가 20개가 넘어서 페이징 되는 경우 -->
-                <li class="page-item" th:if="${data_count} > 20">
+                <li class="page-item" th:if="${data_count} > 1 and ${data_count} != ${endPage} + 1">
                     <a class="page-link text-color2" th:href="@{notice(page = ${nowPage + 1})}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
                 <!-- 페이징이 필요 없는 경우 -->
-                <li class="page-item" th:if="${data_count} <= 20">
+                <li class="page-item" th:if="${data_count} ==  ${endPage} + 1">
                     <a class="page-link text-color2" th:href="@{#}" aria-label="Next">
                         <span aria-hidden="true">&raquo;</span>
                     </a>
                 </li>
+
             </ul>
         </nav>
 
