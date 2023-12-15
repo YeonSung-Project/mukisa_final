@@ -2,8 +2,9 @@
 <!-- custom -->
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <link rel="stylesheet" type="text/css" href="css/public_settings.css">
-    <script src="./script/qna_board_view.js"></script>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/public_settings.css}">
+
+
 </head>
 <div th:insert="~{/header :: commonFragment}"></div>
 
@@ -30,6 +31,7 @@
                         <img th:src="@{/img/recipe/{recipe_img}(recipe_img=${recipeDetailData.recipe_img})}"
                              class="img-fluid card-img-top"
                              alt="레시피 이미지입니다">
+
 
                         <p class="text-center mt-2" th:text="'등록일 '+${recipeDetailData.recipe_mdf_date}"></p>
 

@@ -15,11 +15,7 @@ public interface RecipeRepository extends JpaRepository<RecipeEntity, Integer> {
     @Query("SELECT DISTINCT r.recipeType FROM RecipeEntity r")
     List<String> findDistinctByRecipeType();
 
+
+    // 레시피 타입으로 레시피 조회
     List<RecipeEntity> findByRecipeType(String recipeType);
-
-    // 특정 레시피 타입에 대한 페이징된 목록 가져오기
-    Page<RecipeEntity> findByRecipeType(String recipeType, Pageable pageable);
-
-    // 모든 레시피에 대한 페이징된 목록 가져오기
-    Page<RecipeEntity> findAll(Pageable pageable);
 }

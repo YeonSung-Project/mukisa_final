@@ -4,7 +4,6 @@ import com.mukisa.are_you_tea.data.entity.RecipeEntity;
 import com.mukisa.are_you_tea.data.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +25,12 @@ public class RecipeService {
             return null;
         }
     }
+
+    // 레시피 타입으로 레시피 조회
+    public List<RecipeEntity> getRecipesByType(String recipeType) {
+        return recipeRepository.findByRecipeType(recipeType);
+    }
+
 
     // ID로 레시피 조회
     public RecipeEntity findRecipeId(int recipeno) {

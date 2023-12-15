@@ -12,8 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.List;
+
 
 @Controller
 public class RecipeController {
@@ -26,26 +29,32 @@ public class RecipeController {
     @Autowired
     private SessionCheckService sessionCheckService;
 
-    //레시지 목록
     @RequestMapping("/recipe")
-    public String gorecipeList(@RequestParam(value = "page", defaultValue = "0") int page, Model model) {
+    public String gorecipeList(@RequestParam(name = "recipeType", required = false) String recipeType,
+                               Model model, HttpServletRequest request) {
         try {
-            int pageSize = 16;
-            PageRequest pageRequest = PageRequest.of(page, pageSize);
+            List<RecipeEntity> recipeData;
 
-            // 페이징 처리된 레시피 데이터 가져오기
-            Page<RecipeEntity> recipePage = recipeService.getRecipeListWithPaging(pageRequest);
+            if (recipeType != null && !recipeType.isEmpty()) {
+                // recipeType이 주어진 경우 해당 타입의 레시피만 조회
+                recipeData = recipeService.getRecipesByType(recipeType);
+            } else {
+                // recipeType이 주어지지 않은 경우 전체 레시피 조회
+                recipeData = recipeService.dataLoad();
+            }
 
-            // 페이징 정보 및 레시피 타입 추가
-            model.addAttribute("paging", recipePage);
+            // 레시피 타입 추가
             model.addAttribute("RecipeTypes", recipeService.getDistinctRecipeTypes());
 
             // 레시피 목록 데이터가 비어있지 않은 경우에만 추가
-            if (!recipePage.isEmpty()) {
-                model.addAttribute("recipeData", recipePage.getContent());
+            if (!recipeData.isEmpty()) {
+                model.addAttribute("recipeData", recipeData);
             } else {
                 System.out.println("데이터셋이 비어 있습니다.");
             }
+
+            // 추출한 recipeType을 모델에 추가
+            model.addAttribute("selectedRecipeType", recipeType);
 
             sessionCheckService.sessionCheck(model, httpSession);
 
@@ -55,6 +64,7 @@ public class RecipeController {
 
         return "recipe";
     }
+
 
     //상세 레시피 보기
     @RequestMapping("/recipeDetail")
@@ -85,11 +95,34 @@ public class RecipeController {
 
         return "recipeWrite";
     }
-
     @GetMapping("/recipes")
     public String getRecipesByType(@RequestParam String recipeType, Model model) {
-        List<RecipeEntity> recipes = recipeService.findByRecipeType(recipeType);
-        model.addAttribute("recipes", recipes);
-        return "recipe-list :: #recipesFragment"; // Thymeleaf fragment update
+        try {
+            List<RecipeEntity> recipes;
+
+
+
+            // 선택한 유형에 따라 레시피 로드
+            if ("all".equals(recipeType)) {
+                recipes = recipeService.dataLoad();
+            } else {
+                recipes = recipeService.findByRecipeType(recipeType);
+            }
+
+            // 모델에 레시피 추가
+            model.addAttribute("recipeData", recipes);
+
+            // 프래그먼트 업데이트 반환
+            return "recipe-list :: #recipesFragment";
+        } catch (Exception e) {
+            // 예외 로그 남기기
+
+
+            // 에러 페이지로 리다이렉트하거나 다른 방식으로 처리할 수 있습니다.
+            return "error";
+        }
     }
+
+
+
 }
