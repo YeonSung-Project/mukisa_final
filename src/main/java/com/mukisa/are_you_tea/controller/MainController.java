@@ -42,26 +42,7 @@ public class MainController {
                 model.addAttribute("member", user.getUsername());
             }
         }
-        //        메인 페이지 레시피 불러오기
-        try {
-            List<RecipeEntity> dataset = recipeService.dataLoad();
 
-            if (!dataset.isEmpty()) {
-                // 데이터셋이 5개 이상인 경우에만 상위 5개만 선택하여 모델에 추가
-                if (dataset.size() >= 5) {
-                    List<RecipeEntity> top5Recipes = dataset.subList(0, 4);
-                    model.addAttribute("recipeData", top5Recipes);
-                } else {
-                    // 데이터셋이 5개 미만인 경우 전체 데이터를 모델에 추가
-                    model.addAttribute("recipeData", dataset);
-                }
-            } else {
-                System.out.println("데이터셋이 비어 있습니다.");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
         return "main";
     }
 }
