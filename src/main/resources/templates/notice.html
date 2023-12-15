@@ -10,8 +10,11 @@
         :root{
             --bs-main-bg: #A4D792;
             --bs-sub-bg:#64cb3f;
+            --bs-light-black:#6c757d;
         }
-        .text-color{color:var(--bs-main-bg);}
+        .text-color{color:var(--bs-main-bg)!important;}
+        .text-color2{color:var(--bs-light-black)!important;}
+        .text-color2:hover{color:var(--bs-sub-bg)!important;}
         .controll-btn{border: 2px solid var(--bs-main-bg);color: white;background-color: var(--bs-main-bg);
             border-radius: 10px;
         }
@@ -20,6 +23,10 @@
         }
         .table-color{border-bottom: 1px solid var(--bs-main-bg)!important;}
         .no-content-data{height: 500px;}
+        .shadow-x{
+        box-shadow: 5px 0 10px rgba(0,0,0,0.5), -5px 0 10px rgba(0,0,0,0.5);
+        }
+        .active{color: var(--bs-main-bg) !important;}
     </style>
 </head>
 
@@ -31,7 +38,7 @@
     <div th:insert="~{/header :: navFragment}"></div>
 
     <!-- 콘텐츠 -->
-    <section class="page-section public-settings" id="services">
+    <section class="page-section public-settings shadow rounded" id="services">
         <div class="container" style="margin-bottom:60px;">
 
             <!-- 콘텐츠 제목 -->
@@ -39,7 +46,16 @@
                 <div class="col-lg-9 mx-auto text-white text-center" style="margin-left:300px;">
                     <h1 class="display-5 fw-bold text-color">공지사항</h1>
                 </div>
-            </div>
+
+            </div>      
+
+            <!-- 검색창 -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-white">
+                <form th:action="@{notice}" method="get" class="d-flex ms-auto">
+                    <input class="form-control me-2" name="searchKeyword" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success" type="submit">Search</button>
+                </form>
+            </nav>
 
 
             <!-- 관리자 매뉴 -->
@@ -53,7 +69,7 @@
                 <thead>
                     <tr>
                         <th class="table-color text-color fw-bold" scope="col">번호</th>
-                        <th class="table-color text-color fw-boldr" scope="col">제목</th>
+                        <th class="table-color text-color fw-bold" scope="col">제목</th>
                         <th class="table-color text-color fw-bold" scope="col">작성자</th>
                         <th class="table-color text-color fw-bold" scope="col">작성일</th>
                         <th class="table-color text-color fw-bold" scope="col">조회수</th>
@@ -94,6 +110,41 @@
 
             </table>
              
+            <!--페이징 처리 -->
+            <nav aria-label="Page navigation example">
+                <ul class="pagination justify-content-center">
+                    <!-- 이전 페이지 링크 -->
+                    <li class="page-item">
+                        <a class="page-link text-color2" th:href="@{community(page = ${nowPage - 1})}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+
+                    <!-- 페이징이 없는 경우 -->
+                    <th:block th:if="${nowPage==1}" th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                        <li class="page-item">
+                            <a class="page-link text-color2" th:class="${page == nowPage ? 'page-link active' : 'text-color2'}" 
+                            th:href="@{notice(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+                        </li>
+                    </th:block>
+
+                    <!-- 페이지 1페이지 이상일 경우 -->
+                    <th:block th:unless="${nowPage==1}"  th:each="page : ${#numbers.sequence(startPage, endPage)}">
+                        <li class="page-item" >
+                            <a class="page-link text-color2" th:class="${page == nowPage ? 'page-link active' : 'text-color2'}" 
+                            th:href="@{notice(page = ${page - 1}, searchKeyword = ${param.searchKeyword})}" th:text="${page}"></a>
+                        </li>
+                    </th:block>
+
+                    <!-- 다음 페이지 링크 -->
+                    <li class="page-item">
+                        <a class="page-link text-color2" th:href="@{community(page = ${nowPage + 1})}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
         </div>
     </section>
 
