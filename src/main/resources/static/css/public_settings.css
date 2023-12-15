@@ -1,1 +1,2 @@
 .public-settings{margin-top: 150px;margin-bottom: 150px;}
+body{display: flex; min-height: 100vh; margin: 0; justify-content: space-between;}
