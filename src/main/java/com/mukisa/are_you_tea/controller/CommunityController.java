@@ -1,6 +1,7 @@
 package com.mukisa.are_you_tea.controller;
 
 import com.mukisa.are_you_tea.data.entity.CommunityEntity;
+import com.mukisa.are_you_tea.data.repository.UserRepository;
 import com.mukisa.are_you_tea.service.CommunityService;
 import com.mukisa.are_you_tea.service.SessionCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +15,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.multipart.MultipartFile;
+import org.apache.commons.lang3.StringUtils;
+
+
 
 import javax.servlet.http.HttpSession;
 
+/**
+ * @packageName    : com.mukisa.are_you_tea.controller
+ * @fileName        : CommunityController
+ * @author        : Youil Park
+ * @date            : 2023-11-26
+ * @description            :
+ * ===========================================================
+ * DATE              AUTHOR             NOTE
+ * -----------------------------------------------------------
+ * 2023-11-26      Youil Park       최초 생성
+ */
 
 @Controller
 public class CommunityController {
@@ -28,8 +43,18 @@ public class CommunityController {
     private HttpSession httpSession;
     @Autowired
     private SessionCheckService sessionCheckService;
+    @Autowired
+    private UserRepository userRepository;
 
-    // 커뮤니티 글 리스트
+    /**
+     * @methodName : community
+     * @description : 커뮤니티 글 리스트 조회
+     * @author  : Youil Park
+     * @param : model
+     * @param : pageable        페이징 처리
+     * @param : searchKeyword   검색어
+     * @return : community
+     */
     @GetMapping("community")
     public String community(Model model,
                             @PageableDefault(page = 0, size = 20, sort = "boNo", direction = Sort.Direction.DESC) Pageable pageable,  // 페이징 처리:사이즈는 20개, sort = 어떤걸로 기준 삼아서 정렬? = boNo
@@ -37,35 +62,60 @@ public class CommunityController {
 
         Page<CommunityEntity> list = null;
 
+        /** 로그인 체크 */
         sessionCheckService.sessionCheck(model, httpSession);
 
-        // 검색어 if
+        /** 검색어 if */
         if (searchKeyword == null) {
-            // 검색어가 안 들어왔을 때
+            /** 검색어가 null 값일 때 */
             list = communityService.communityList(pageable);
         } else {
-            // 검색어가 들어왔을 때
+            /** 검색어가 있을 때 */
             list = communityService.communitySearchList(searchKeyword, pageable);
         }
 
 
-        // ************ 페이징 처리 *******************
+        /******************** 페이징 처리 ***********************/
         int nowPage = list.getPageable().getPageNumber() + 1;       // 0에서 시작하기 때문에 + 1
         int startPage = Math.max(nowPage - 4, 1);
         int endPage =  Math.min(nowPage + 5, list.getTotalPages());
-        // ******************************************
+
+        /** 이전 페이지와 다음 페이지의 URL 추가 */
+        String prevPageUrl = (nowPage == 1) ? "#" : "/community?page=" + (nowPage - 1);
+        String nextPageUrl = (nowPage == list.getTotalPages()) ? "#" : "/community?page=" + (nowPage + 1);
+        /*****************************************************/
 
         model.addAttribute("list", list);
         model.addAttribute("nowPage", nowPage);
         model.addAttribute("startPage", startPage);
         model.addAttribute("endPage", endPage);
+        model.addAttribute("prevPageUrl", prevPageUrl);
+        model.addAttribute("nextPageUrl", nextPageUrl);
 
         return "community";
     }
 
-    // 커뮤니티 특정 글 상세보기
+    /**
+     * @methodName : communityView
+     * @description : 커뮤니티 글 상세보기
+     * @author  : Youil Park
+     * @param : model
+     * @param : boNo    글 번호
+     * @return : communityview
+     */
     @GetMapping("communityview")
     public String communityView(Model model, Integer boNo) {
+
+        /** 로그인 체크 */
+        sessionCheckService.sessionCheck(model, httpSession);
+
+        // 특정 글 조회
+        CommunityEntity communityEntity = communityService.communityView(boNo);
+
+        // 파일이 없는 경우 메시지 설정
+        if (communityEntity != null && StringUtils.isEmpty(communityEntity.getBoFilepath())) {
+            communityEntity.setBoFilepath("파일이 없습니다.");
+        }
 
         communityService.updateHits(boNo);  // 조회수
         
@@ -73,17 +123,44 @@ public class CommunityController {
         return "communityview";
     }
 
-    // 커뮤니티 글 작성(폼)
+    /**
+     * @methodName : communityWriteForm
+     * @description : 커뮤니티 글 작성 (폼)
+     * @author  : Youil Park
+     * @param : model
+     * @return : communitywrite
+     */
     @GetMapping("/communitywrite")
-    public String communityWriteForm() {
+    public String communityWriteForm(Model model) {
+
+        /** 로그인 체크 */
+        sessionCheckService.sessionCheck(model, httpSession);
 
         return "communitywrite";
     }
 
-    // 커뮤니티 글 작성
+    /**
+     * @methodName : communityWriteForm
+     * @description : 커뮤니티 글 작성
+     * @author  : Youil Park
+     * @param : communityEntity
+     * @param : file        파일 처리
+     * @param : model
+     * @throws : Exception 예외 발생 시
+     * @return : message
+     */
     @PostMapping("/communitywritepro")
     public String communityWritePro (CommunityEntity communityEntity, MultipartFile file, Model model) throws Exception{
 
+        /** 로그인 체크 */
+        sessionCheckService.sessionCheck(model, httpSession);
+
+        /** TODO : 작성자 ID 값 받고 싶음 */
+        /*String mbId = (String) httpSession.getAttribute("userSession");
+        UserEntity user = userRepository.findByUsername(mbId);
+        System.out.printf(String.valueOf(user));*/
+
+        /** 파일 */
         communityService.communityWrite(communityEntity, file);
 
         model.addAttribute("message", "글 작성이 완료되었습니다.");    // 메세지
@@ -92,24 +169,50 @@ public class CommunityController {
         return "message";
     }
 
-    // 커뮤니티 특정 글 수정 (폼)
+    /**
+     * @methodName : communityModify
+     * @description : 커뮤니티 특정 글 수정 (폼)
+     * @author  : Youil Park
+     * @param : model
+     * @param : boNo    글 번호
+     * @return : communitymodify
+     */
     @GetMapping("/communitymodify/{boNo}")
     public String communityModify(Model model,@PathVariable("boNo") Integer boNo){
+
+        /** 로그인 체크 */
+        sessionCheckService.sessionCheck(model, httpSession);
 
         model.addAttribute("communityview", communityService.communityView(boNo));
 
         return "communitymodify";
     }
 
-    // 커뮤니티 특정 글 수정
+    /**
+     * @methodName : communityUpdate
+     * @description : 커뮤니티 특정 글 수정
+     * @author  : Youil Park
+     * @param : boNo    글 번호
+     * @param : communityEntity
+     * @param : file
+     * @param : model
+     * @throws : Exception 예외 발생 시
+     * @return : message
+     */
     @PostMapping("/communityupdate/{boNo}")
     public String communityUpdate (@PathVariable("boNo") Integer boNo, CommunityEntity communityEntity, MultipartFile file, Model model) throws Exception {
 
-        // 기존에 있던 글을 검색
+        /** 로그인 체크 */
+        sessionCheckService.sessionCheck(model, httpSession);
+
+        /** 기존에 있던 글울 검색 */
         CommunityEntity communityTemp = communityService.communityView(boNo);
         System.out.printf(String.valueOf(communityTemp));
 
-        // get: 새로은 내용 / set : 기존에 있던 내용에 덮어 씌우기
+        /**
+         *  get : 새로운 내용 (새로운 글 제목, 새로운 글 내용)
+         *  set : 기존에 있던 내용에 덮에 씌우기
+         */
         communityTemp.setBoTitle(communityEntity.getBoTitle());         // 제목
         communityTemp.setBoContent(communityEntity.getBoContent());     // 내용
 
@@ -122,9 +225,19 @@ public class CommunityController {
     }
 
 
-    // 커뮤니티 특정 글 삭제
+    /**
+     * @methodName : communityDelete
+     * @description : 커뮤니티 특정 글 삭제
+     * @author  : Youil Park
+     * @param : model
+     * @param : boNo
+     * @return : redirect:/community
+     */
     @GetMapping("/communitydelete")
-    public String communityDelete(Integer boNo){
+    public String communityDelete(Model model, Integer boNo){
+
+        /** 로그인 체크 */
+        sessionCheckService.sessionCheck(model, httpSession);
 
         communityService.communityDelete(boNo);
         return "redirect:/community";
