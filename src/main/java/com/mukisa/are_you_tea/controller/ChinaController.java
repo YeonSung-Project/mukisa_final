@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 
 
-// Áß±¹Â÷ °ü·Ã ÆäÀÌÁö ÄÁÆ®·Ñ·¯ Å¬·¡½ºÀÔ´Ï´Ù.
+// ì¤‘êµ­ì°¨ ê´€ë ¨ í˜ì´ì§€ ì»¨íŠ¸ë¡¤ëŸ¬ í´ë˜ìŠ¤ì…ë‹ˆë‹¤.
 @Controller
 public class ChinaController {
 

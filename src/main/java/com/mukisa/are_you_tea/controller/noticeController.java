@@ -1,6 +1,5 @@
 package com.mukisa.are_you_tea.controller;
 
-import com.mukisa.are_you_tea.data.entity.CommunityEntity;
 import com.mukisa.are_you_tea.data.entity.NoticeEntity;
 import com.mukisa.are_you_tea.service.NoticeService;
 import com.mukisa.are_you_tea.service.SessionCheckService;
@@ -26,27 +25,27 @@ public class noticeController {
     NoticeService noticeService;
     @GetMapping("/notice")
     public String noticeCon(Model model,
-                            @PageableDefault(page = 0, size = 20, sort = "noNo", direction = Sort.Direction.DESC) Pageable pageable,  // ÆäÀÌÂ¡ Ã³¸®:»çÀÌÁî´Â 20°³, sort = ¾î¶²°É·Î ±âÁØ »ï¾Æ¼­ Á¤·Ä? = boNo
+                            @PageableDefault(page = 0, size = 20, sort = "noNo", direction = Sort.Direction.DESC) Pageable pageable,  // í˜ì´ì§• ì²˜ë¦¬:ì‚¬ì´ì¦ˆëŠ” 20ê°œ, sort = ì–´ë–¤ê±¸ë¡œ ê¸°ì¤€ ì‚¼ì•„ì„œ ì •ë ¬? = boNo
                             String searchKeyword){
 
         Page<NoticeEntity> list = null;
 
-        /** ·Î±×ÀÎ Ã¼Å© */
+        /** ë¡œê·¸ì¸ ì²´í¬ */
         sessionCheckService.sessionCheck(model, httpSession);
 
 
-        /** °Ë»ö¾î if */
+        /** ê²€ìƒ‰ì–´ if */
         if (searchKeyword == null) {
-            /** °Ë»ö¾î°¡ null °ªÀÏ ¶§ */
+            /** ê²€ìƒ‰ì–´ê°€ null ê°’ì¼ ë•Œ */
             list = noticeService.noticeList(pageable);
         } else {
-            /** °Ë»ö¾î°¡ ÀÖÀ» ¶§ */
+            /** ê²€ìƒ‰ì–´ê°€ ìˆì„ ë•Œ */
             list = noticeService.communitySearchList(searchKeyword, pageable);
         }
 
 
-        /******************** ÆäÀÌÂ¡ Ã³¸® ***********************/
-        int nowPage = list.getPageable().getPageNumber()+1;       // 0¿¡¼­ ½ÃÀÛÇÏ±â ¶§¹®¿¡ + 1
+        /******************** í˜ì´ì§• ì²˜ë¦¬ ***********************/
+        int nowPage = list.getPageable().getPageNumber()+1;       // 0ì—ì„œ ì‹œì‘í•˜ê¸° ë•Œë¬¸ì— + 1
         int startPage;
         int endPage;
         if(nowPage == 1){
@@ -58,7 +57,7 @@ public class noticeController {
             endPage =  Math.min(nowPage + 5, list.getTotalPages());
         }
 
-        /** ÀÌÀü ÆäÀÌÁö¿Í ´ÙÀ½ ÆäÀÌÁöÀÇ URL Ãß°¡ */
+        /** ì´ì „ í˜ì´ì§€ì™€ ë‹¤ìŒ í˜ì´ì§€ì˜ URL ì¶”ê°€ */
         String prevPageUrl = (nowPage == 1) ? "#" : "/community?page=" + (nowPage - 1);
         String nextPageUrl = (nowPage == list.getTotalPages()) ? "#" : "/community?page=" + (nowPage + 1);
         /*****************************************************/
