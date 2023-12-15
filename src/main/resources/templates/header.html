@@ -26,6 +26,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
 
     <style>
+        :root{
+            --bs-main-bg: #A4D792;
+            --bs-sub-bg:#64cb3f;
+        }
         nav {
             font-family: 'Noto Sans KR', sans-serif;
             z-index: 3;
@@ -44,6 +48,7 @@
             margin:10px;
         }
         .important-color{  color: #A4D792 !important;}
+        .important-color:hover{ color:var(--bs-sub-bg)!important;}
         .btn-main {background-color: #A4D792 !important;}
         .navbar{background-color: white;}
 
