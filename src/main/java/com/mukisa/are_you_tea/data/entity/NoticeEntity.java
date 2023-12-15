@@ -12,26 +12,28 @@ public class NoticeEntity {
 
         @Id
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "NOTI_NO")         //게시글 번호
+        @Column(name = "NOTI_NO")         //???? ???
         private Integer noNo;
-        @Column(name = "NOTI_WRITER")     // 작성자
+        @Column(name = "NOTI_WRITER")     // ?????
         private String noId;
-        @Column(name = "NOTI_TITLE")      // 게시글 제목
+        @Column(name = "NOTI_TITLE")      // ???? ????
         private String noTitle;
-        @Column(name = "NOTI_CONTENT")    // 게시글 내용
+        @Column(name = "NOTI_CONTENT")    // ???? ????
         private String noContent;
-        @Column(name = "NOTI_FILENAME")   // 파일 이름
+        @Column(name = "NOTI_FILENAME")   // ???? ???
         private String noFilename;
-        @Column(name = "NOTI_FILEPATH")   // 파일 경로
+        @Column(name = "NOTI_FILEPATH")   // ???? ???
         private String noFilepath;
-        @Column(name = "NOTI_DATE")       // 작성일
+        @Column(name = "NOTI_DATE")       // ?????
         private LocalDateTime noDate = LocalDateTime.now();
         @PrePersist
         protected void onCreate() {
-            noDate = LocalDateTime.now();   // 현재 날짜와 시간 받기
+                noDate = LocalDateTime.now();   // ???? ????? ?ð? ???
         }
 
-        @Column(name = "NOTI_HITS")       // 조회수
+        @Column(name = "NOTI_HITS")       // ?????
         private int noHits;
 
+        public void setNoFilename(String fileName) {
+        }
 }

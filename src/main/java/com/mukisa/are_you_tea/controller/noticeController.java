@@ -1,5 +1,7 @@
 package com.mukisa.are_you_tea.controller;
 
+import com.mukisa.are_you_tea.data.entity.AdminEntity;
+import com.mukisa.are_you_tea.data.entity.CommunityEntity;
 import com.mukisa.are_you_tea.data.entity.NoticeEntity;
 import com.mukisa.are_you_tea.service.NoticeService;
 import com.mukisa.are_you_tea.service.SessionCheckService;
@@ -11,6 +13,8 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 
@@ -25,27 +29,27 @@ public class noticeController {
     NoticeService noticeService;
     @GetMapping("/notice")
     public String noticeCon(Model model,
-                            @PageableDefault(page = 0, size = 20, sort = "noNo", direction = Sort.Direction.DESC) Pageable pageable,  // 페이징 처리:사이즈는 20개, sort = 어떤걸로 기준 삼아서 정렬? = boNo
+                            @PageableDefault(page = 0, size = 20, sort = "noNo", direction = Sort.Direction.DESC) Pageable pageable,  // ����¡ ó��:������� 20��, sort = ��ɷ� ���� ��Ƽ� ����? = boNo
                             String searchKeyword){
 
         Page<NoticeEntity> list = null;
 
-        /** 로그인 체크 */
+        /** �α��� üũ */
         sessionCheckService.sessionCheck(model, httpSession);
 
 
-        /** 검색어 if */
+        /** �˻��� if */
         if (searchKeyword == null) {
-            /** 검색어가 null 값일 때 */
+            /** �˻�� null ���� �� */
             list = noticeService.noticeList(pageable);
         } else {
-            /** 검색어가 있을 때 */
+            /** �˻�� ���� �� */
             list = noticeService.communitySearchList(searchKeyword, pageable);
         }
 
 
-        /******************** 페이징 처리 ***********************/
-        int nowPage = list.getPageable().getPageNumber()+1;       // 0에서 시작하기 때문에 + 1
+        /******************** ����¡ ó�� ***********************/
+        int nowPage = list.getPageable().getPageNumber()+1;       // 0���� �����ϱ� ������ + 1
         int startPage;
         int endPage;
         if(nowPage == 1){
@@ -57,9 +61,9 @@ public class noticeController {
             endPage =  Math.min(nowPage + 5, list.getTotalPages());
         }
 
-        /** 이전 페이지와 다음 페이지의 URL 추가 */
-        String prevPageUrl = (nowPage == 1) ? "#" : "/community?page=" + (nowPage - 1);
-        String nextPageUrl = (nowPage == list.getTotalPages()) ? "#" : "/community?page=" + (nowPage + 1);
+        /** ���� �������� ���� �������� URL �߰� */
+        String prevPageUrl = (nowPage == 1) ? "#" : "/notice?page=" + (nowPage - 1);
+        String nextPageUrl = (nowPage == list.getTotalPages()) ? "#" : "/notice?page=" + (nowPage + 1);
         /*****************************************************/
 
         model.addAttribute("list", list);
@@ -68,13 +72,29 @@ public class noticeController {
         model.addAttribute("endPage", endPage);
         model.addAttribute("prevPageUrl", prevPageUrl);
         model.addAttribute("nextPageUrl", nextPageUrl);
+        model.addAttribute("data_count", list.getTotalPages());
 
-
+        System.out.println(list.getTotalPages());
         return "notice";
     }
 
     @GetMapping("/noticeWrite")
-    public String noticeWriteCon(){
+    public String noticeWriteCon(Model model){
+        /** �α��� üũ */
+        sessionCheckService.sessionCheck(model, httpSession);
+
         return "noticeWrite";
+    }
+
+    @PostMapping("/noticeWritePro")
+    public String noticeWriteProCon(NoticeEntity noticeEntity, MultipartFile file, Model model)throws Exception{
+        String mbId = (String) httpSession.getAttribute("userSession");
+
+        noticeService.noticeWrite(noticeEntity, file, mbId);
+
+        model.addAttribute("message", "글 작성이 완료되었습니다..");    // �޼���
+        model.addAttribute("searchUrl", "/notice");             // �� �ۼ� �� community �̵�
+
+        return "message";
     }
 }

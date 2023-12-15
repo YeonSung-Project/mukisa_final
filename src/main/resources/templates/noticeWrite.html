@@ -26,43 +26,47 @@
 
 <body id="page-top">
 
-    <!-- 헤더 -->
-    <div th:insert="~{/header :: commonFragment}"></div>
-    <div th:insert="~{/header :: navFragment}"></div>
+<!-- 헤더 -->
+<div th:insert="~{/header :: commonFragment}"></div>
+<div th:insert="~{/header :: navFragment}"></div>
 
-    <!-- 메인 콘텐츠 -->
-    <section class="page-section public-settings" id="services">
-        <div class="container" style="margin-bottom:60px;">
+<!-- 메인 콘텐츠 -->
+<section class="page-section public-settings" id="services">
+    <div class="container" style="margin-bottom:60px;">
 
-            <!-- 메인 콘텐츠 제목 -->
-            <div class="row py-5">
-                <div class="col-lg-9 mx-auto text-white text-center" style="margin-left:300px;">
-                    <h1 class="display-4 fw-bold text-color">공지사항 작성</h1>
-                </div>
+        <!-- 메인 콘텐츠 제목 -->
+        <div class="row py-5">
+            <div class="col-lg-9 mx-auto text-white text-center" style="margin-left:300px;">
+                <h1 class="display-4 fw-bold text-color">공지사항 작성</h1>
             </div>
-
-            <!-- 메인 콘텐츠 데이터 -->
-            <form action="/noticeWritepro" method="post" enctype="multipart/form-data">
-                <div class="mb-3">
-                    <label for="exampleFormControlInput1" class="form-label fw-bold text-color">글 제목</label>
-                    <input type="text" class="form-control" id="exampleFormControlInput1" name="boTitle">
-                </div>
-                <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label fw-bold text-color">내용</label>
-                    <textarea class="form-control" id="exampleFormControlTextarea1" name="boContent" rows="10" ></textarea>
-                </div>
-                <div class="mb-3" >
-                    <input type="file" name="file">
-                </div>
-
-                <button type="submit" class="btn btn-success fw-bold text-color">등록</button>
-            </form>
         </div>
 
-    </section>
+        <!-- 메인 콘텐츠 데이터 -->
+        <form action="/noticeWritePro" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label fw-bold text-color">글 제목</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" name="noTitle">
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlInput1" class="form-label fw-bold text-color">작성자</label>
+                <input type="text" class="form-control" id="exampleFormControlInput1" name="noId" th:value="${member}" disabled>
+            </div>
+            <div class="mb-3">
+                <label for="exampleFormControlTextarea1" class="form-label fw-bold text-color">내용</label>
+                <textarea class="form-control" id="exampleFormControlTextarea1" name="noContent" rows="10" ></textarea>
+            </div>
+            <div class="mb-3" >
+                <input type="file" name="file">
+            </div>
 
-    <!-- 푸터 -->
-    <div th:insert="~{/footer :: footerFragment}"></div>
+            <button type="submit" class="btn btn-success fw-bold text-color">등록</button>
+        </form>
+    </div>
+
+</section>
+
+<!-- 푸터 -->
+<div th:insert="~{/footer :: footerFragment}"></div>
 
 
 <!-- Bootstrap core JS-->

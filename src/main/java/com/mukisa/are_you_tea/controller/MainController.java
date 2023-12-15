@@ -7,6 +7,7 @@ import com.mukisa.are_you_tea.data.entity.UserEntity;
 import com.mukisa.are_you_tea.data.repository.MemberRepository;
 import com.mukisa.are_you_tea.data.repository.UserRepository;
 import com.mukisa.are_you_tea.service.RecipeService;
+import com.mukisa.are_you_tea.service.SessionCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,20 +30,35 @@ public class MainController {
     @Autowired
     private RecipeService recipeService;
 
+    @Autowired
+    SessionCheckService sessionCheckService;
+
     @GetMapping("/")
     public String mainPageController(Model model) {
-        String mbId = (String) httpSession.getAttribute("userSession");
-        if (mbId != null) {
-            MemberEntity member = memberRepository.findByMbId(mbId);
-            if(member != null){
-                model.addAttribute("member", member.getMbId());
-            }
-            UserEntity user = userRepository.findByUsername(mbId);
-            if(user != null){
-                model.addAttribute("member", user.getUsername());
-            }
-        }
 
+        /** ?Ґб??? ?? */
+        sessionCheckService.sessionCheck(model, httpSession);
+
+        //        ???? ?????? ?????? ???????
+        try {
+            List<RecipeEntity> dataset = recipeService.dataLoad();
+
+            if (!dataset.isEmpty()) {
+                // ????????? 5?? ????? ??До?? ???? 5???? ??????? ??? ???
+                if (dataset.size() >= 5) {
+                    List<RecipeEntity> top5Recipes = dataset.subList(0, 4);
+                    model.addAttribute("recipeData", top5Recipes);
+                } else {
+                    // ????????? 5?? ????? ??? ??? ??????? ??? ???
+                    model.addAttribute("recipeData", dataset);
+                }
+            } else {
+                System.out.println("????????? ??? ??????.");
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         return "main";
     }
 }
