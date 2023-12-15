@@ -21,7 +21,7 @@
                 return false;
             }
             if (spaceRegex.test(pw) || sameCharRegex.test(pw) || !pwRegex.test(pw)) {
-                alert('비밀번호 양식이 틀립니다. \n\n - 빈칸 혹은 공백, 동일한 문자를 여러개 포함한 경우. \n - 특수 문자 1자 이상 포함하지 않았을 경우');
+                alert('비밀번호 양식이 틀립니다. \n\n - 빈칸 혹은 공백, 동일한 문자를 여러개 포함한 경우. \n - 영문자 1자 이상 포함하지 않았을 경우\n \n - 숫자 1자 이상 포함하지 않았을 경우\n \n - 특수 문자 1자 이상 포함하지 않았을 경우\n - 8글자 이상 16글자 이하로 작성하지 않은 경우.');
                 return false;
             }
             return true;
