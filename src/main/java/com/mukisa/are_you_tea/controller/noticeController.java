@@ -23,4 +23,9 @@ public class noticeController {
 
         return "notice";
     }
+
+    @GetMapping("/noticeWrite")
+    public String noticeWriteCon(){
+        return "noticeWrite";
+    }
 }
