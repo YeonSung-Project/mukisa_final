@@ -13,21 +13,12 @@
             --bs-light-black:#6c757d;
         }
         .text-color{color:var(--bs-main-bg)!important;}
-        .text-color2{color:var(--bs-light-black)!important;}
-        .text-color2:hover{color:var(--bs-sub-bg)!important;}
-        .controll-btn{border: 2px solid var(--bs-main-bg);color: white;background-color: var(--bs-main-bg);
-            border-radius: 10px;
+
+        .custom-border {
+            border: 2px solid #A4D792;
+            border-radius: 8px; /* Optional: Add rounded corners */
+            padding: 10px; /* Optional: Add padding for better appearance */
         }
-        .controll-btn:hover{border: 2px solid var(--bs-main-bg);color: white;background-color: var(--bs-sub-bg);
-            border-radius: 10px;
-        }
-        .table-color{border-bottom: 1px solid var(--bs-main-bg)!important;}
-        .no-content-data{height: 500px;}
-        .shadow-x{
-            box-shadow: 5px 0 10px rgba(0,0,0,0.5), -5px 0 10px rgba(0,0,0,0.5);
-        }
-        .active{color: var(--bs-main-bg) !important;}
-        .active:hover{color: var(--bs-sub-bg) !important;}
     </style>
 </head>
 
@@ -48,23 +39,22 @@
 
         </div>
 
-        <div class="mb-3">
+
+        <div class="mb-3 custom-border">
             <label class="form-label">글 제목</label>
             <p th:text="${communityview.boTitle}"></p>
         </div>
 
         <!-- 파일 이름이 '파일이 없습니다.'가 아닌 경우에만 출력 -->
-        <div class="mb-3" th:if="${communityview.boFilepath ne '파일이 없습니다.'}">
+        <div class="mb-3 custom-border" th:if="${communityview.boFilepath ne '파일이 없습니다.'}">
             <label class="form-label">파일 이름</label>
             <p th:text="${communityview.boFilename}"></p>
-        </div>
 
-        <div class="mb-3">
             <!-- 파일이 없을 경우에는 링크를 표시하지 않음 -->
             <a th:if="${communityview.boFilepath ne '파일이 없습니다.'}" th:href="@{${communityview.boFilepath}}" onclick="return handleDownload()">다운받기</a>
         </div>
 
-        <div class="mb-3">
+        <div class="mb-3 custom-border">
             <label class="form-label">내용</label>
             <p th:text="${communityview.boContent}"></p>
         </div>

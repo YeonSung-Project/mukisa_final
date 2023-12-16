@@ -23,12 +23,13 @@ public class NoticeService {
 
     @Autowired
     SessionCheckService sessionCheckService;
+
     public Page<NoticeEntity> noticeList(Pageable pageable) {
 
         return noticeRepository.findAll(pageable);
     }
 
-    public Page<NoticeEntity> communitySearchList(String searchKeyword, Pageable pageable){
+    public Page<NoticeEntity> noticeSearchList(String searchKeyword, Pageable pageable){
 
         return noticeRepository.findByNoTitleContaining(searchKeyword, pageable);
     }
