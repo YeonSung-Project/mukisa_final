@@ -30,6 +30,7 @@ public class noticeController {
     NoticeService noticeService;
     @Autowired
     AdminCheckService adminCheckService;
+
     @GetMapping("/notice")
     public String noticeCon(Model model,
                             @PageableDefault(page = 0, size = 20, sort = "noNo", direction = Sort.Direction.DESC) Pageable pageable,  // ����¡ ó��:������� 20��, sort = ��ɷ� ���� ��Ƽ� ����? = boNo
