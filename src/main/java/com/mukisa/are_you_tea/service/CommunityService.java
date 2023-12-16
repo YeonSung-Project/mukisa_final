@@ -100,7 +100,32 @@ public class CommunityService {
      * @param : boNo
      */
     public void communityDelete(Integer boNo) {
-        communityRepository.deleteById(boNo);
+        // 글 정보 가져오기
+        CommunityEntity communityEntity = communityRepository.findById(boNo).orElse(null);
+
+        // 글이 존재하면 처리
+        if (communityEntity != null) {
+            // 파일이 존재하면 파일 삭제
+            if (communityEntity.getBoFilepath() != null && !communityEntity.getBoFilepath().equals("파일이 없습니다.")) {
+                String filePath = System.getProperty("user.dir") + File.separator + "src" +
+                        File.separator + "main" + File.separator + "resources" +
+                        File.separator + "static" + File.separator + "communityFile" +
+                        File.separator + communityEntity.getBoFilename();
+
+                File fileToDelete = new File(filePath);
+
+                if (fileToDelete.exists() && fileToDelete.isFile()) {
+                    if (fileToDelete.delete()) {
+                        System.out.println("파일이 성공적으로 삭제되었습니다.");
+                    } else {
+                        System.err.println("파일 삭제 실패");
+                    }
+                }
+            }
+
+            // 글 삭제
+            communityRepository.deleteById(boNo);
+        }
     }
 
 
