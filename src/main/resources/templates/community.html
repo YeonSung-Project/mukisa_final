@@ -139,7 +139,7 @@
                 <th:block th:if="${data_count} <= 1"  th:each="page : ${#numbers.sequence(startPage, endPage)}">
                     <li class="page-item">
                         <a class="page-link text-color2" th:class="${page == nowPage ? 'page-link active' : 'text-color2'}"
-                           th:href="@{#}" th:text="${page}"></a>
+                           th:href="@{#}" th:text="${page+1}"></a>
                     </li>
                 </th:block>
 
