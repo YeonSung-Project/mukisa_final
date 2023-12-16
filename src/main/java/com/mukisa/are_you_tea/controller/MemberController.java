@@ -53,6 +53,10 @@ public class MemberController {
                 return "SUCCESS";
             case 3:
                 return "FAIL_PW_MATCHER";
+            case 4:
+                return "FAIL_ADID_MATCHER";
+            case 5:
+                return "FAIL_ADID_to_MBNM_MATCHER";
             default:
                 return "FAIL";
         }

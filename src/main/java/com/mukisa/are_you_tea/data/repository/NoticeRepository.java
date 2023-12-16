@@ -13,7 +13,7 @@ public interface NoticeRepository extends JpaRepository<NoticeEntity, Integer> {
 
     // 살려주세요 JPQL이 뭔가요 학교에선 SQL만 알려줬는데
     //@Query(value =
-    //        "SELECT n FROM NoticeEntity " +
+    //        "SELECT n FROM NoticeEntity notice" +
     //                "WHERE " +
     //                "noId LIKE %:searchKeyword% OR " +
     //                "noTitle LIKE %:searchKeyword% OR " +

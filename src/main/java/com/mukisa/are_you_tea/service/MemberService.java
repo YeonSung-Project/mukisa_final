@@ -45,6 +45,14 @@ public class MemberService {
             }
 
             MemberEntity member = memberRepository.findByMbId(mbId);
+            AdminEntity admin = adminRepository.findByAdId(mbId);
+            AdminEntity admin_matcher = adminRepository.findByAdId(mbNm);
+            if(admin != null){
+                return 4; // 관리자와 아이디가 겹침
+            }
+            if(admin_matcher != null){ // 관리자와 닉네임이 겹침
+                return 5;
+            }
             if (member != null) {
                 return 0;  // 아이디 중복
             } else {
