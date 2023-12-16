@@ -47,14 +47,6 @@ public class RecipeController {
             sessionCheckService.sessionCheck(model, httpSession);
 
 
-            if (searchKeyword == null) {
-
-                list = recipeService.recipeList(pageable);
-            } else {
-
-              //  list = recipeService.recipeSearchList(searchKeyword, pageable);
-            }
-
 
             if (recipeType != null && !recipeType.isEmpty()) {
                 // recipeType이 주어진 경우 해당 타입의 레시피만 조회

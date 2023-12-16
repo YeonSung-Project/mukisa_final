@@ -33,7 +33,7 @@ public class MainController {
     @Autowired
     SessionCheckService sessionCheckService;
 
-    @GetMapping("/main")
+    @GetMapping("/")
     public String mainPageController(Model model) {
 
         /** ?α??? ?? */
