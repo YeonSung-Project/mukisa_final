@@ -3,6 +3,7 @@ package com.mukisa.are_you_tea.controller;
 import com.mukisa.are_you_tea.data.entity.AdminEntity;
 import com.mukisa.are_you_tea.data.entity.CommunityEntity;
 import com.mukisa.are_you_tea.data.entity.NoticeEntity;
+import com.mukisa.are_you_tea.service.AdminCheckService;
 import com.mukisa.are_you_tea.service.NoticeService;
 import com.mukisa.are_you_tea.service.SessionCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,8 @@ public class noticeController {
     SessionCheckService sessionCheckService;
     @Autowired
     NoticeService noticeService;
+    @Autowired
+    AdminCheckService adminCheckService;
     @GetMapping("/notice")
     public String noticeCon(Model model,
                             @PageableDefault(page = 0, size = 20, sort = "noNo", direction = Sort.Direction.DESC) Pageable pageable,  // ����¡ ó��:������� 20��, sort = ��ɷ� ���� ��Ƽ� ����? = boNo
@@ -75,9 +78,15 @@ public class noticeController {
     @GetMapping("/noticeWrite")
     public String noticeWriteCon(Model model){
         /** �α��� üũ */
-        sessionCheckService.sessionCheck(model, httpSession);
-
-        return "noticeWrite";
+        boolean areYouAdmin = adminCheckService.adminCheckService(httpSession);
+        if(areYouAdmin){
+            return "noticeWrite";
+        }
+        else {
+            model.addAttribute("message", "접근 권한이 없습니다.");    // 메세지
+            model.addAttribute("searchUrl", "/notice");
+            return "message";
+        }
     }
 
     @PostMapping("/noticeWritePro")
