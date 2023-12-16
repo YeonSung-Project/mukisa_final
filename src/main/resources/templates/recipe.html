@@ -28,19 +28,19 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs justify-content-center" id="recipeTabs">
             <!-- "전체" 옵션 추가 -->
-            <li class="nav-item">
+            <li class="nav-item important-color">
                 <a href="/recipe" th:data-recipe-type="all"
                    th:text="전체"
-                   class="nav-link"
+                   class="nav-link important-color fs-4"
                    data-toggle="tab">
                 </a>
             </li>
 
             <!-- Iterate over uniqueRecipeTypes and create tabs -->
-            <li th:if="${RecipeTypes != null}" th:each="recipeType : ${RecipeTypes}" class="nav-item">
+            <li th:if="${RecipeTypes != null}" th:each="recipeType : ${RecipeTypes}" class="nav-item ">
                 <a th:href="@{/recipe(recipeType=${recipeType})}"
                    th:data-recipe-type="${recipeType}"
-                   class="nav-link"
+                   class="nav-link important-color fs-4"
                    data-toggle="tab">
                     <span th:text="${recipeType}"></span>
                 </a>
@@ -49,6 +49,7 @@
 
         </ul>
         </div>
+
 
 
 
@@ -85,61 +86,16 @@
 
                 </div>
             </div>
+                        <div class="d-flex justify-content-end">
+                            <a class="btn btn-primary" href="/recipeWrite" role="button">레시피 작성</a>
+                        </div>
 
 
         </div>
-        <div class="d-flex justify-content-end">
-            <a class="btn btn-primary" href="/recipeWrite" role="button">레시피 작성</a>
-        </div>
 
-        <!--
-            <div th:if="${paging.totalPages > 1}">
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-
-                        <!- 첫 페이지로 이동 ->
-                        <li th:if="${paging.hasPrevious}" class="page-item">
-                            <a class="page-link" th:href="@{recipe(nowPageBtn=1)}" aria-label="First">
-                                <span aria-hidden="true">&laquo;&laquo;</span>
-                            </a>
-                        </li>
-
-                        <!- 이전 페이지로 이동 ->
-                        <li th:if="${paging.hasPrevious}" class="page-item">
-                            <a class="page-link" th:href="@{recipe(nowPageBtn=${paging.number - 1})}" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-
-                        <!- 페이지 번호 표시 ->
-                        <li th:each="i : ${#numbers.sequence(paging.first, paging.last)}" class="page-item" th:classappend="${i == paging.number} ? 'active'">
-                            <a class="page-link" th:href="@{recipe(nowPageBtn=${i})}" th:text="${i}"></a>
-                        </li>
-
-                        <!- 다음 페이지로 이동 ->
-                        <li th:if="${paging.hasNext}" class="page-item">
-                            <a class="page-link" th:href="@{recipe(nowPageBtn=${paging.number + 1})}" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-
-                        <!- 마지막 페이지로 이동 ->
-                        <li th:if="${paging.hasNext}" class="page-item">
-                            <a class="page-link" th:href="@{recipe(nowPageBtn=${paging.totalPages})}" aria-label="Last">
-                                <span aria-hidden="true">&raquo;&raquo;</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </nav>
-            </div>
-    
 
 
 </section>
-            -->
-
-
 <!-- Footer-->
 <div th:insert="~{/footer :: footerFragment}"></div>
 

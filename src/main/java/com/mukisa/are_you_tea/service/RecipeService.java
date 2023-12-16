@@ -1,5 +1,6 @@
 package com.mukisa.are_you_tea.service;
 
+import com.mukisa.are_you_tea.data.entity.NoticeEntity;
 import com.mukisa.are_you_tea.data.entity.RecipeEntity;
 import com.mukisa.are_you_tea.data.repository.RecipeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,12 @@ public class RecipeService {
 
     @Autowired
     RecipeRepository recipeRepository;
+
+    public Page<RecipeEntity> recipeList(Pageable pageable) {
+
+        return recipeRepository.findAll(pageable);
+    }
+
 
     //목록 조회
     public List<RecipeEntity> dataLoad(){
