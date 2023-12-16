@@ -142,6 +142,15 @@ public class CommunityController {
         /** 로그인 체크 */
         sessionCheckService.sessionCheck(model, httpSession);
 
+        /** 로그인 체크 */
+        if (httpSession.getAttribute("userSession") == null) {
+
+            model.addAttribute("message", "로그인 후 글 작성이 가능합니다.");    // 메세지
+            model.addAttribute("searchUrl", "/login");             // 글 작성 후 community 이동
+            /** 로그인되지 않은 경우 로그인 페이지로 리다이렉트 */
+            return "message";
+        }
+
         return "communitywrite";
     }
 
