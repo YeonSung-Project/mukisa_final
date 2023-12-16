@@ -1,6 +1,8 @@
 package com.mukisa.are_you_tea.controller;
 
+import com.mukisa.are_you_tea.data.entity.AdminEntity;
 import com.mukisa.are_you_tea.data.entity.CommunityEntity;
+import com.mukisa.are_you_tea.data.repository.AdminRepository;
 import com.mukisa.are_you_tea.data.repository.UserRepository;
 import com.mukisa.are_you_tea.service.CommunityService;
 import com.mukisa.are_you_tea.service.SessionCheckService;
@@ -43,6 +45,9 @@ public class CommunityController {
     private HttpSession httpSession;
     @Autowired
     private SessionCheckService sessionCheckService;
+
+    @Autowired
+    private AdminRepository adminRepository;
 
     /**
      * @methodName : community
@@ -174,18 +179,48 @@ public class CommunityController {
      * @author  : Youil Park
      * @param : model
      * @param : boNo    글 번호
-     * @return : communitymodify
+     * @return : message
      */
     @GetMapping("/communitymodify/{boNo}")
-    public String communityModify(Model model, @PathVariable("boNo") Integer boNo){
-
+    public String communityModify(Model model, @PathVariable("boNo") Integer boNo) {
         /** 로그인 체크 */
         sessionCheckService.sessionCheck(model, httpSession);
 
-        model.addAttribute("communityview", communityService.communityView(boNo));
+        /** 세션에 저장된 사용자 아이디 가져오기 */
+        String loggedInUserId = (String) httpSession.getAttribute("userSession");
 
-        return "communitymodify";
+        if (boNo == null) {
+            /** boNo가 없는 경우 예외 처리 또는 메시지를 설정할 수 있습니다. */
+            model.addAttribute("message", "글 번호가 없습니다.");
+            model.addAttribute("searchUrl", "/community"); // 이동할 URL 설정
+        } else {
+
+            /** 글 정보 가져오기 */
+            CommunityEntity communityEntity = communityService.communityView(boNo);
+
+            if (communityEntity != null) {
+
+                /** 어드민 */
+                AdminEntity adminEntity = adminRepository.findByAdId(loggedInUserId);
+                if (loggedInUserId != null && (loggedInUserId.equals(communityEntity.getMbId()) || adminEntity != null)) {
+                    model.addAttribute("communityview", communityEntity);
+                    return "communitymodify";
+                } else {
+                    /** 작성자나 mukisa가 아닌 경우에는 수정 권한이 없음을 메시지로 설정 */
+                    model.addAttribute("message", "수정 권한이 없습니다.");
+                }
+            } else {
+
+                /** 글이 존재하지 않는 경우 예외 처리 또는 메시지를 설정할 수 있습니다. */
+                model.addAttribute("message", "수정할 글을 찾을 수 없습니다.");
+            }
+
+            model.addAttribute("searchUrl", "/community"); // 이동할 URL 설정
+        }
+
+        return "message";
     }
+
 
     /**
      * @methodName : communityUpdate
@@ -232,21 +267,43 @@ public class CommunityController {
      * @author  : Youil Park
      * @param : model
      * @param : boNo
-     * @return : redirect:/community
+     * @return : message
      */
     @GetMapping("/communitydelete")
-    public String communityDelete(Model model, Integer boNo){
+    public String communityDelete(Model model, Integer boNo) {
 
         /** 로그인 체크 */
         sessionCheckService.sessionCheck(model, httpSession);
 
-        // 삭제가 완료되었음을 나타내는 메시지를 모델에 추가
-        model.addAttribute("message", "삭제 되었습니다.");
-        model.addAttribute("searchUrl", "/community");             // 글 작성 후 community 이동
+        /** 세션에 저장된 사용자 아이디 가져오기 */
+        String loggedInUserId = (String) httpSession.getAttribute("userSession");
 
+        if (boNo == null) {
+            // boNo가 없는 경우 예외 처리 또는 메시지를 설정할 수 있습니다.
+            model.addAttribute("message", "글 번호가 없습니다.");
+            model.addAttribute("searchUrl", "/community"); // 글 삭제 후 community 이동
+        } else {
 
-        communityService.communityDelete(boNo);
+            /** 글 정보 가져오기 */
+            CommunityEntity communityEntity = communityService.communityView(boNo);
+
+            /** 어드민 */
+            AdminEntity adminEntity = adminRepository.findByAdId(loggedInUserId);
+            if (communityEntity != null && loggedInUserId != null && loggedInUserId.equals(communityEntity.getMbId()) || adminEntity != null) {
+                // 현재 로그인한 사용자와 글의 작성자가 일치하는 경우에만 삭제 수행
+                communityService.communityDelete(boNo);
+                model.addAttribute("message", "삭제 되었습니다.");
+            } else {
+                // 작성자가 아닌 경우에는 삭제 권한이 없음을 메시지로 설정
+                model.addAttribute("message", "삭제 권한이 없습니다.");
+            }
+
+            model.addAttribute("searchUrl", "/community"); // 글 삭제 후 community 이동
+        }
+
         return "message";
     }
+
+
 }
 
