@@ -28,7 +28,7 @@ public class NoticeEntity {
         private LocalDateTime noDate = LocalDateTime.now();
         @PrePersist
         protected void onCreate() {
-                noDate = LocalDateTime.now();   // ???? ????? ?ฉฃ? ???
+                noDate = LocalDateTime.now();   // ???? ????? ?รฐ? ???
         }
 
         @Column(name = "NOTI_HITS")       // ?????
