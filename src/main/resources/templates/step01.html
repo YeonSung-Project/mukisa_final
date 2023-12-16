@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity">
-<div th:insert="~{/header :: commonFragment}"></div>
+<div th:insert="~{header :: commonFragment}"></div>
 <head>
   <meta charset="UTF-8">
   <title>회원가입</title>
@@ -30,7 +30,7 @@
 <body class="d-flex flex-column min-vh-100">
 
 
-<div th:insert="~{/header :: navFragment}"></div>
+<div th:insert="~{header :: navFragment}"></div>
 <div class="container public-settings">
   <form role="form" action="signup" th:action="@{/signup}">
     <div class="card w-100 p-3 mt-3 justify-content-sm-center align-items-sm-center">
@@ -101,7 +101,7 @@
   </form>
 </div>
 
-<div th:insert="~{/footer :: footerFragment}"></div>
+<div th:insert="~{footer :: footerFragment}"></div>
 
   <script>
 

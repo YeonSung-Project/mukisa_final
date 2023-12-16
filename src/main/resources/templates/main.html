@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- custom -->
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<div th:insert="~{/header :: commonFragment}"></div>
+<div th:insert="~{header :: commonFragment}"></div>
 
 <!-- AOS 라이브러리 추가 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
@@ -27,7 +27,7 @@
 <body class="d-flex flex-column min-vh-100">
 <!-- Navigation-->
 
-<div th:insert="~{/header :: navFragment}"></div>
+<div th:insert="~{header :: navFragment}"></div>
 
 <!-- 캐러셀-->
 <div style="margin-top: 60px;">
@@ -234,7 +234,7 @@
 
 
 <!-- Footer-->
-<div th:insert="~{/footer :: footerFragment}"></div>
+<div th:insert="~{footer :: footerFragment}"></div>
 
 
 <!-- Bootstrap core JS-->
