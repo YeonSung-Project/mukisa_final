@@ -92,52 +92,7 @@
             <a class="btn btn-primary" href="/recipeWrite" role="button">레시피 작성</a>
         </div>
 
-        <!--
-            <div th:if="${paging.totalPages > 1}">
-                <nav aria-label="Page navigation">
-                    <ul class="pagination justify-content-center">
-
-                        <!- 첫 페이지로 이동 ->
-                        <li th:if="${paging.hasPrevious}" class="page-item">
-                            <a class="page-link" th:href="@{recipe(nowPageBtn=1)}" aria-label="First">
-                                <span aria-hidden="true">&laquo;&laquo;</span>
-                            </a>
-                        </li>
-
-                        <!- 이전 페이지로 이동 ->
-                        <li th:if="${paging.hasPrevious}" class="page-item">
-                            <a class="page-link" th:href="@{recipe(nowPageBtn=${paging.number - 1})}" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-
-                        <!- 페이지 번호 표시 ->
-                        <li th:each="i : ${#numbers.sequence(paging.first, paging.last)}" class="page-item" th:classappend="${i == paging.number} ? 'active'">
-                            <a class="page-link" th:href="@{recipe(nowPageBtn=${i})}" th:text="${i}"></a>
-                        </li>
-
-                        <!- 다음 페이지로 이동 ->
-                        <li th:if="${paging.hasNext}" class="page-item">
-                            <a class="page-link" th:href="@{recipe(nowPageBtn=${paging.number + 1})}" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-
-                        <!- 마지막 페이지로 이동 ->
-                        <li th:if="${paging.hasNext}" class="page-item">
-                            <a class="page-link" th:href="@{recipe(nowPageBtn=${paging.totalPages})}" aria-label="Last">
-                                <span aria-hidden="true">&raquo;&raquo;</span>
-                            </a>
-                        </li>
-
-                    </ul>
-                </nav>
-            </div>
-    
-
-
-</section>
-            -->
+  
 
 
 <!-- Footer-->
