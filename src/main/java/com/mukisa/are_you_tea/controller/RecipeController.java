@@ -1,11 +1,15 @@
 package com.mukisa.are_you_tea.controller;
 
+import com.mukisa.are_you_tea.data.entity.NoticeEntity;
 import com.mukisa.are_you_tea.data.entity.RecipeEntity;
+import com.mukisa.are_you_tea.service.AdminCheckService;
 import com.mukisa.are_you_tea.service.RecipeService;
 import com.mukisa.are_you_tea.service.SessionCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,12 +32,29 @@ public class RecipeController {
     private HttpSession httpSession;
     @Autowired
     private SessionCheckService sessionCheckService;
-
+    @Autowired
+    AdminCheckService adminCheckService;
     @RequestMapping("/recipe")
     public String gorecipeList(@RequestParam(name = "recipeType", required = false) String recipeType,
-                               Model model, HttpServletRequest request) {
+                               Model model, HttpServletRequest request,
+    @PageableDefault(page = 0, size = 20, sort = "recipeNo", direction = Sort.Direction.DESC) Pageable pageable,
+                               String searchKeyword
+    ) {
         try {
+            Page<RecipeEntity> list = null;
             List<RecipeEntity> recipeData;
+
+            sessionCheckService.sessionCheck(model, httpSession);
+
+
+            if (searchKeyword == null) {
+
+                list = recipeService.recipeList(pageable);
+            } else {
+
+                list = recipeService.recipeSearchList(searchKeyword, pageable);
+            }
+
 
             if (recipeType != null && !recipeType.isEmpty()) {
                 // recipeType이 주어진 경우 해당 타입의 레시피만 조회
@@ -56,7 +77,35 @@ public class RecipeController {
             // 추출한 recipeType을 모델에 추가
             model.addAttribute("selectedRecipeType", recipeType);
 
-            sessionCheckService.sessionCheck(model, httpSession);
+
+
+            int nowPage = list.getPageable().getPageNumber();
+
+            int startPage = Math.max(nowPage - 4, 0);
+            int endPage =  Math.min(nowPage + 5, list.getTotalPages()-1);
+
+
+            String prevPageUrl = (nowPage == 1) ? "#" : "/recipe?page=" + (nowPage - 1);
+            String nextPageUrl = (nowPage == list.getTotalPages()) ? "#" : "/recipe?page=" + (nowPage + 1);
+
+            if(list.isEmpty()){
+                list =null;
+            }
+            if(list != null){
+
+                model.addAttribute("data_count", list.getTotalPages());
+                model.addAttribute("nowPage", nowPage);
+                model.addAttribute("startPage", startPage);
+                model.addAttribute("endPage", endPage);
+                model.addAttribute("prevPageUrl", prevPageUrl);
+                model.addAttribute("nextPageUrl", nextPageUrl);
+                System.out.println(list.getTotalPages());
+                System.out.println(nowPage);
+                System.out.println(endPage);
+            }
+
+            model.addAttribute("list", list);
+
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -12,7 +12,7 @@ public class RecipeEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "RECIPE_NO")
     private int recipe_no;
-    @Column(name = "RECIPE_name" )
+    @Column(name = "RECIPE_name")
     private String recipe_name;
     @Column(name = "RECIPE_quantity")
     private int recipe_quantity;
