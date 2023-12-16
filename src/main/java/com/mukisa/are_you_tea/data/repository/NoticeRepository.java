@@ -11,14 +11,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface NoticeRepository extends JpaRepository<NoticeEntity, Integer> {
 
-    // 살려주세요 JPQL이 뭔가요 학교에선 SQL만 알려줬는데
-    //@Query(value =
-    //        "SELECT n FROM NoticeEntity notice" +
-    //                "WHERE " +
-    //                "noId LIKE %:searchKeyword% OR " +
-    //                "noTitle LIKE %:searchKeyword% OR " +
-    //                "noContent LIKE %:searchKeyword%")
-    //Page<NoticeEntity> findByNoTitleContaining(@Param("searchKeyword") String searchKeyword, Pageable pageable);
-
     Page<NoticeEntity> findByNoTitleContaining(String searchKeyword, Pageable pageable);
 }

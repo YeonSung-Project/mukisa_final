@@ -79,7 +79,7 @@ public class CommunityController {
 
 
         /******************** 페이징 처리 ***********************/
-        int nowPage = list.getPageable().getPageNumber() + 1; // 0에서 시작하기 때문에 + 1
+        int nowPage = list.getPageable().getPageNumber();
 
 
         int startPage = Math.max(nowPage - 4, 0);
