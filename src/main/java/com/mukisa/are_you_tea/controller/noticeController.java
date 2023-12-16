@@ -47,7 +47,8 @@ public class noticeController {
             list = noticeService.noticeList(pageable);
         } else {
             /** �˻�� ���� �� */
-            list = noticeService.communitySearchList(searchKeyword, pageable);
+            searchKeyword.replaceAll("\\s","");
+            list = noticeService.noticeSearchList(searchKeyword, pageable);
         }
 
 
@@ -86,6 +87,7 @@ public class noticeController {
     @GetMapping("/noticeWrite")
     public String noticeWriteCon(Model model){
         /** �α��� üũ */
+        sessionCheckService.sessionCheck(model, httpSession);
         boolean areYouAdmin = adminCheckService.adminCheckService(httpSession);
         if(areYouAdmin){
             return "noticeWrite";
