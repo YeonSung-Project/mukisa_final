@@ -70,6 +70,7 @@ public class noticeController {
         model.addAttribute("nextPageUrl", nextPageUrl);
         model.addAttribute("data_count", list.getTotalPages());
 
+        System.out.println(nowPage);
         System.out.println(list.getTotalPages());
         System.out.println(endPage);
         return "notice";
