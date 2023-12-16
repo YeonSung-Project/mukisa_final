@@ -62,16 +62,24 @@ public class noticeController {
         String nextPageUrl = (nowPage == list.getTotalPages()) ? "#" : "/notice?page=" + (nowPage + 1);
         /*****************************************************/
 
-        model.addAttribute("list", list);
-        model.addAttribute("nowPage", nowPage);
-        model.addAttribute("startPage", startPage);
-        model.addAttribute("endPage", endPage);
-        model.addAttribute("prevPageUrl", prevPageUrl);
-        model.addAttribute("nextPageUrl", nextPageUrl);
-        model.addAttribute("data_count", list.getTotalPages());
+        if(list.isEmpty()){
+            list =null;
+        }
+        if(list != null){
 
-        System.out.println(list.getTotalPages());
-        System.out.println(endPage);
+            model.addAttribute("data_count", list.getTotalPages());
+            model.addAttribute("nowPage", nowPage);
+            model.addAttribute("startPage", startPage);
+            model.addAttribute("endPage", endPage);
+            model.addAttribute("prevPageUrl", prevPageUrl);
+            model.addAttribute("nextPageUrl", nextPageUrl);
+            System.out.println(list.getTotalPages());
+            System.out.println(nowPage);
+            System.out.println(endPage);
+        }
+
+        model.addAttribute("list", list);
+        System.out.println(list);
         return "notice";
     }
 
