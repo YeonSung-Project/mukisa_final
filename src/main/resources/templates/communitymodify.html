@@ -18,7 +18,10 @@
             </div>
         </div>
 
-        <form action="/communitywritepro" method="post" enctype="multipart/form-data">
+        <form th:action="@{'/communityupdate/' + ${boNo}}" method="post" enctype="multipart/form-data">
+
+            <input type="hidden" name="boNo" th:value="${boNo}">
+
             <div class="mb-3">
                 <label for="exampleFormControlInput1" class="form-label">글 제목</label>
                 <input type="text" class="form-control" id="exampleFormControlInput1" name="boTitle" th:value="${communityview.boTitle}">

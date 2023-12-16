@@ -26,8 +26,8 @@ public class CommunityEntity {
 
     @Column(name = "BO_NO")         //게시글 번호
     private Integer boNo;
-    @Column(name = "MB_ID")         // 작성자 TODO: 사용자 ID 받기 지금은 하드코딩 되어있음
-    private String mbId = "Test";
+    @Column(name = "MB_ID")         // 작성자
+    private String mbId;
     @Column(name = "BO_TITLE")      // 게시글 제목
     private String boTitle;
     @Column(name = "BO_CONTENT")    // 게시글 내용

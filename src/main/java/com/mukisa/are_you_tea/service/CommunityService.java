@@ -65,8 +65,9 @@ public class CommunityService {
      * @param : file
      * @throws : Exception 파일 업로드 예외 처리
      */
-    public void communityWrite(CommunityEntity communityEntity, MultipartFile file) throws Exception {
-        //String mbId = communityEntity.getMbId(); // 작성자 정보 가져오기
+    public void communityWrite(CommunityEntity communityEntity, MultipartFile file, String mbId) throws Exception {
+
+        communityEntity.setMbId(mbId);
 
         if (file != null && !file.isEmpty()) {
 
@@ -76,7 +77,7 @@ public class CommunityService {
 
             // ************* 파일 저장 *******************
 
-            String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\communityFile"; // 파일 경로
+            String filePath = System.getProperty("user.dir") + File.separator + "src" + File.separator + "main" + File.separator + "resources" + File.separator + "static" + File.separator + "communityFile"; // 파일 경로
             File saveFile = new File(filePath, fileName);
 
             file.transferTo(saveFile);
@@ -84,7 +85,7 @@ public class CommunityService {
             communityEntity.setBoFilename(fileName);    // 파일이름
             communityEntity.setBoFilepath("/communityFile/" + fileName);    // 파일경로
             // ******************************************
-        }
+        }   
 
         //communityEntity.setMbId(mbId); // 작성자 정보 설정
         communityRepository.save(communityEntity);
