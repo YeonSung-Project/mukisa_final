@@ -22,10 +22,7 @@ public class RecipeService {
         return recipeRepository.findAll(pageable);
     }
 
-    public Page<RecipeEntity> recipeSearchList(String searchKeyword, Pageable pageable){
 
-        return recipeRepository.findByRecipeNameContaining(searchKeyword, pageable);
-    }
     //목록 조회
     public List<RecipeEntity> dataLoad(){
         try {

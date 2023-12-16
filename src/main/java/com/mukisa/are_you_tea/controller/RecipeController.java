@@ -52,7 +52,7 @@ public class RecipeController {
                 list = recipeService.recipeList(pageable);
             } else {
 
-                list = recipeService.recipeSearchList(searchKeyword, pageable);
+              //  list = recipeService.recipeSearchList(searchKeyword, pageable);
             }
 
 

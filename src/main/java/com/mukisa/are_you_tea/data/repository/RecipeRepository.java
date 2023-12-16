@@ -21,5 +21,5 @@ public interface RecipeRepository extends JpaRepository<RecipeEntity, Integer> {
     List<RecipeEntity> findByRecipeType(String recipeType);
 
 
-    Page<RecipeEntity> findByRecipeNameContaining(String searchKeyword, Pageable pageable);
+
 }
