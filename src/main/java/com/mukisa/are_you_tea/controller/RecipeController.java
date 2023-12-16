@@ -71,32 +71,32 @@ public class RecipeController {
 
 
 
-            int nowPage = list.getPageable().getPageNumber();
+            //int nowPage = list.getPageable().getPageNumber();
 
-            int startPage = Math.max(nowPage - 4, 0);
-            int endPage =  Math.min(nowPage + 5, list.getTotalPages()-1);
+            //int startPage = Math.max(nowPage - 4, 0);
+            //int endPage =  Math.min(nowPage + 5, list.getTotalPages()-1);
 
 
-            String prevPageUrl = (nowPage == 1) ? "#" : "/recipe?page=" + (nowPage - 1);
-            String nextPageUrl = (nowPage == list.getTotalPages()) ? "#" : "/recipe?page=" + (nowPage + 1);
+            //String prevPageUrl = (nowPage == 1) ? "#" : "/recipe?page=" + (nowPage - 1);
+            //String nextPageUrl = (nowPage == list.getTotalPages()) ? "#" : "/recipe?page=" + (nowPage + 1);
 
-            if(list.isEmpty()){
-                list =null;
-            }
-            if(list != null){
+            //if(list.isEmpty()){
+            //    list =null;
+            //}
+            //if(list != null){
 
-                model.addAttribute("data_count", list.getTotalPages());
-                model.addAttribute("nowPage", nowPage);
-                model.addAttribute("startPage", startPage);
-                model.addAttribute("endPage", endPage);
-                model.addAttribute("prevPageUrl", prevPageUrl);
-                model.addAttribute("nextPageUrl", nextPageUrl);
-                System.out.println(list.getTotalPages());
-                System.out.println(nowPage);
-                System.out.println(endPage);
-            }
+            //    model.addAttribute("data_count", list.getTotalPages());
+            //    model.addAttribute("nowPage", nowPage);
+            //    model.addAttribute("startPage", startPage);
+            //    model.addAttribute("endPage", endPage);
+            //    model.addAttribute("prevPageUrl", prevPageUrl);
+            //    model.addAttribute("nextPageUrl", nextPageUrl);
+            //    System.out.println(list.getTotalPages());
+            //    System.out.println(nowPage);
+            //    System.out.println(endPage);
+            //}
 
-            model.addAttribute("list", list);
+            //model.addAttribute("list", list);
 
 
         } catch (Exception e) {
