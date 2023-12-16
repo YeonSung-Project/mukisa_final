@@ -43,8 +43,6 @@ public class CommunityController {
     private HttpSession httpSession;
     @Autowired
     private SessionCheckService sessionCheckService;
-    @Autowired
-    private UserRepository userRepository;
 
     /**
      * @methodName : community
@@ -57,8 +55,8 @@ public class CommunityController {
      */
     @GetMapping("community")
     public String community(Model model,
-                            @PageableDefault(page = 0, size = 20, sort = "boNo", direction = Sort.Direction.DESC) Pageable pageable,  // 페이징 처리:사이즈는 20개, sort = 어떤걸로 기준 삼아서 정렬? = boNo
-                            String searchKeyword) { // 검색어
+                            @PageableDefault(page = 0, size = 20, sort = "boNo", direction = Sort.Direction.DESC) Pageable pageable,
+                            String searchKeyword){ // 검색어
 
         Page<CommunityEntity> list = null;
 
@@ -76,9 +74,11 @@ public class CommunityController {
 
 
         /******************** 페이징 처리 ***********************/
-        int nowPage = list.getPageable().getPageNumber() + 1;       // 0에서 시작하기 때문에 + 1
-        int startPage = Math.max(nowPage - 4, 1);
-        int endPage =  Math.min(nowPage + 5, list.getTotalPages());
+        int nowPage = list.getPageable().getPageNumber() + 1; // 0에서 시작하기 때문에 + 1
+
+
+        int startPage = Math.max(nowPage - 4, 0);
+        int endPage =  Math.min(nowPage + 5, list.getTotalPages()-1);
 
         /** 이전 페이지와 다음 페이지의 URL 추가 */
         String prevPageUrl = (nowPage == 1) ? "#" : "/community?page=" + (nowPage - 1);
@@ -91,6 +91,7 @@ public class CommunityController {
         model.addAttribute("endPage", endPage);
         model.addAttribute("prevPageUrl", prevPageUrl);
         model.addAttribute("nextPageUrl", nextPageUrl);
+        model.addAttribute("data_count", list.getTotalPages());
 
         return "community";
     }
@@ -155,13 +156,11 @@ public class CommunityController {
         /** 로그인 체크 */
         sessionCheckService.sessionCheck(model, httpSession);
 
-        /** TODO : 작성자 ID 값 받고 싶음 */
-        /*String mbId = (String) httpSession.getAttribute("userSession");
-        UserEntity user = userRepository.findByUsername(mbId);
-        System.out.printf(String.valueOf(user));*/
+        /** 세션에 있는 사용자 아이디 받기 */
+        String mbId = (String) httpSession.getAttribute("userSession");
 
         /** 파일 */
-        communityService.communityWrite(communityEntity, file);
+        communityService.communityWrite(communityEntity, file, mbId);
 
         model.addAttribute("message", "글 작성이 완료되었습니다.");    // 메세지
         model.addAttribute("searchUrl", "/community");             // 글 작성 후 community 이동
@@ -178,7 +177,7 @@ public class CommunityController {
      * @return : communitymodify
      */
     @GetMapping("/communitymodify/{boNo}")
-    public String communityModify(Model model,@PathVariable("boNo") Integer boNo){
+    public String communityModify(Model model, @PathVariable("boNo") Integer boNo){
 
         /** 로그인 체크 */
         sessionCheckService.sessionCheck(model, httpSession);
@@ -205,6 +204,8 @@ public class CommunityController {
         /** 로그인 체크 */
         sessionCheckService.sessionCheck(model, httpSession);
 
+        String mbId = (String) httpSession.getAttribute("userSession");
+
         /** 기존에 있던 글울 검색 */
         CommunityEntity communityTemp = communityService.communityView(boNo);
         System.out.printf(String.valueOf(communityTemp));
@@ -216,7 +217,7 @@ public class CommunityController {
         communityTemp.setBoTitle(communityEntity.getBoTitle());         // 제목
         communityTemp.setBoContent(communityEntity.getBoContent());     // 내용
 
-        communityService.communityWrite(communityTemp, file);
+        communityService.communityWrite(communityTemp, file, mbId);
 
         model.addAttribute("message", "글 수정이 완료되었습니다.");    // 메세지
         model.addAttribute("searchUrl", "/community");             // 글 작성 후 community 이동
@@ -239,8 +240,13 @@ public class CommunityController {
         /** 로그인 체크 */
         sessionCheckService.sessionCheck(model, httpSession);
 
+        // 삭제가 완료되었음을 나타내는 메시지를 모델에 추가
+        model.addAttribute("message", "삭제 되었습니다.");
+        model.addAttribute("searchUrl", "/community");             // 글 작성 후 community 이동
+
+
         communityService.communityDelete(boNo);
-        return "redirect:/community";
+        return "message";
     }
 }
 
