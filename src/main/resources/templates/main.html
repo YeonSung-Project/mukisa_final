@@ -23,46 +23,62 @@
         }
       }
 
+  /* 캐러셀 이미지 어둡게 처리 */
+    .carousel-item img {
+        filter: brightness(70%); /* 어둡게 처리하는 스타일 */
+    }
+
+    /* 캐러셀 캡션 텍스트 스타일 조정 */
+    .carousel-caption {
+        color: #ffffff; /* 글자 색상을 흰색으로 설정 */
+        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 텍스트 그림자 추가 */
+    }
+    }
 </style>
 <body class="d-flex flex-column min-vh-100">
 <!-- Navigation-->
 
 <div th:insert="~{header :: navFragment}"></div>
 
-<!-- 캐러셀-->
+<!-- 캐러셀 -->
 <div style="margin-top: 60px;">
     <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
         <div class="carousel-inner">
+            <a href="/recipe">
             <div class="carousel-item active">
                 <img src="img/main_01.jpg" class="d-block w-100" alt="메인 레시피" style="max-height: 600px; width: auto;">
                 <div class="container">
                     <div class="carousel-caption text-start">
                         <h1>레시피</h1>
                         <p>다양한 레시피를 직접 만들어 즐겨보세요.</p>
-                        <p><a class="btn btn-lg btn-primary" href="/recipe">바로가기</a></p>
+                        <p><button class="btn btn-lg btn-main" >바로가기</button></p>
                     </div>
                 </div>
-            </div>
+            </div></a>
+
+            <a href="/china">
             <div class="carousel-item">
                 <img src="img/main_02.jpg" class="d-block w-100" alt="메인 중국차" style="max-height: 600px; width: auto;">
                 <div class="container">
                     <div class="carousel-caption text-start">
                         <h1>중국차</h1>
                         <p>중국차에 대해 알아보세요</p>
-                        <p><a class="btn btn-lg btn-primary" href="/china">바로가기</a></p>
+                        <p><button class="btn btn-lg  btn-main" >바로가기</button></p>
                     </div>
                 </div>
-            </div>
+            </div></a>
+            <a href="/medicine">
             <div class="carousel-item">
                 <img src="img/main_03.jpg" class="d-block w-100" alt="메인 약차" style="max-height: 600px; width: auto;">
                 <div class="container">
                     <div class="carousel-caption text-start">
                         <h1>약차</h1>
-                        <p>약차에 대해 알아보아요</p>
-                        <p><a class="btn btn-lg btn-primary" href="/medicine">바로가기</a></p>
+                        <p>약차에 대해 알아보세요</p>
+                        <p><button class="btn btn-lg btn-main" >바로가기</button></p>
                     </div>
                 </div>
             </div>
+            </a>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleFade" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -74,160 +90,131 @@
         </button>
     </div>
 </div>
-<!--캐러셀 끝-->
+<!-- 캐러셀 끝 -->
+
 
 <!--공지버튼-->
 <div class="row text-center">
+
     <div class="col">
+        <a class="important-color noneline" href="/notice">
         <span class="fs-2 mb-3 d-inline-block"> <!-- d-inline-block 추가 -->
             <span class="align-middle">공지사항</span> <!-- 텍스트 정렬을 위한 추가 -->
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill align-middle" viewBox="0 0 16 16">
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
             </svg>
         </span>
+        </a>
     </div>
+
+
     <div class="col text-white bg-dark">
+        <a class="important-color noneline" href="/community">
         <span class="fs-2 mb-3 d-inline-block"> <!-- d-inline-block 추가 -->
             <span class="align-middle">커뮤니티</span> <!-- 텍스트 정렬을 위한 추가 -->
             <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-plus-circle-fill align-middle" viewBox="0 0 16 16">
                 <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3v-3z"/>
             </svg>
         </span>
+        </a>
     </div>
+
 </div>
 <!--공지버튼 끝-->
 
+<!-- 서브배너 -->
+<div class="row btn-main">
+    <div class="col-md-2 btn-main">
 
-<!--서브배너-->
-<div class="row">
-    <div class="col-md-2" >
-        <div class="item item--primary">
-            <img src="img/notimg.jpg" alt="Product Image" class="img-fluid">
-        </div>
+            <img src="img/main_sub1.jpg" alt="Product Image" class="img-fluid">
+
     </div>
-    <div class="col-md-10" >
-        <div class="position-relative overflow-hidden p-3 text-center bg-light">
-            <div class="row">
-                <div class="row fs-3">너 Tea야?에 오신 걸 환영합니다</div>
-
-                <div class="row ">
-                    <div class="col">
-                    <p>너 Tea야? 회원이세요? 로그인을 통해 댓글을 남겨보세요.</p>
-                    <p>너 Tea야? 회원이 아니세요? 가입을 통해 커뮤니티를 즐기세요.</p>
-                    </div>
-                    <div class="col">
-                        <button class="btn btn-outline-secondary" href="/login">로그인</button>
-                        <button class="btn btn-outline-secondary" href="/step01">회원가입</button>
-                    </div>
-
-                    </div>
-
+    <div class="col-md-10">
+        <div class="position-relative overflow-hidden text-center btn-main">
+            <div class="row fs-3">
+                <div class="col">
+                    <p>너 Tea야?에 오신 걸 환영합니다</p>
+                </div>
             </div>
             <div class="row">
-                <p class="col"> 세계의 다양한 레시피를 즐겨보세요.</p>
+                <div class="col-9 fs-5">
+                    너 Tea야? 회원이세요? 로그인을 통해 댓글을 남겨보세요.<br>
+                    너 Tea야? 회원이 아니세요? 가입을 통해 커뮤니티를 즐기세요.
+                </div>
+                <div class="col-3">
+                    <a class="btn btn-outline-secondary" href="/login">로그인</a>
+                    <a class="btn btn-outline-secondary" href="/step01">회원가입</a>
+                </div>
             </div>
+
         </div>
     </div>
 </div>
-<!--서브끝-->
-
+<!-- 서브끝 -->
 <!--1번배너-->
-<div class="row" id="scroll-target">
-    <div class="col-md-6" data-aos="fade-right" data-aos-once="false" data-aos-anchor="#scroll-target"
+<div class="row m-0" id="scroll-target">
+    <!-- 이미지 컬럼 -->
+    <div class="col-md-6 p-0 " data-aos="fade-right" data-aos-once="false" data-aos-anchor="#scroll-target"
          data-aos-offset="300"
          data-aos-easing="ease-in-sine">
-        <div class="item item--primary">
-            <img src="img/notimg.jpg" alt="Product Image" class="img-fluid">
-        </div>
+        <img src="img/main_medicine.jpg" alt="Herbal Tea Image" class="img-fluid">
     </div>
-    <div class="col-md-6" data-aos="fade-left" data-aos-once="false" data-aos-anchor="#scroll-target"
+    <!-- 텍스트 컬럼 -->
+    <div class="col-md-6 p-0 bg-light text-center" data-aos="fade-left" data-aos-once="false" data-aos-anchor="#scroll-target"
          data-aos-offset="300"
          data-aos-easing="ease-in-sine">
-        <div class="position-relative overflow-hidden p-3 p-md-5 text-center bg-light">
-            <div class="col-md-5 p-lg-5 mx-auto my-5">
-                <h1 class="display-4 fw-normal">1스크롤</h1>
-                <p class="lead fw-normal">And an even wittier subheading to boot. Jumpstart your marketing efforts with
-                    this example based on Apple’s marketing pages.</p>
-                <a class="btn btn-outline-secondary" href="#">Coming soon</a>
+
+            <div class="col-md-5 mx-auto p-0">
+                <h1 class="display-4 fw-normal  mb-5 mt-5">약차</h1>
+                <p class="lead fw-normal">다양한 허브와 약재를 사용한 특별한 약차를 즐겨보세요. 건강과 풍부한 맛을 동시에 경험할 수 있는 최고의 티 시간을 선사합니다.</p>
+                <a class="btn btn-outline-secondary" href="/medicine">자세히 보기</a>
             </div>
-        </div>
+
     </div>
 </div>
 <!--배너끝-->
-
 
 <!--2번배너-->
-<div class="row" id="scroll-target-two">
-
-    <div class="col-md-6" data-aos="fade-right" data-aos-once="false" data-aos-anchor="#scroll-target-two"
+<div class="row m-0" id="scroll-target-two">
+    <!-- 텍스트 컬럼 -->
+    <div class="col-md-6 p-0 btn-main" data-aos="fade-right" data-aos-once="false" data-aos-anchor="#scroll-target-two"
          data-aos-offset="300"
          data-aos-easing="ease-in-sine">
-        <div class="position-relative overflow-hidden p-3 p-md-5 text-center bg-light">
-            <div class="col-md-5 p-lg-5 mx-auto my-5">
-                <h1 class="display-4 fw-normal">2스크롤</h1>
-                <p class="lead fw-normal">And an even wittier subheading to boot. Jumpstart your marketing efforts with
-                    this example based on Apple’s marketing pages.</p>
-                <a class="btn btn-outline-secondary" href="#">Coming soon</a>
+        <div class=" overflow-hidden text-center btn-main d-flex align-items-center">
+            <div class="col-md-5 mx-auto p-0">
+                <h1 class="display-4 fw-normal  mb-5 mt-5">중국차</h1>
+                <p class="lead fw-normal">아시아 전통의 맛과 향이 어우러진 중국차를 즐겨보세요. 중국의 다양한 차 문화를 경험하고, 특별한 한 모금으로 일상을 힐링하세요.</p>
+                <a class="btn btn-outline-secondary" href="/china">자세히 보기</a>
             </div>
         </div>
     </div>
-    <div class="col-md-6" data-aos="fade-left" data-aos-once="false" data-aos-anchor="#scroll-target-two"
+    <!-- 이미지 컬럼 -->
+    <div class="col-md-6 p-0" data-aos="fade-left" data-aos-once="false" data-aos-anchor="#scroll-target-two"
          data-aos-offset="300"
          data-aos-easing="ease-in-sine">
-        <div class="item item--primary">
-            <img src="img/notimg.jpg" alt="Product Image" class="img-fluid">
-        </div>
+        <img src="img/main_china.jpg" alt="Chinese Tea Image" class="img-fluid">
     </div>
 </div>
 <!--배너끝-->
 
-
 <!--3번배너-->
-<div class="row" id="scroll-target-three">
-
-    <div class="col-md-6"
+<div class="row m-0" id="scroll-target-three">
+    <!-- 이미지 컬럼 -->
+    <div class="col-md-6 p-0"
          data-aos="zoom-in"
          data-aos-easing="ease-out-cubic"
          data-aos-duration="2000" data-aos-once="false">
-
-        <div class="item item--primary">
-            <img src="img/notimg.jpg" alt="Product Image" class="img-fluid">
-        </div>
+        <img src="img/main_recipe.jpg" alt="Creative Recipe Image" class="img-fluid">
     </div>
-    <div class="col-md-6" data-aos="zoom-in" data-aos-once="false" data-aos-anchor="#scroll-target-three">
-        <div class="position-relative overflow-hidden p-3 p-md-5 text-center bg-light">
-            <div class="col-md-5 p-lg-5 mx-auto my-5">
-                <h1 class="display-4 fw-normal">3스크롤</h1>
-                <p class="lead fw-normal">And an even wittier subheading to boot. Jumpstart your marketing efforts with
-                    this example based on Apple’s marketing pages.</p>
-                <a class="btn btn-outline-secondary" href="#">Coming soon</a>
+    <!-- 텍스트 컬럼 -->
+    <div class="col-md-6 p-0 bg-light text-center" data-aos="zoom-in" data-aos-once="false" data-aos-anchor="#scroll-target-three">
+
+            <div class="col-md-5 mx-auto p-0">
+                <h1 class="display-4 fw-normal mb-5 mt-5">응용 레시피</h1>
+                <p class="lead fw-normal">다양한 식재료와 특별한 기법을 활용한 응용 레시피로 요리의 새로운 세계를 경험하세요. 맛과 향의 조합으로 창의적인 레시피를 만나보세요.</p>
+                <a class="btn btn-outline-secondary" href="/recipe">자세히 보기</a>
             </div>
-        </div>
-    </div>
-</div>
-<!--배너끝-->
 
-<!--4번배너-->
-<div class="row" id="scroll-target-four">
-
-    <div class="col-md-6" data-aos="flip-up" data-aos-once="false" data-aos-anchor="#scroll-target-four">
-        <div class="position-relative overflow-hidden p-3 p-md-5 text-center bg-light">
-            <div class="col-md-5 p-lg-5 mx-auto my-5">
-                <h1 class="display-4 fw-normal">4스크롤</h1>
-                <p class="lead fw-normal">And an even wittier subheading to boot. Jumpstart your marketing efforts with
-                    this example based on Apple’s marketing pages.</p>
-                <a class="btn btn-outline-secondary" href="#">Coming soon</a>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-6"
-         data-aos="flip-left"
-         data-aos-easing="ease-out-cubic"
-         data-aos-duration="2000" data-aos-once="false">
-
-        <div class="item item--primary">
-            <img src="img/notimg.jpg" alt="Product Image" class="img-fluid">
-        </div>
     </div>
 </div>
 <!--배너끝-->

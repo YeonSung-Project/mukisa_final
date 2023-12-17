@@ -66,104 +66,54 @@
 
 
 
-      <!-- 댓글-->
+    <!-- 댓글 -->
     <div class="container" style="margin-bottom:60px;">
         <div class="container w-75 p-3">
             <div class="row">
                 <br>
                 <h5>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-text" viewBox="0 0 16 16">
-                        <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
-                        <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5zM3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6zm0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-chat-left-text" viewBox="0 0 16 16">
+                        <!-- SVG Path for chat icon -->
                     </svg>
                     &nbsp; 댓글
                 </h5>
-                <table class="table">
+
+                <!-- 댓글쓰기 -->
+                <div class="container w-75 p-3">
+                    <div class="row justify-content-md-center">
+                        <form class="reply_Update" th:action="@{/boardReplyPro.me}" method="post" name="replyform">
+                            <!-- 생략 -->
+                        </form>
+                    </div>
+                </div>
+
+                <!-- 댓글 목록이 비어있을 때 -->
+                <div th:if="${#lists.isEmpty(recipeReviews)}">
+                    <p>댓글이 없습니다.</p>
+                </div>
+
+                <!-- 댓글 목록이 비어있지 않을 때 -->
+                <table class="table" th:if="${not #lists.isEmpty(recipeReviews)}">
                     <!-- Loop through comments -->
-                    <tr>
-                        <td class="reply_Update">
-                            작성자: John Doe
-                            &nbsp;
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                 class="bi bi-clock" viewBox="0 0 16 16">
-                                <!-- SVG Path for clock icon -->
-                            </svg>
-                            2023-01-01
-                            <br>
-                            <span class="reply_Update">내용: This is a comment.</span>
-                            <br>
-                        </td>
+                    <tr th:each="comment : ${recipeReviews}">
+                        <!-- 생략 -->
 
                         <td class="reply_Update">
-                            <a style="cursor:pointer; color:#007bff;" onclick="replyUpdate(1)">[수정]</a><br>
-                            <a style="cursor:pointer; color:#007bff;" onclick="replyremoveCheck(1)">[삭제] </a>
+                            <a style="cursor:pointer; color:#007bff;"
+                               th:onclick="'replyUpdate(' + ${comment.recipe_review} + ')'">[수정]</a><br>
+                            <a style="cursor:pointer; color:#007bff;"
+                               th:onclick="'replyremoveCheck(' + ${comment.recipe_review} + ')'">[삭제] </a>
                         </td>
 
-                        <td id="replyUpdateForm1" style="display:none;">
-                            <!-- Comment Update Form -->
-                            <form action="boardReplyUpdatePro.me?b_no=123&r_no=1" method="post" name="replyUpdateform">
-                                댓글 수정<br>
-                                <table class="table">
-                                    <tr>
-                                        작성자: John Doe<br>
-                                        <input type="text" name="M_ID" value="user123" style="display: none;">
-                                        <td>
-                                            <div class="row">
-                                                <div class="col-9">
-                                            <textarea class="form-control" id="REPLY_UPDATE_CONTENT" name="R_COMMENT"
-                                                      cols="150" rows="3" required="required"
-                                                      style="resize: none;">This is the updated comment.</textarea>
-                                                </div>
-                                                <div class="col">
-                                                    <input class="btn btn-primary" style="margin: 2px;" type="submit"
-                                                           value="등록">
-                                                    <input class="btn btn-danger" style="margin: 2px;" type="button"
-                                                           value="취소" onClick="replyUpdate_Cancel(1)">
-                                                </div>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </form>
-                        </td>
-
-                        <td id="replyDeleteForm1" style="display:none;">
-                            <!-- Comment Delete Form -->
-                            <form action="boardReplyDeletePro.me?b_no=123&r_no=1" method="post" name="replyDeleteForm">
-                                댓글 삭제<br>
-                                <input type="hidden" name="M_ID" value="user123" style="display: none;">
-                                <input class="btn btn-danger" style="margin: 2px;" type="submit" value="삭제">
-                            </form>
-                        </td>
+                        <!-- 생략 -->
                     </tr>
                     <!-- End of Loop -->
                 </table>
             </div>
         </div>
-
-        <!-- 댓글쓰기 -->
-        <div class="container w-75 p-3">
-            <div class="row justify-content-md-center">
-                <form class="reply_Update" action="boardReplyPro.me?b_no=123" method="post" name="replyform">
-                    <fieldset>
-                        <legend>댓글쓰기</legend>
-                        <div class="row">
-                            <input class="form-control" name="M_ID" value="user123" required="required" style="display: none;">
-
-                            <!-- Check if the user is logged in -->
-                            <div class="col">
-                        <textarea class="form-control" id="REPLY_CONTENT" name="R_COMMENT" rows="3" required="required"
-                                  style="resize: none;" placeholder="댓글을 입력해주세요"></textarea>
-                            </div>
-                            <div class="col-2">
-                                <button class="btn btn-main btn-lg" type="submit">등록</button>
-                            </div>
-                        </div>
-                    </fieldset>
-                </form>
-            </div>
-        </div>
     </div>
+
 
 </section>
 
