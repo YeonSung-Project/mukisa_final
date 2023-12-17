@@ -2,8 +2,10 @@ package com.mukisa.are_you_tea.controller;
 
 import com.mukisa.are_you_tea.data.entity.NoticeEntity;
 import com.mukisa.are_you_tea.data.entity.RecipeEntity;
+import com.mukisa.are_you_tea.data.entity.Recipe_ReviewEntity;
 import com.mukisa.are_you_tea.service.AdminCheckService;
 import com.mukisa.are_you_tea.service.RecipeService;
+import com.mukisa.are_you_tea.service.Recipe_ReviewService;
 import com.mukisa.are_you_tea.service.SessionCheckService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,7 +29,8 @@ public class RecipeController {
 
     @Autowired
     RecipeService recipeService;
-
+    @Autowired
+    Recipe_ReviewService recipe_reviewService;
     @Autowired
     private HttpSession httpSession;
     @Autowired
@@ -71,32 +74,7 @@ public class RecipeController {
 
 
 
-            //int nowPage = list.getPageable().getPageNumber();
 
-            //int startPage = Math.max(nowPage - 4, 0);
-            //int endPage =  Math.min(nowPage + 5, list.getTotalPages()-1);
-
-
-            //String prevPageUrl = (nowPage == 1) ? "#" : "/recipe?page=" + (nowPage - 1);
-            //String nextPageUrl = (nowPage == list.getTotalPages()) ? "#" : "/recipe?page=" + (nowPage + 1);
-
-            //if(list.isEmpty()){
-            //    list =null;
-            //}
-            //if(list != null){
-
-            //    model.addAttribute("data_count", list.getTotalPages());
-            //    model.addAttribute("nowPage", nowPage);
-            //    model.addAttribute("startPage", startPage);
-            //    model.addAttribute("endPage", endPage);
-            //    model.addAttribute("prevPageUrl", prevPageUrl);
-            //    model.addAttribute("nextPageUrl", nextPageUrl);
-            //    System.out.println(list.getTotalPages());
-            //    System.out.println(nowPage);
-            //    System.out.println(endPage);
-            //}
-
-            //model.addAttribute("list", list);
 
 
         } catch (Exception e) {
@@ -110,21 +88,31 @@ public class RecipeController {
     //상세 레시피 보기
     @RequestMapping("/recipeDetail")
     public String gorecipeDetail(@RequestParam(name = "recipeno", required = false) Integer recipeno, Model model) {
+        try {
+            sessionCheckService.sessionCheck(model, httpSession);
 
-        sessionCheckService.sessionCheck(model, httpSession);
+            // recipeno가 null이 아니라면 조회하고 결과를 모델에 담음
+            if (recipeno != null) {
+                RecipeEntity recipe = recipeService.findRecipeId(recipeno);
+                if (recipe != null) {
+                    model.addAttribute("recipeDetailData", recipe);
 
-        // recipeno가 null이 아니라면 조회하고 결과를 모델에 담음
-        if (recipeno != null) {
-            RecipeEntity recipe = recipeService.findRecipeId(recipeno);
-            if (recipe != null) {
-                model.addAttribute("recipeDetailData", recipe);
+                    // 해당 레시피에 대한 댓글 목록을 가져옵니다.
+                    List<Recipe_ReviewEntity> recipeReviews = recipe_reviewService.getRecipeReviewByRecipeId(recipeno);
+
+                    // 댓글 목록을 모델에 추가합니다.
+                    model.addAttribute("recipeReviews", recipeReviews);
+                } else {
+                    // 해당 recipeno에 대한 레코드가 없을 경우에 대한 처리
+                    // 메시지를 추가하거나 다른 작업 수행
+                }
             } else {
-                // 해당 recipeno에 대한 레코드가 없을 경우에 대한 처리
-
+                // recipeno가 제공되지 않은 경우에 대한 처리
+                // 메시지를 추가하거나 다른 작업 수행
             }
-        } else {
-            // recipeno가 제공되지 않은 경우에 대한 처리
-
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 예외 처리 - 로깅이나 사용자에게 오류 메시지 보여주기 등
         }
 
         return "recipeDetail";
