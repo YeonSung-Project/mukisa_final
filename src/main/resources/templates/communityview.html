@@ -59,6 +59,8 @@
             <p th:text="${communityview.boContent}"></p>
         </div>
 
+
+
         <a href="/community" type="button" class="btn btn-primary">목록</a>
         <a th:href="@{/communitymodify/{boNo}(boNo = ${communityview.boNo})}" type="button" class="btn btn-success">수정</a>
         <a th:href="@{/communitydelete(boNo=${communityview.boNo})}" type="button" class="btn btn-danger" onclick="confirmDelete()">삭제</a>
