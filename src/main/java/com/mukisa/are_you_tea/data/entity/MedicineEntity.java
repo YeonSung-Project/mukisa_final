@@ -22,8 +22,8 @@ public class MedicineEntity {
     private String tea_recipe;
     @Column(name = "TEA_TASTE")
     private String tea_taste;
-    @Column(name = "TEA_IMPAT")
-    private String tea_impat;
+    @Column(name = "TEA_IMPACT")
+    private String tea_impact;
     @Column(name = "TEA_IMG")
     private String tea_img;
 }
