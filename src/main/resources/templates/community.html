@@ -62,7 +62,7 @@
         <table class="table border-color">
             <!-- 콘텐츠 부제목 -->
             <thead>
-            <tr>
+            <tr class="text-center">
                 <th class="table-color text-color fw-bold" scope="col">번호</th>
                 <th class="table-color text-color fw-bold" scope="col">제목</th>
                 <th class="table-color text-color fw-bold" scope="col">작성자</th>
@@ -85,21 +85,21 @@
             <!-- 만약(if) 데이터를 DB 서버에서 가져오면 [데이터 표시] -->
             <tr th:if="${list  != null}" th:each="communityEntity  : ${list}">
                 <!-- 게시판 번호 -->
-                <td th:text="${communityEntity.boNo}" scope="row">1</td>
+                <td class="text-center" th:text="${communityEntity.boNo}" scope="row">1</td>
 
                 <!-- 글 제목 -->
                 <!-- communityview로 보내줄건데 boNo를 담아서 보내줄거다 -->
                 <!-- boNo는 뭐냐면 communityEntity의 boNo -->
                 <td>
-                    <a th:text="${communityEntity.boTitle}" th:href="@{/communityview(boNo=${communityEntity.boNo})}"></a>
+                    <a class="noneline" th:text="${communityEntity.boTitle}" th:href="@{/communityview(boNo=${communityEntity.boNo})}"></a>
                 </td>
                 <!-- 작성자 -->
-                <td th:text="${communityEntity.mbId}"></td>
+                <td class="text-center" th:text="${communityEntity.mbId}"></td>
                 <!-- 작성일 -->
-                <td th:text="${#temporals.format(communityEntity.boDate, 'yyyy-MM-dd')}"></td>
+                <td class="text-center" th:text="${#temporals.format(communityEntity.boDate, 'yyyy-MM-dd')}"></td>
 
                 <!-- 조회수 -->
-                <td th:text="${communityEntity.boHits}"></td>
+                <td class="text-center" th:text="${communityEntity.boHits}"></td>
             </tr>
             </tbody>
 

@@ -74,7 +74,7 @@
         <table class="table border-color">
             <!-- 콘텐츠 부제목 -->
             <thead>
-            <tr class="table-color">
+            <tr class="table-color text-center">
                 <th class="text-color fw-bold checkbox-item" scope="col" style="display: none;">선택</th>
                 <th class="text-color fw-bold" scope="col">번호</th>
                 <th class="text-color fw-bold" scope="col">제목</th>
@@ -89,7 +89,7 @@
             <!-- 콘텐츠 데이터 -->
             <tbody>
             <!-- 만약(if) 데이터를 DB 서버에서 가져오지 못하면 [콘텐츠 없음] 표시 -->
-            <tr class="no-content-data" th:if="${list == null}">
+            <tr class="no-content-data " th:if="${list == null}">
                 <td colspan="5" class="text-center align-middle table-color">
                     <h1 class="text-color">콘텐츠 없음</h1>
                     <h3 class="text-color">(데이터를 추가 해주세요)</h3>
@@ -97,7 +97,7 @@
             </tr>
 
             <!-- 만약(if) 데이터를 DB 서버에서 가져오면 [데이터 표시] -->
-            <tr class="table-color" th:if="${list  != null}" th:each="noticeEntity  : ${list}">
+            <tr class="table-color " th:if="${list  != null}" th:each="noticeEntity  : ${list}">
 
                 <!-- 체크박스 -->
                 <td th:class="checkbox-item" style="display: none;"><input type="checkbox" th:class="edit_check" th:id="${noticeEntity.noNo}" th:value="${noticeEntity.noNo}"></td>
@@ -105,21 +105,21 @@
 
 
                 <!-- 게시판 번호 -->
-                <td th:text="${noticeEntity.noNo}" scope="row">1</td>
+                <td class="text-center" th:text="${noticeEntity.noNo}" scope="row">1</td>
 
                 <!-- 글 제목 -->
                 <!-- communityview로 보내줄건데 boNo를 담아서 보내줄거다 -->
                 <!-- boNo는 뭐냐면 communityEntity의 boNo -->
                 <td>
-                    <a th:text="${noticeEntity.noTitle}" th:href="@{/noticeView(noNo=${noticeEntity.noNo})}"></a>
+                    <a class="noneline" th:text="${noticeEntity.noTitle}" th:href="@{/noticeView(noNo=${noticeEntity.noNo})}"></a>
                 </td>
                 <!-- 작성자 -->
-                <td th:text="${noticeEntity.noId}"></td>
+                <td class="text-center" th:text="${noticeEntity.noId}"></td>
                 <!-- 작성일 -->
-                <td th:text="${#temporals.format(noticeEntity .noDate, 'yyyy-MM-dd')}"></td>
+                <td class="text-center"th:text="${#temporals.format(noticeEntity .noDate, 'yyyy-MM-dd')}"></td>
 
                 <!-- 조회수 -->
-                <td th:text="${noticeEntity .noHits}"></td>
+                <td class="text-center" th:text="${noticeEntity .noHits}"></td>
 
                 
                 <!-- 체크박스 확인 버튼 -->
