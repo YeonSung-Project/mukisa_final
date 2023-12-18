@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AdminRepository extends JpaRepository<AdminEntity, String> {
-    // db column ¿Ã∏ß id
+
     AdminEntity findByAdId(String id);
 }
