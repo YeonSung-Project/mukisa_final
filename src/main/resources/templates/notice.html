@@ -91,13 +91,14 @@
             <!-- 만약(if) 데이터를 DB 서버에서 가져오면 [데이터 표시] -->
             <tr th:if="${list  != null}" th:each="noticeEntity  : ${list}">
                 <!-- 게시판 번호 -->
+                <a class="noneline"  th:href="@{/noticeView(noNo=${noticeEntity.noNo})}">
                 <td th:text="${noticeEntity.noNo}" scope="row">1</td>
 
                 <!-- 글 제목 -->
                 <!-- communityview로 보내줄건데 boNo를 담아서 보내줄거다 -->
                 <!-- boNo는 뭐냐면 communityEntity의 boNo -->
-                <td>
-                    <a th:text="${noticeEntity.noTitle}" th:href="@{/noticeView(noNo=${noticeEntity.noNo})}"></a>
+                <td th:text="${noticeEntity.noTitle}">
+
                 </td>
                 <!-- 작성자 -->
                 <td th:text="${noticeEntity.noId}"></td>
@@ -106,6 +107,7 @@
 
                 <!-- 조회수 -->
                 <td th:text="${noticeEntity .noHits}"></td>
+                </a>
             </tr>
             </tbody>
 
