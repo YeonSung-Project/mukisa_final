@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Are you tea?</title>
+    <link rel="stylesheet" type="text/css" href="css/public_settings.css">
+
+    <style>
+        :root{
+            --bs-main-bg: #A4D792;
+            --bs-sub-bg:#64cb3f;
+            --bs-light-black:#6c757d;
+        }
+        .text-color{color:var(--bs-main-bg)!important;}
+
+        .custom-border {
+            border: 2px solid #A4D792;
+            border-radius: 8px; /* Optional: Add rounded corners */
+            padding: 10px; /* Optional: Add padding for better appearance */
+        }
+        .min-size-limit{
+            min-height: 500px;
+        }
+        .controll-btn{border: 2px solid var(--bs-main-bg);color: white;background-color: var(--bs-main-bg);
+            border-radius: 10px; text-decoration: none; width: 100px; height: 50px; 
+        }
+        .controll-btn:hover{border: 2px solid var(--bs-main-bg);color: white;background-color: var(--bs-sub-bg);
+            border-radius: 10px; text-decoration: none; width: 100px; height: 50px; 
+        }
+    </style>
+</head>
+
+<body id="page-top">
+
+<!-- 헤더 -->
+<div th:insert="~{header :: commonFragment}"></div>
+<div th:insert="~{header :: navFragment}"></div>
+
+<section class="page-section public-settings" id="services">
+    <div class="container" style="margin-bottom:60px;">
+
+        <!-- 콘텐츠 제목 -->
+        <div class="row py-5">
+            <div class="col-lg-9 mx-auto text-white text-center" style="margin-left:300px;">
+                <h1 class="display-5 fw-bold text-color">공지사항</h1>
+            </div>
+
+        </div>
+
+
+        <div class="mb-3 custom-border">
+            <label class="form-label">글 제목</label>
+            <p th:text="${noticeData.noTitle}"></p>
+        </div>
+
+
+        <div class="mb-3 custom-border min-size-limit">
+            <label class="form-label">내용</label>
+            <p th:text="${noticeData.noContent}"></p>
+        </div>
+
+
+        <button onclick = "location.href = '/notice'" type="button" class="controll-btn text-center align-middle">목록</button>
+        <button th:id="${noticeData.noNo}" type="button" class="controll-btn text-center align-middle edit">수정</button>
+        <button th:id="${noticeData.noNo}" type="button" class="controll-btn text-center align-middle delete">삭제</button>
+    </div>
+</section>
+
+<script>
+    // "/noticeDelete(noNo=${noticeData.noNo})"
+    // "/noticeDelete(noNo=${noticeData.noNo})"
+
+    var edit_object = document.getElementsByClassName("edit");
+    var delete_object = document.getElementsByClassName("delete");
+
+    console.log("edit_object : "+edit_object[0]);
+    console.log("edit_object.id : "+edit_object[0].id);
+
+    edit_object[0].addEventListener("click", function(){
+        location.href = "/noticeModify/" + edit_object[0].id;
+    });
+    delete_object[0].addEventListener("click", function(){
+        alert("정말 삭제하시겠습니까?");
+        location.href = "/noticeDelete?noNo=" + delete_object[0].id;
+    });
+
+</script>
+
+<!-- 푸터 -->
+<div th:insert="~{footer :: footerFragment}"></div>
+
+<!--스크립트 로딩-->
+<!-- Bootstrap core JS-->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/main_scripts.js"></script>
+<script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+</body>
+
+</html>
