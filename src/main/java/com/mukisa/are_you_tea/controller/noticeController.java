@@ -172,7 +172,7 @@ public class noticeController {
                 /** 글이 존재하지 않는 경우 예외 처리 또는 메시지를 설정할 수 있습니다. */
                 model.addAttribute("message", "수정할 글을 찾을 수 없습니다.");
             }
-            model.addAttribute("searchUrl", "/noticeModify"); // 이동할 URL 설정
+            model.addAttribute("searchUrl", "/notice"); // 이동할 URL 설정
         }
         return "message";
     }
