@@ -101,12 +101,7 @@
                     <tr th:each="comment : ${recipeReviews}">
                         <!-- 생략 -->
 
-                        <td class="reply_Update">
-                            <a style="cursor:pointer; color:#007bff;"
-                               th:onclick="'replyUpdate(' + ${comment.recipe_review} + ')'">[수정]</a><br>
-                            <a style="cursor:pointer; color:#007bff;"
-                               th:onclick="'replyremoveCheck(' + ${comment.recipe_review} + ')'">[삭제] </a>
-                        </td>
+
 
                         <!-- 생략 -->
                     </tr>
