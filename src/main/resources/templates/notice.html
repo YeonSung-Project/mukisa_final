@@ -66,6 +66,8 @@
 
 
         <!-- 관리자 매뉴 -->
+        <p th:if="${member_role != null && member_role=='ROLE_ADMIN'}" class="text-color fw-bold" th:text="'관리자 : ' + ${member}"></p>
+        <p th:if="${member != null &&  member_role != 'ROLE_ADMIN'}" class="text-color fw-bold" th:text="'사용자 : ' + ${member}"></p>
         <button class="controll-btn" th:if="${member_role != null && member_role=='ROLE_ADMIN'}" onclick = "location.href = '/noticeWrite'">글 쓰기</button>
         <button class="controll-btn" id="edit-btn" th:if="${member_role != null && member_role=='ROLE_ADMIN'}">글 수정</button>
         <button class="controll-btn" id="delete-btn" th:if="${member_role != null && member_role=='ROLE_ADMIN'}">글 삭제</button>
