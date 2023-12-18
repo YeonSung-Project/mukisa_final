@@ -3,6 +3,7 @@ package com.mukisa.are_you_tea.controller;
 import com.mukisa.are_you_tea.data.entity.NoticeEntity;
 import com.mukisa.are_you_tea.data.entity.RecipeEntity;
 import com.mukisa.are_you_tea.data.entity.Recipe_ReviewEntity;
+import com.mukisa.are_you_tea.data.repository.RecipeRepository;
 import com.mukisa.are_you_tea.service.AdminCheckService;
 import com.mukisa.are_you_tea.service.RecipeService;
 import com.mukisa.are_you_tea.service.Recipe_ReviewService;
@@ -37,6 +38,9 @@ public class RecipeController {
     private SessionCheckService sessionCheckService;
     @Autowired
     AdminCheckService adminCheckService;
+    @Autowired
+    private RecipeRepository recipeRepository;
+
     @RequestMapping("/recipe")
     public String gorecipeList(@RequestParam(name = "recipeType", required = false) String recipeType,
                                Model model, HttpServletRequest request,
@@ -64,7 +68,9 @@ public class RecipeController {
 
             // 레시피 목록 데이터가 비어있지 않은 경우에만 추가
             if (!recipeData.isEmpty()) {
+
                 model.addAttribute("recipeData", recipeData);
+
             } else {
                 System.out.println("데이터셋이 비어 있습니다.");
             }
@@ -95,7 +101,10 @@ public class RecipeController {
             if (recipeno != null) {
                 RecipeEntity recipe = recipeService.findRecipeId(recipeno);
                 if (recipe != null) {
+
                     model.addAttribute("recipeDetailData", recipe);
+
+
 
                     // 해당 레시피에 대한 댓글 목록을 가져옵니다.
                     List<Recipe_ReviewEntity> recipeReviews = recipe_reviewService.getRecipeReviewByRecipeId(recipeno);

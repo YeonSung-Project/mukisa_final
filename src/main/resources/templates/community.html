@@ -28,6 +28,8 @@
         }
         .active{color: var(--bs-main-bg) !important;}
         .active:hover{color: var(--bs-sub-bg) !important;}
+        .mypagehref{margin-left: 5px;}
+        p{display: inline;}
     </style>
 </head>
 
@@ -57,6 +59,12 @@
                 <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
         </nav>
+
+        <div style="margin-bottom: 20px;">
+            <p th:if="${member_role != null && member_role=='ROLE_ADMIN'}" class="text-color fw-bold" th:text="'관리자 : ' + ${member}"></p>
+            <p th:if="${member != null &&  member_role != 'ROLE_ADMIN'}" class="text-color fw-bold" th:text="'사용자 : ' + ${member}"></p>
+            <a class="text-color2 mypagehref" th:if="${member!=null}" href="/mypage">마이페이지</a><br>    
+        </div>
 
         <!-- 콘텐츠 메인 데이터-->
         <table class="table border-color">

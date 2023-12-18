@@ -34,6 +34,8 @@
             background-color: var(--bs-table-bg);
             border-bottom-width: 0 !important; /* border-bottom 제거 */
             box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);}
+        .mypagehref{margin-left: 5px;}
+        p{display: inline;}
     </style>
 </head>
 
@@ -66,9 +68,16 @@
 
 
         <!-- 관리자 매뉴 -->
-        <button class="controll-btn" th:if="${member_role != null && member_role=='ROLE_ADMIN'}" onclick = "location.href = '/noticeWrite'">글 쓰기</button>
-        <button class="controll-btn" id="edit-btn" th:if="${member_role != null && member_role=='ROLE_ADMIN'}">글 수정</button>
-        <button class="controll-btn" id="delete-btn" th:if="${member_role != null && member_role=='ROLE_ADMIN'}">글 삭제</button>
+        <p th:if="${member_role != null && member_role=='ROLE_ADMIN'}" class="text-color fw-bold" th:text="'관리자 : ' + ${member}"></p>
+        <p th:if="${member != null &&  member_role != 'ROLE_ADMIN'}" class="text-color fw-bold" th:text="'사용자 : ' + ${member}"></p>
+        <a class="text-color2 mypagehref" th:if="${member!=null}" href="/mypage">마이페이지</a><br>
+
+        <div style="margin-top: 20px;">
+            <button class="controll-btn" th:if="${member_role != null && member_role=='ROLE_ADMIN'}" onclick = "location.href = '/noticeWrite'">글 쓰기</button>
+            <button class="controll-btn" id="edit-btn" th:if="${member_role != null && member_role=='ROLE_ADMIN'}">글 수정</button>
+            <button class="controll-btn" id="delete-btn" th:if="${member_role != null && member_role=='ROLE_ADMIN'}">글 삭제</button>
+        </div>
+
 
         <!-- 콘텐츠 메인 데이터-->
         <table class="table border-color">

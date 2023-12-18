@@ -3,6 +3,7 @@ package com.mukisa.are_you_tea.controller;
 import com.mukisa.are_you_tea.data.entity.ChinaEntity;
 import com.mukisa.are_you_tea.data.entity.RecipeEntity;
 import com.mukisa.are_you_tea.data.entity.Recipe_ReviewEntity;
+import com.mukisa.are_you_tea.data.repository.ChinaRepository;
 import com.mukisa.are_you_tea.service.AdminCheckService;
 import com.mukisa.are_you_tea.service.ChinaService;
 import com.mukisa.are_you_tea.service.SessionCheckService;
@@ -27,6 +28,9 @@ public class ChinaController {
 
     @Autowired
     ChinaService chinaService;
+
+    @Autowired
+    ChinaRepository chinaRepository;
     @Autowired
     private HttpSession httpSession;
     @Autowired
@@ -79,6 +83,10 @@ public class ChinaController {
                 ChinaEntity recipe = chinaService.findChinaEntityById(cteano);
                 if (recipe != null) {
                     model.addAttribute("recipeDetailData", recipe);
+                    int count_all = chinaRepository.findAll().size();
+                    model.addAttribute("count_recipe_item", count_all);
+
+                    System.out.println("dddddddddddddddddd"+count_all);
 
 
                 } else {

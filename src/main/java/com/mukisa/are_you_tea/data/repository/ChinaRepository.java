@@ -18,4 +18,6 @@ public interface ChinaRepository extends JpaRepository<ChinaEntity, Integer> {
     List<ChinaEntity> findByCteaCategory(String recipeType);
 
 
+
+
 }

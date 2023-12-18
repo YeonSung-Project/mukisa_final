@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="css/public_settings.css">
+
+    <style>
+        .min-height{min-height: 500px; padding: 50px;}
+        :root{
+            --bs-main-bg: #A4D792;
+            --bs-sub-bg:#64cb3f;
+            --bs-light-black:#6c757d;
+        }
+        .text-color{color:var(--bs-main-bg)!important;margin-bottom: 20px;}
+        .controll-btn{border: 2px solid var(--bs-main-bg);color: white;background-color: var(--bs-main-bg);
+            border-radius: 10px; min-height: 100px; width: 70%; margin-top: 180px; font-size: 40px;
+        }
+        .controll-btn:hover{border: 2px solid var(--bs-main-bg);color: white;background-color: var(--bs-sub-bg);
+            border-radius: 10px;
+        }
+        .controll-btn_un{border: 2px solid var(--bs-main-bg);color: white;background-color: var(--bs-main-bg);
+            border-radius: 10px; min-height: 100px; width: 70%; margin-top: 180px; font-size: 40px;
+        }
+        .controll-btn_un:hover{border: 2px solid var(--bs-main-bg);color: white;background-color: var(--bs-sub-bg);
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 헤더 -->
+    <div th:insert="~{header :: commonFragment}"></div>
+    <div th:insert="~{header :: navFragment}"></div>
+
+    <!-- 메인 -->
+    <div class="main public-settings">
+        <div class="container fw-bold text-center shadow rounded min-height middle" >
+            <label class="text-color">아이디</label><br>
+            <input style="text-align: center;" disabled th:value="${member}"><br>
+
+            <button th:if="memberYn == 'N'" class="controll-btn fw-bold" onclick="location.href='/memDelete'">회원 탈퇴</button>
+            <button th:if="memberYn != 'N'" class="controll-btn_un fw-bold" onclick="location.href='/mypage'">회원 탈퇴 불가능</button>
+        </div>
+    </div>
+
+    <!-- 푸터 -->
+    <div th:insert="~{footer :: footerFragment}"></div> 
+
+    <script>
+        var btnDel = document.getElementsByClassName("controll-btn");
+        var btnDel_un = document.getElementsByClassName("controll-btn_un");
+
+        console.log(btnDel);
+        console.log(btnDel_un);
+
+        if(btnDel.length > 0 && btnDel != null){
+            btnDel[0].addEventListener("click",function( ){
+                alert("정말 삭제하시겠습니까?");
+            });
+        }
+        if(btnDel_un.length > 0 && btnDel_un != null){
+            btnDel_un[0].addEventListener("click", function() {
+                alert("외부 회원가입은 해당 플랫폼에서 연결을 끊어주세요")
+            });
+        }
+    </script>
+</body>
+</html>
