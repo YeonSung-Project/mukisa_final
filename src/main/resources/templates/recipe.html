@@ -61,8 +61,8 @@
             </div>
 
             <div class="container" th:unless="${#lists.isEmpty(recipeData)}">
-                <div class="row row justify-content-md-center text-center">
-                    <div class="col p-2" th:each="recipeItem : ${recipeData}">
+                <div class="row justify-content-start text-center">
+                    <div class="col col-3 p-2" th:each="recipeItem : ${recipeData}">
 
                         <div class="card " style="width: 18rem;">
                             <a class="noneline text-success" th:href="@{/recipeDetail(recipeno=${recipeItem.recipe_no})}">
