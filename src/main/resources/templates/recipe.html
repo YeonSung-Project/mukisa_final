@@ -4,8 +4,17 @@
     <head>
         <link rel="stylesheet" type="text/css" href="css/public_settings.css">
         <style>
-            .noneline {text-decoration: none;}
-        </style>
+        :root{
+            --bs-main-bg: #A4D792;
+            --bs-sub-bg:#64cb3f;
+            --bs-light-black:#6c757d;
+        }
+        .text-color{color:var(--bs-main-bg)!important;}
+        .text-color:hover{color:var(--bs-sub-bg)!important;}
+        .text-color2{color:var(--bs-light-black)!important;}
+        .text-color2:hover{color:var(--bs-sub-bg)!important;}
+        .noneline {text-decoration: none;}
+    </style>
     </head>
 
 
@@ -21,7 +30,7 @@
         <!-- For demo purpose -->
         <div class="row py-5">
             <div class="col-lg-9 mx-auto text-white text-center" style="margin-left:300px;">
-                <h1 class="display-4" style="color:black !important; margin-left:20px;">블렌딩 티</h1>
+                <h1 class="display-4 fw-bold" style="color:var(--bs-main-bg)">블렌딩 티</h1>
             </div>
         </div>
 
@@ -31,7 +40,7 @@
             <li class="nav-item important-color">
                 <a href="/recipe" th:data-recipe-type="all"
                    th:text="전체"
-                   class="nav-link important-color fs-4"
+                   class="nav-link text-color2 fs-4 fw-bold"
                    data-toggle="tab">
                 </a>
             </li>
@@ -40,7 +49,7 @@
             <li th:if="${RecipeTypes != null}" th:each="recipeType : ${RecipeTypes}" class="nav-item ">
                 <a th:href="@{/recipe(recipeType=${recipeType})}"
                    th:data-recipe-type="${recipeType}"
-                   class="nav-link important-color fs-4"
+                   class="nav-link text-color2 fs-4 fw-bold"
                    data-toggle="tab">
                     <span th:text="${recipeType}"></span>
                 </a>
