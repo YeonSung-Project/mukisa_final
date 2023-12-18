@@ -31,16 +31,21 @@ public class SessionCheckService {
             if(admin != null){
                 model.addAttribute("member", admin.getAdId());
                 model.addAttribute("member_role", admin.getRole());
+                model.addAttribute("memberYn", null);
+                System.out.println("어드민 접속");
             }
             MemberEntity member = memberRepository.findByMbId(mbId);
             if(member != null){
                 model.addAttribute("member", member.getMbId());
+                model.addAttribute("memberYn", member.getMbYn());
+                System.out.println("로컬 유저 접속");
             }
             UserEntity user = userRepository.findByUsername(mbId);
             if(user != null){
                 model.addAttribute("member", user.getUsername());
+                model.addAttribute("memberYn", null);
+                System.out.println("플랫폼 유저 접속");
             }
-
         }
     }
 }

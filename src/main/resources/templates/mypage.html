@@ -18,6 +18,12 @@
         .controll-btn:hover{border: 2px solid var(--bs-main-bg);color: white;background-color: var(--bs-sub-bg);
             border-radius: 10px;
         }
+        .controll-btn_un{border: 2px solid var(--bs-main-bg);color: white;background-color: var(--bs-main-bg);
+            border-radius: 10px; min-height: 100px; width: 70%; margin-top: 180px; font-size: 40px;
+        }
+        .controll-btn_un:hover{border: 2px solid var(--bs-main-bg);color: white;background-color: var(--bs-sub-bg);
+            border-radius: 10px;
+        }
     </style>
 </head>
 <body>
@@ -31,7 +37,8 @@
             <label class="text-color">아이디</label><br>
             <input style="text-align: center;" disabled th:value="${member}"><br>
 
-            <button class="controll-btn fw-bold" onclick="location.href='/memDelete'">회원 탈퇴</button>
+            <button th:if="memberYn == 'N'" class="controll-btn fw-bold" onclick="location.href='/memDelete'">회원 탈퇴</button>
+            <button th:if="memberYn != 'N'" class="controll-btn_un fw-bold" onclick="location.href='/mypage'">회원 탈퇴 불가능</button>
         </div>
     </div>
 
@@ -39,10 +46,22 @@
     <div th:insert="~{footer :: footerFragment}"></div> 
 
     <script>
-        var btnDel = document.getElementsByClassName('controll-btn');
-        btnDel[0].addEventListener("click",function{
-            alert("정말 삭제하시겠습니까?");
-        });
+        var btnDel = document.getElementsByClassName("controll-btn");
+        var btnDel_un = document.getElementsByClassName("controll-btn_un");
+
+        console.log(btnDel);
+        console.log(btnDel_un);
+
+        if(btnDel.length > 0 && btnDel != null){
+            btnDel[0].addEventListener("click",function( ){
+                alert("정말 삭제하시겠습니까?");
+            });
+        }
+        if(btnDel_un.length > 0 && btnDel_un != null){
+            btnDel_un[0].addEventListener("click", function() {
+                alert("외부 회원가입은 해당 플랫폼에서 연결을 끊어주세요")
+            });
+        }
     </script>
 </body>
 </html>
