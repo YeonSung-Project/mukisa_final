@@ -28,6 +28,12 @@
         }
         .active{color: var(--bs-main-bg) !important;}
         .active:hover{color: var(--bs-sub-bg) !important;}
+        .checkbox-item{display: none;}
+        .table>:not(caption)>*>* {
+            padding: .5rem .5rem;
+            background-color: var(--bs-table-bg);
+            border-bottom-width: 0 !important; /* border-bottom 제거 */
+            box-shadow: inset 0 0 0 9999px var(--bs-table-accent-bg);}
     </style>
 </head>
 
@@ -61,19 +67,21 @@
 
         <!-- 관리자 매뉴 -->
         <button class="controll-btn" th:if="${member_role != null && member_role=='ROLE_ADMIN'}" onclick = "location.href = '/noticeWrite'">글 쓰기</button>
-        <button class="controll-btn" th:if="${member_role != null && member_role=='ROLE_ADMIN'}">글 수정</button>
-        <button class="controll-btn" th:if="${member_role != null && member_role=='ROLE_ADMIN'}">글 삭제</button>
+        <button class="controll-btn" id="edit-btn" th:if="${member_role != null && member_role=='ROLE_ADMIN'}">글 수정</button>
+        <button class="controll-btn" id="delete-btn" th:if="${member_role != null && member_role=='ROLE_ADMIN'}">글 삭제</button>
 
         <!-- 콘텐츠 메인 데이터-->
         <table class="table border-color">
             <!-- 콘텐츠 부제목 -->
             <thead>
-            <tr>
-                <th class="table-color text-color fw-bold" scope="col">번호</th>
-                <th class="table-color text-color fw-bold" scope="col">제목</th>
-                <th class="table-color text-color fw-bold" scope="col">작성자</th>
-                <th class="table-color text-color fw-bold" scope="col">작성일</th>
-                <th class="table-color text-color fw-bold" scope="col">조회수</th>
+            <tr class="table-color">
+                <th class="text-color fw-bold checkbox-item" scope="col" style="display: none;">선택</th>
+                <th class="text-color fw-bold" scope="col">번호</th>
+                <th class="text-color fw-bold" scope="col">제목</th>
+                <th class="text-color fw-bold" scope="col">작성자</th>
+                <th class="text-color fw-bold" scope="col">작성일</th>
+                <th class="text-color fw-bold" scope="col">조회수</th>
+                <th class="text-color fw-bold checkbox-item" scope="col" style="display: none;">편집</th>
             </tr>
             </thead>
 
@@ -89,7 +97,13 @@
             </tr>
 
             <!-- 만약(if) 데이터를 DB 서버에서 가져오면 [데이터 표시] -->
-            <tr th:if="${list  != null}" th:each="noticeEntity  : ${list}">
+            <tr class="table-color" th:if="${list  != null}" th:each="noticeEntity  : ${list}">
+
+                <!-- 체크박스 -->
+                <td th:class="checkbox-item" style="display: none;"><input type="checkbox" th:class="edit_check" th:id="${noticeEntity.noNo}" th:value="${noticeEntity.noNo}"></td>
+
+
+
                 <!-- 게시판 번호 -->
                 <td th:text="${noticeEntity.noNo}" scope="row">1</td>
 
@@ -106,6 +120,11 @@
 
                 <!-- 조회수 -->
                 <td th:text="${noticeEntity .noHits}"></td>
+
+                
+                <!-- 체크박스 확인 버튼 -->
+                <td th:class="checkbox-item" style="display: none;"><button class="checkbox-confirm" th:id="${noticeEntity.noNo}">확인</button></td>
+
             </tr>
             </tbody>
 
@@ -180,6 +199,204 @@
 <!-- Core theme JS-->
 <script src="/js/main_scripts.js"></script>
 <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+
+
+
+<!-- 글 수정 및 삭제 버튼 체크박스 관련 js-->
+<script>
+
+    // 1. 첫 번째 자바 스크립트 기능
+    // 설명 : 글 수정 버튼 요소 클릭 시 그 요소 값 가져오고 그 값 클릭 이벤트마다 열에 체크박스를 붙였다 떼었다 하는 기능
+
+    // 글 수정
+    var editBtn = document.getElementById("edit-btn");
+
+    // 체크박스의 클래스가 checkbox-item인 모든 요소를 가져옵니다.
+    var checkboxes_edit = document.getElementsByClassName("checkbox-item");
+
+    // 글수정버튼을 클릭할 때마다 실행할 함수를 정의합니다.
+    function toggleCheckboxes_edit() {
+    // 모든 체크박스를 순회하면서 display 속성을 변경합니다.
+        for (var i = 0; i < checkboxes_edit.length; i++) {
+            if (checkboxes_edit[i].style.display === "none") {
+                checkboxes_edit[i].style.display = "inline-block";
+            } else {
+                checkboxes_edit[i].style.display = "none";
+            }
+        }
+    }
+
+    // 글수정버튼에 클릭 이벤트 리스너를 추가합니다.
+    editBtn.addEventListener("click", toggleCheckboxes_edit);
+
+
+
+    // 2. 두 번째 자바 스크립트 기능
+    // 설명 : 글 삭제 버튼 요소 클릭 시 그 요소 값 가져오고 그 값 클릭 이벤트마다 열에 체크박스를 붙였다 떼었다 하는 기능
+    
+    // 글 삭제
+    var deleteBtn = document.getElementById("delete-btn");
+
+    // 체크박스의 클래스가 checkbox-item인 모든 요소를 가져옵니다.
+    var checkboxes_delete = document.getElementsByClassName("checkbox-item");
+
+    // 글 삭제 버튼을 클릭할 때마다 실행할 함수를 정의합니다.
+    function toggleCheckboxes_delete() {
+    // 모든 체크박스를 순회하면서 display 속성을 변경합니다.
+        for (var i = 0; i < checkboxes_delete.length; i++) {
+            if (checkboxes_delete[i].style.display === "none") {
+                checkboxes_delete[i].style.display = "inline-block";
+            } else {
+                checkboxes_delete[i].style.display = "none";
+            }
+        }
+    }
+
+    // 글 삭제 버튼에 클릭 이벤트 리스너를 추가합니다.
+    deleteBtn.addEventListener("click", toggleCheckboxes_delete);
+
+
+
+    
+    // 3. 세 번째 자바 스크립트 기능
+    // 설명 : 체크박스 클릭 제한 js, 체크박스가 리스트 중에서 한개만 체크되도록 하는 기능.
+    
+    // 체크박스의 클래스가 edit_check인 모든 요소를 가져옵니다.
+    // edit_check 클래스 명 주긴 했는데 수정이든 삭제든 하나의 체크박스 요소를 이용하기 때문에 같이 적용되는 기능
+    var checkboxes_object = document.getElementsByClassName("edit_check");
+
+    // 클릭된 체크박스의 id 값을 변수
+    var clickedId;
+
+    // 체크박스를 클릭할 때마다 실행할 함수를 정의합니다.
+    function checkOnlyOne(event) {
+        // 클릭된 체크박스를 제외하고 모든 체크박스를 순회하면서 체크를 해제합니다.
+        for (var i = 0; i < checkboxes_object.length; i++) {
+            if (checkboxes_object[i] !== event.target) {
+                checkboxes_object[i].checked = false;
+            }
+            else{
+                clickedId = event.target.id;
+                console.log("현재 클릭한 체크박스 행 id : "+clickedId);
+            }
+        }
+    }
+    // 모든 체크박스에 클릭 이벤트 리스너를 추가합니다.
+    for (var i = 0; i < checkboxes_object.length; i++) {
+        checkboxes_object[i].addEventListener("click", checkOnlyOne);
+    }
+
+
+
+    // 4. 네 번째 자바 스크립트 기능
+    // 설명 : 버튼 클릭에 따른 글수정 글삭제 분류 기능
+
+    // 현재 활성화한 버튼을 저장할 변수
+    var activeBtn = null;
+
+    // 글수정버튼과 글삭제버튼에 클릭 이벤트 리스너를 추가합니다.
+    editBtn.addEventListener("click", function() {
+        activeBtn = "edit";
+    });
+    deleteBtn.addEventListener("click", function() {
+        activeBtn = "delete";
+    });
+
+
+        
+    // 5. 다섯 번째 자바 스크립트 기능
+    // 설명 : 확인 버튼 클릭 시 id 저장 기능
+        
+    // 확인 버튼 요소들
+    var confirmBtns = document.getElementsByClassName("checkbox-confirm");
+
+    // 클릭된 확인버튼의 id 값을 변수
+    var confirmBtn_Id;
+
+    // 확인버튼을 클릭할 때마다 실행할 함수를 정의합니다.
+    function confirmBtns_id_get(event) {
+        confirmBtn_Id = event.target.id;
+        console.log("현재 클릭한 확인버튼 id : "+confirmBtn_Id)
+    }
+    // 모든 확인버튼에 클릭 이벤트 리스너를 추가합니다.
+    for (var i = 0; i < confirmBtns.length; i++) {
+        confirmBtns[i].addEventListener("click", confirmBtns_id_get);
+    }
+
+
+    // 6. 여섯 번째 자바 스크립트 기능
+    // 설명 : 체크박스 초기화 함수를 정의합니다. 
+    function initCheckbox() { 
+        // 체크박스의 클래스가 edit_check인 모든 요소를 가져옵니다. 
+        var checkboxes = document.getElementsByClassName("edit_check"); 
+        // 체크박스 목록을 순회하며 checked 값을 false로 설정합니다. 
+        for (var i = 0; i < checkboxes.length; i++) { 
+            checkboxes[i].checked = false; 
+        }
+    }
+
+
+    // 7. 일곱 번째 자바 스크립트 기능
+    // 체크 박스 체크 여부 저장 기능.
+    var checkedNum = null;
+    for (var i = 0; i < checkboxes_object.length; i++) {
+                checkboxes_object[i].addEventListener("click", function() {
+                    for (var i = 0; i < checkboxes_object.length; i++) {
+                        if (checkboxes_object[i].checked) {
+                            checkedNum = 1;
+                            console.log("체크박스 체크 여부 "+checkedNum);
+                            break;
+                        }
+                    }
+                });
+            }
+
+    // 8. 여덟 번째 자바 스크립트 기능
+    // 설명 : 확인 버튼 클릭 시 url 핸들링.
+
+    // 세 번째 자바 스크립트 기능의 체크박스들의 모든 요소를 저장한 변수인 checkboxes_object 사용.
+    // 체크 박스를 클릭한지 안한지 여부를 checkedNum에 저장.
+    // 모든 체크박스에 클릭 이벤트 리스너를 추가합니다.
+    for(var i = 0; i < confirmBtns.length; i++){
+       
+        confirmBtns[i].addEventListener("click", function(){
+
+            console.log("checkedNum값 살아있는지 확인 "+checkedNum);
+            console.log("체크버튼 id : "+clickedId);
+            console.log("확인버튼 id : "+confirmBtn_Id);
+             // 체크된 체크박스가 없으면 경고창을 띄우고 함수를 종료합니다.
+             if (checkedNum === null) {
+                alert("수정하거나 삭제할 글을 선택하세요.");
+                // 체크박스 초기화
+                clickedId = null;
+                confirmBtn_Id = null;
+                checkedNum = null;
+                initCheckbox();
+                return;
+            }
+            if(clickedId === confirmBtn_Id){
+                // 현재 활성화한 버튼에 따라 다른 경로로 이동합니다.
+                if (activeBtn === "edit") {
+                    // 글수정버튼이면 이동합니다.
+                    location.href = "/noticeModify/" + clickedId;
+                } else if (activeBtn === "delete") {
+                    // 글삭제버튼이면 이동합니다.
+                    alert("정말 삭제하시겠습니까?");
+                    location.href = "/noticeDeletePro?noNo=" + clickedId;
+                } 
+            }
+            else{
+                alert("수정하거나 삭제할 체크버튼에 맞는 확인 버튼을 선택하세요.");
+                // 체크박스 초기화
+                clickedId = null;
+                confirmBtn_Id = null;
+                checkedNum = null;
+                initCheckbox();
+                return;
+            }
+        });
+    }
+</script>
 
 </body>
 
