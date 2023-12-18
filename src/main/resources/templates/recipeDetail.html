@@ -76,7 +76,9 @@
                          class="bi bi-chat-left-text" viewBox="0 0 16 16">
                         <!-- SVG Path for chat icon -->
                     </svg>
+                  <!--
                     &nbsp; 댓글
+                    -->
                 </h5>
 
                 <!-- 댓글쓰기 -->
@@ -90,7 +92,7 @@
 
                 <!-- 댓글 목록이 비어있을 때 -->
                 <div th:if="${#lists.isEmpty(recipeReviews)}">
-                    <p>댓글이 없습니다.</p>
+
                 </div>
 
                 <!-- 댓글 목록이 비어있지 않을 때 -->

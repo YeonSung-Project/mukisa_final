@@ -1,6 +1,7 @@
 package com.mukisa.are_you_tea.controller;
 
 import com.mukisa.are_you_tea.data.entity.ChinaEntity;
+import com.mukisa.are_you_tea.data.entity.RecipeEntity;
 import com.mukisa.are_you_tea.service.AdminCheckService;
 import com.mukisa.are_you_tea.service.ChinaService;
 import com.mukisa.are_you_tea.service.SessionCheckService;
@@ -33,24 +34,29 @@ public class ChinaController {
     AdminCheckService adminCheckService;
 
     @RequestMapping("/china")
-    public String goChinaList(@RequestParam(name = "teaType", required = false) String teaType,
-                              Model model, HttpServletRequest request,
-                              @PageableDefault(page = 0, size = 20, sort = "CTEA_NO", direction = Sort.Direction.DESC) Pageable pageable,
-                              String searchKeyword
+    public String gochinaList(@RequestParam(name = "recipeType", required = false) String recipeType,
+                               Model model, HttpServletRequest request
     ) {
         try {
-            Page<ChinaEntity> list = null;
-            List<ChinaEntity> chinaData;
 
+            List<ChinaEntity> recipeData;
 
             sessionCheckService.sessionCheck(model, httpSession);
 
-                chinaData = chinaService.dataLoad();
+            if (recipeType != null && !recipeType.isEmpty()) {
+                // recipeType이 주어진 경우 해당 타입의 레시피만 조회
+                recipeData = chinaService.getRecipesByType(recipeType);
+            } else {
+                // recipeType이 주어지지 않은 경우 전체 레시피 조회
+                recipeData = chinaService.dataLoad();
+            }
+            model.addAttribute("recipeData", recipeData);
+            // 레시피 타입 추가
+            model.addAttribute("RecipeTypes", chinaService.getDistinctRecipeTypes());
 
+            // 추출한 recipeType을 모델에 추가
+            model.addAttribute("selectedRecipeType", recipeType);
 
-
-            // 추출한 teaType을 모델에 추가
-            model.addAttribute("chinaTea",chinaData);
 
         } catch (Exception e) {
             e.printStackTrace();

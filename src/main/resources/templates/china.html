@@ -29,7 +29,7 @@
         <ul class="nav nav-tabs justify-content-center" id="recipeTabs">
             <!-- "전체" 옵션 추가 -->
             <li class="nav-item important-color">
-                <a href="/recipe" th:data-recipe-type="all"
+                <a href="/china" th:data-recipe-type="all"
                    th:text="전체"
                    class="nav-link important-color fs-4"
                    data-toggle="tab">
@@ -38,7 +38,7 @@
 
             <!-- Iterate over uniqueRecipeTypes and create tabs -->
             <li th:if="${RecipeTypes != null}" th:each="recipeType : ${RecipeTypes}" class="nav-item ">
-                <a th:href="@{/recipe(recipeType=${recipeType})}"
+                <a th:href="@{/china(recipeType=${recipeType})}"
                    th:data-recipe-type="${recipeType}"
                    class="nav-link important-color fs-4"
                    data-toggle="tab">
@@ -55,21 +55,23 @@
 
     <!--목록-->
     <div class="container">
-        <div th:if="${#lists.isEmpty(chinaTea)}">
+        <div th:if="${#lists.isEmpty(recipeData)}">
             <p>데이터가 없습니다.</p>
         </div>
     </div>
 
-    <div class="container" th:unless="${#lists.isEmpty(chinaTea)}">
+    <!-- 목록 -->
+    <div class="container" th:unless="${#lists.isEmpty(recipeData)}">
         <div class="row row justify-content-md-center text-center">
-            <div class="col p-2" th:each="recipeItem : ${chinaTea}">
+            <div class="col p-2" th:each="recipeItem : ${recipeData}">
 
-                <div class="card " style="width: 18rem;">
-                    <a class="noneline text-success" th:href="@{/recipeDetail(ctea_no=${recipeItem.ctea_no})}">
+                <div class="card" style="width: 18rem;">
+                    <a class="noneline text-success" th:href="@{/chinaDetail(ctea_no=${recipeItem.ctea_no})}">
                         <img th:if="${not #strings.isEmpty(recipeItem.ctea_img)}"
-                             th:src="@{/img/china/{ctea_img}(recipe_img=${recipeItem.ctea_img})}"
-                             class="card-img-top " alt="레시피 이미지입니다"
+                             th:src="@{/img/china/{ctea_img}(ctea_img=${recipeItem.ctea_img})}"
+                             class="card-img-top" alt="레시피 이미지입니다"
                              style="width: 100%; height: 250px;">
+
                         <img th:unless="${not #strings.isEmpty(recipeItem.ctea_img)}"
                              src="/img/notimg.jpg"
                              class="card-img-top"
@@ -82,10 +84,9 @@
                 </div>
 
             </div>
-
-
         </div>
     </div>
+
 
 
 
