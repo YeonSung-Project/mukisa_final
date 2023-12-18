@@ -3,8 +3,20 @@
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" type="text/css" th:href="@{/css/public_settings.css}">
-
-
+    <style>
+        :root{
+            --bs-main-bg: #A4D792;
+            --bs-sub-bg:#64cb3f;
+            --bs-light-black:#6c757d;
+        }
+        .controll-btn{border: 2px solid var(--bs-main-bg)!important;color: white!important;background-color: var(--bs-main-bg)!important;
+            border-radius: 10px!important; margin-right: 5px;
+        }
+        .controll-btn:hover{border: 2px solid var(--bs-main-bg)!important;color: white!important;background-color: var(--bs-sub-bg)!important;
+            border-radius: 10px; margin-right: 5px;
+        }
+        iframe{margin-top: 50px;margin-bottom: 10px;}
+    </style>
 </head>
 <div th:insert="~{header :: commonFragment}"></div>
 
@@ -40,8 +52,33 @@
                         <p th:text="'우리는 법: '+${recipeDetailData.ctea_recipe}"></p>
                         <p th:text="'맛: '+${recipeDetailData.ctea_taste}"></p>
                         <p th:text="'효능: '+${recipeDetailData.ctea_impat}"></p>
+                      </div>
+                      <div class="col-md-6">
+                        
+                        <iframe th:if="${recipeDetailData.ctea_name} == '호남흑차'" width="1280" height="720" src="https://www.youtube.com/embed/10XS66LER4s" title="[끽다거 포다과정] 6. 현대중국의 차문화 발전과 흑차" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe th:if="${recipeDetailData.ctea_name} == '사천변차'" width="1280" height="720" src="https://www.youtube.com/embed/10XS66LER4s" title="[끽다거 포다과정] 6. 현대중국의 차문화 발전과 흑차" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe th:if="${recipeDetailData.ctea_name} == '전계흑차'" width="1280" height="720" src="https://www.youtube.com/embed/10XS66LER4s" title="[끽다거 포다과정] 6. 현대중국의 차문화 발전과 흑차" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+                        <iframe th:if="${recipeDetailData.ctea_name} == '은시옥로'" width="1248" height="702" src="https://www.youtube.com/embed/fMN5ZbURRt4" title="녹차 제대로 우리기 - 집에서 즐기는 차 한잔의 소소한 힐링" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe th:if="${recipeDetailData.ctea_name} == '황산모봉'" width="1248" height="702" src="https://www.youtube.com/embed/fMN5ZbURRt4" title="녹차 제대로 우리기 - 집에서 즐기는 차 한잔의 소소한 힐링" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe th:if="${recipeDetailData.ctea_name} == '루안과피안'" width="1248" height="702" src="https://www.youtube.com/embed/fMN5ZbURRt4" title="녹차 제대로 우리기 - 집에서 즐기는 차 한잔의 소소한 힐링" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
+                        <iframe th:if="${recipeDetailData.ctea_name} == '백호은침'" width="1248" height="702" src="https://www.youtube.com/embed/GoZkxhbtIrI" title="백차(白茶) 우리는 방법 feat.백호은침,백모단 / How to brew White Tea - Baihao Yinzhen, Bai Mudan #홍차언니 #한국티소믈리에연구원TV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe th:if="${recipeDetailData.ctea_name} == '백모단'" width="1248" height="702" src="https://www.youtube.com/embed/GoZkxhbtIrI" title="백차(白茶) 우리는 방법 feat.백호은침,백모단 / How to brew White Tea - Baihao Yinzhen, Bai Mudan #홍차언니 #한국티소믈리에연구원TV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe th:if="${recipeDetailData.ctea_name} == '수미'" width="1248" height="702" src="https://www.youtube.com/embed/GoZkxhbtIrI" title="백차(白茶) 우리는 방법 feat.백호은침,백모단 / How to brew White Tea - Baihao Yinzhen, Bai Mudan #홍차언니 #한국티소믈리에연구원TV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        
+                        <iframe th:if="${recipeDetailData.ctea_name} == '항금규'"width="1280" height="720" src="https://www.youtube.com/embed/WzuAnU9NvOI" title="[끽다거 포다과정] 11.  황차 (黃茶)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe th:if="${recipeDetailData.ctea_name} == '후오산황아'"width="1280" height="720" src="https://www.youtube.com/embed/WzuAnU9NvOI" title="[끽다거 포다과정] 11.  황차 (黃茶)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe th:if="${recipeDetailData.ctea_name} == '펑칭다펑'"width="1280" height="720" src="https://www.youtube.com/embed/WzuAnU9NvOI" title="[끽다거 포다과정] 11.  황차 (黃茶)" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                    
+                        <iframe th:if="${recipeDetailData.ctea_name} == '비강인'" width="1248" height="702" src="https://www.youtube.com/embed/0DM1LyujrZE" title="청차(靑茶,우롱차) 우리는 방법 feat.동정우롱/ How to brew Oolong tea/ウーロン茶を淹れる方法 #홍차언니 #한국티소믈리에연구원TV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe th:if="${recipeDetailData.ctea_name} == '루양골드'" width="1248" height="702" src="https://www.youtube.com/embed/0DM1LyujrZE" title="청차(靑茶,우롱차) 우리는 방법 feat.동정우롱/ How to brew Oolong tea/ウーロン茶を淹れる方法 #홍차언니 #한국티소믈리에연구원TV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe th:if="${recipeDetailData.ctea_name} == '청하이'" width="1248" height="702" src="https://www.youtube.com/embed/0DM1LyujrZE" title="청차(靑茶,우롱차) 우리는 방법 feat.동정우롱/ How to brew Oolong tea/ウーロン茶を淹れる方法 #홍차언니 #한국티소믈리에연구원TV" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        
+                        
+                        <iframe th:if="${recipeDetailData.ctea_name} == '닐군홍차'" width="1280" height="720" src="https://www.youtube.com/embed/DRGKj5VM7MY" title="[끽다거 포다과정] 8. 홍차의 역사와 제다 방법" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe th:if="${recipeDetailData.ctea_name} == '요카'" width="1280" height="720" src="https://www.youtube.com/embed/DRGKj5VM7MY" title="[끽다거 포다과정] 8. 홍차의 역사와 제다 방법" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                        <iframe th:if="${recipeDetailData.ctea_name} == '라푸청홍차'" width="1280" height="720" src="https://www.youtube.com/embed/DRGKj5VM7MY" title="[끽다거 포다과정] 8. 홍차의 역사와 제다 방법" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
 
                       </div>
                   </div>
@@ -51,9 +88,9 @@
                   </div>
               </div>
                   <div class="container d-flex justify-content-end">
-                      <a class="btn btn-main" href="/china">목록</a>
-                      <a class="btn btn-danger" href="/">수정</a>
-                      <a class="btn btn-danger" href="/">삭제</a>
+                      <a class="btn controll-btn" href="/china">목록</a>
+                      <a class="btn controll-btn" href="/">수정</a>
+                      <a class="btn controll-btn" href="/">삭제</a>
                   </div>
           </div>
 

@@ -4,8 +4,17 @@
 <head>
     <link rel="stylesheet" type="text/css" href="css/public_settings.css">
     <style>
-            .noneline {text-decoration: none;}
-        </style>
+        :root{
+            --bs-main-bg: #A4D792;
+            --bs-sub-bg:#64cb3f;
+            --bs-light-black:#6c757d;
+        }
+        .text-color{color:var(--bs-main-bg)!important;}
+        .text-color:hover{color:var(--bs-sub-bg)!important;}
+        .text-color2{color:var(--bs-light-black)!important;}
+        .text-color2:hover{color:var(--bs-sub-bg)!important;}
+        .noneline {text-decoration: none;}
+    </style>
 </head>
 
 
@@ -21,31 +30,31 @@
         <!-- For demo purpose -->
         <div class="row py-5">
             <div class="col-lg-9 mx-auto text-white text-center" style="margin-left:300px;">
-                <h1 class="display-4" style="color:black !important; margin-left:20px;">중국차</h1>
+                <h1 class="display-4 fw-bold" style="color:var(--bs-main-bg)">중국차</h1>
             </div>
         </div>
 
         <!-- Nav tabs -->
         <ul class="nav nav-tabs justify-content-center" id="recipeTabs">
+
             <!-- "전체" 옵션 추가 -->
-            <li class="nav-item important-color">
+            <li class="nav-item">
                 <a href="/china" th:data-recipe-type="all"
                    th:text="전체"
-                   class="nav-link important-color fs-4"
+                   class="nav-link text-color2 fs-4 fw-bold"
                    data-toggle="tab">
                 </a>
             </li>
 
             <!-- Iterate over uniqueRecipeTypes and create tabs -->
-            <li th:if="${RecipeTypes != null}" th:each="recipeType : ${RecipeTypes}" class="nav-item ">
+            <li th:if="${RecipeTypes != null}" th:each="recipeType : ${RecipeTypes}" class="nav-item">
                 <a th:href="@{/china(recipeType=${recipeType})}"
                    th:data-recipe-type="${recipeType}"
-                   class="nav-link important-color fs-4"
+                   class="nav-link text-color2 fs-4 fw-bold"
                    data-toggle="tab">
                     <span th:text="${recipeType}"></span>
                 </a>
             </li>
-
 
         </ul>
     </div>
@@ -78,7 +87,7 @@
                              alt="레시피 이미지가 없습니다"
                              style="width: 100%; height: 250px;">
                         <div class="card-body">
-                            <h5 class="card-title" th:text="${recipeItem.ctea_name}"></h5>
+                            <h5 class="card-title text-color2" th:text="${recipeItem.ctea_name}"></h5>
                         </div>
                     </a>
                 </div>
@@ -100,22 +109,29 @@
 
 
 <script th:inline="javascript">
+    // jQuery를 사용하기 위해 문서가 로드되면 실행되는 함수를 정의합니다.
     $(document).ready(function() {
-        // Initial load of the "전체" tab
+        // 처음에 "전체" 탭을 선택하고, 모든 종류의 중국차 레시피를 보여주는 함수를 호출합니다.
         loadRecipes('all');
 
-        // Handle tab clicks
+        // 탭이 클릭되면 실행되는 이벤트 핸들러를 정의합니다.
         $('#recipeTabs a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            // 클릭된 탭의 data-recipe-type 속성 값을 가져옵니다. 예를 들어, "차"나 "커피" 등입니다.
             var recipeType = $(e.target).data('recipe-type');
+
+            // 해당하는 종류의 중국차 레시피를 보여주는 함수를 호출합니다.
             loadRecipes(recipeType);
         });
 
+        // 중국차 레시피를 보여주는 함수를 정의합니다. 매개변수로 레시피의 종류를 받습니다.
         function loadRecipes(recipeType) {
-            // Ajax request to load recipes for the selected recipeType
+            // 서버에 Ajax 요청을 보내고, 레시피의 종류를 쿼리 파라미터로 전달합니다. 예를 들어, /recipes?recipeType=차 와 같습니다.
             $.get('/recipes?recipeType=' + recipeType, function(data) {
-                // Update recipesContainer or recipesContainerAll based on the selected recipeType
+                // 서버로부터 받은 데이터를 HTML 형식으로 페이지에 업데이트합니다.
+                // 레시피의 종류가 "전체"인 경우, id가 tab_all인 탭의 id가 recipesContainerAll인 컨테이너에 데이터를 삽입합니다.
                 if (recipeType === 'all') {
                     $('#tab_all #recipesContainerAll').html(data);
+                // 레시피의 종류가 "전체"가 아닌 경우, id가 tab_레시피의 종류인 탭의 id가 recipesContainer인 컨테이너에 데이터를 삽입합니다. 예를 들어, id가 tab_차인 탭의 id가 recipesContainer인 컨테이너에 데이터를 삽입합니다.
                 } else {
                     $('#' + 'tab_' + recipeType + ' #recipesContainer').html(data);
                 }
