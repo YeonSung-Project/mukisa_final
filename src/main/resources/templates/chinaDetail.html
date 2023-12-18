@@ -92,7 +92,8 @@
               <hr>
                   <div class="container d-flex justify-content-end">
                       <a class="btn controll-btn" href="/china">목록</a>
-                      <a class="btn controll-btn" th:href="@{chinaDetail(cteano = ${recipeDetailData.ctea_no + 1})}">다음 차 보러가기</a>
+                      <a th:if="${1 < recipeDetailData.ctea_no}" class="btn controll-btn" th:href="@{chinaDetail(cteano = ${recipeDetailData.ctea_no - 1})}">이천 차 보러가기</a>
+                      <a th:if="${count_recipe_item - 1 >= recipeDetailData.ctea_no}" class="btn controll-btn" th:href="@{chinaDetail(cteano = ${recipeDetailData.ctea_no + 1})}">다음 차 보러가기</a>
                   </div>
           </div>
 
