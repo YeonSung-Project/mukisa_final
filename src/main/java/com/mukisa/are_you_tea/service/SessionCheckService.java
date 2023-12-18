@@ -39,6 +39,7 @@ public class SessionCheckService {
                 model.addAttribute("member", member.getMbId());
                 model.addAttribute("memberYn", member.getMbYn());
                 System.out.println("로컬 유저 접속");
+                System.out.println("로컬여부 로그 - "+member.getMbYn());
             }
             UserEntity user = userRepository.findByUsername(mbId);
             if(user != null){
