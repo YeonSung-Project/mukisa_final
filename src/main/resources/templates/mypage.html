@@ -37,8 +37,8 @@
             <label class="text-color">아이디</label><br>
             <input style="text-align: center;" disabled th:value="${member}"><br>
 
-            <button th:if="memberYn == 'N'" class="controll-btn fw-bold" onclick="location.href='/memDelete'">회원 탈퇴</button>
-            <button th:if="memberYn != 'N'" class="controll-btn_un fw-bold" onclick="location.href='/mypage'">회원 탈퇴 불가능</button>
+            <button th:if="${memberYn} == 'N'" class="controll-btn fw-bold" onclick="location.href='/memDelete'">회원 탈퇴</button>
+            <button th:if="${memberYn} != 'N'" class="controll-btn_un fw-bold" onclick="location.href='/mypage'">회원 탈퇴 불가능</button>
         </div>
     </div>
 
