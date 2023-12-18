@@ -2,6 +2,7 @@ package com.mukisa.are_you_tea.controller;
 
 import com.mukisa.are_you_tea.data.entity.ChinaEntity;
 import com.mukisa.are_you_tea.data.entity.RecipeEntity;
+import com.mukisa.are_you_tea.data.entity.Recipe_ReviewEntity;
 import com.mukisa.are_you_tea.service.AdminCheckService;
 import com.mukisa.are_you_tea.service.ChinaService;
 import com.mukisa.are_you_tea.service.SessionCheckService;
@@ -63,5 +64,36 @@ public class ChinaController {
         }
 
         return "china";
+    }
+
+
+
+    //상세 레시피 보기
+    @RequestMapping("/chinaDetail")
+    public String gorecipeDetail(@RequestParam(name = "cteano", required = false) Integer cteano, Model model) {
+        try {
+            sessionCheckService.sessionCheck(model, httpSession);
+
+            // recipeno가 null이 아니라면 조회하고 결과를 모델에 담음
+            if (cteano != null) {
+                ChinaEntity recipe = chinaService.findChinaEntityById(cteano);
+                if (recipe != null) {
+                    model.addAttribute("recipeDetailData", recipe);
+
+
+                } else {
+                    // 해당 recipeno에 대한 레코드가 없을 경우에 대한 처리
+                    // 메시지를 추가하거나 다른 작업 수행
+                }
+            } else {
+                // recipeno가 제공되지 않은 경우에 대한 처리
+                // 메시지를 추가하거나 다른 작업 수행
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            // 예외 처리 - 로깅이나 사용자에게 오류 메시지 보여주기 등
+        }
+
+        return "chinaDetail";
     }
 }

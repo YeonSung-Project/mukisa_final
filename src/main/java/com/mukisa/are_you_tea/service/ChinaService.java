@@ -24,8 +24,8 @@ public class ChinaService {
     }
 
     // ID로 레시피 조회
-    public ChinaEntity findChinaEntityById(int recipeno) {
-        Optional<ChinaEntity> chinaOptional = chinaRepository.findById(recipeno);
+    public ChinaEntity findChinaEntityById(int cteano) {
+        Optional<ChinaEntity> chinaOptional = chinaRepository.findById(cteano);
         return chinaOptional.orElse(null);
     }
 
